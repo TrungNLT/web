@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Cập nhật loại bánh</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#1b1b1b; color:#eee; padding:20px; }
+    h2 { color:#ffcc00; margin-bottom:20px; text-align:center; }
+    .card { background:#2c2c2c; border-radius:12px; padding:20px; max-width:500px; margin:auto; }
+    .form-label { display:block; margin-bottom:6px; }
+    .form-control { width:100%; padding:10px; border-radius:6px; border:1px solid #555; background:#333; color:#fff; margin-bottom:15px; }
+    .btn { padding:10px 20px; border:none; border-radius:6px; font-weight:bold; cursor:pointer; }
+    .btn-primary { background:#ffcc00; color:#111; }
+    .btn-primary:hover { background:#ffaa00; }
+    .alert { 
+      display:none; 
+      position:fixed;
+      top:20px; 
+      right:20px;
+      background:#28a745; 
+      color:#fff; 
+      padding:12px 18px; 
+      border-radius:8px; 
+      font-weight:bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Cập nhật loại bánh</h2>
+  <div class="card">
+    <form id="editForm">
+      <div class="mb-3">
+        <label class="form-label" for="name">Tên loại bánh</label>
+        <input type="text" class="form-control" id="name" required readonly>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="status">Trạng thái</label>
+        <select id="status" class="form-control">
+          <option value="Hiện">Hiện</option>
+          <option value="Ẩn">Ẩn</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Lưu</button>
+    </form>
+    <div id="alertBox" class="alert">Cập nhật thành công!</div>
+  </div>
+
+<script>
+  // Danh sách tĩnh ban đầu
+  let categories = [
+    { name: "Bánh kem", status: "Hiện" },
+    { name: "Bánh mì", status: "Hiện" },
+    { name: "Bánh ngọt", status: "Hiện" },
+    { name: "Bánh su kem", status: "Ẩn" },
+    { name: "Bánh quy", status: "Hiện" },
+    { name: "Bánh flan", status: "Hiện" }
+  ];
+
+  // Lấy map trạng thái trong localStorage
+  let statusMap = JSON.parse(localStorage.getItem("categoryStatusMap")) || {};
+  const editName = localStorage.getItem("editCategoryName");
+
+  // Tìm loại cần chỉnh sửa
+  const category = categories.find(c => c.name === editName);
+  if (!category) {
+    alert("Không tìm thấy loại cần chỉnh sửa!");
+    window.location.href = "category_list.html";
+  }
+
+  // Điền dữ liệu vào form
+  document.getElementById("name").value = category.name;
+  document.getElementById("status").value = statusMap[editName] || category.status;
+
+  // Xử lý submit
+  document.getElementById("editForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const newStatus = document.getElementById("status").value;
+
+    // Lưu trạng thái mới
+    statusMap[editName] = newStatus;
+    localStorage.setItem("categoryStatusMap", JSON.stringify(statusMap));
+
+    // Hiện alert
+    const alertBox = document.getElementById("alertBox");
+    alertBox.textContent = `Đã cập nhật "${editName}" thành ${newStatus}`;
+    alertBox.style.display = "block";
+
+    // Quay lại sau 1.5s
+    setTimeout(() => {
+      window.location.href = "category_list.html";
+    }, 1500);
+  });
+</script>
+
+</body>
+</html>

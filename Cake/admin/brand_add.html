@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Thêm mới thương hiệu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1b1b1b;
+      color: #eee;
+      margin: 0;
+      padding: 0;
+    }
+    .content-wrapper { padding: 20px; }
+    h4 {
+      color: #ffcc00;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .card {
+      background: #2c2c2c;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      max-width: 500px;
+      margin: auto;
+    }
+    .form-label { display: block; margin-bottom: 8px; }
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #555;
+      background: #333;
+      color: #fff;
+      margin-bottom: 15px;
+    }
+    .form-control[type="file"] {
+      padding: 6px;
+      background: #222;
+      cursor: pointer;
+    }
+    .btn {
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+    }
+    .btn-primary { background: #ffcc00; color: #111; }
+    .btn-primary:hover { background: #ffaa00; }
+
+    /* Alert */
+    .alert {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      display: none;
+    }
+    .alert-success { background: #28a745; color: white; }
+  </style>
+</head>
+<body>
+  <div class="content-wrapper">
+    <h4>Thêm mới thương hiệu</h4>
+    <div class="card">
+      <div class="card-body">
+        <form id="brandForm">
+          <div class="mb-3">
+            <label class="form-label" for="name">Tên thương hiệu</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Bánh kem Le Castella" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Hình ảnh</label>
+            <input type="file" class="form-control" id="photo" name="photo" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Lưu</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert -->
+  <div id="alertBox" class="alert alert-success">Thêm mới thương hiệu thành công!</div>
+
+  <script>
+    const form = document.getElementById("brandForm");
+    const alertBox = document.getElementById("alertBox");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const photo = document.getElementById("photo").files[0];
+
+      if (name === "" || !photo) {
+        alert("❌ Vui lòng nhập tên và chọn hình ảnh!");
+        return;
+      }
+
+      // Hiện thông báo
+      alertBox.style.display = "block";
+
+      // Sau 1.5 giây quay lại danh sách
+      setTimeout(() => {
+        window.location.href = "brand_list.html";
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

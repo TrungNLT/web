@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Chi tiết đơn hàng</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #1b1b1b; color: #eee; margin: 0; padding: 0; }
+    .layout-page { margin: 0 auto; max-width: 1000px; padding: 20px; }
+    h3 { color: #ffcc00; margin-bottom: 10px; }
+    .panel { background: #2a2a2a; border-radius: 8px; margin-bottom: 20px; }
+    .panel-heading { padding: 12px 20px; border-bottom: 1px solid #444; }
+    .panel-body { padding: 20px; }
+    .card { background: #2c2c2c; border-radius: 12px; padding: 20px; margin-top: 15px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #444; padding: 10px; text-align: center; }
+    th { background: #333; color: #ffcc00; }
+    img { border-radius: 6px; }
+    select, button { padding: 8px 12px; border-radius: 6px; border: none; margin-top: 10px; }
+    button { background: #007bff; color: #fff; cursor: pointer; }
+    button:hover { opacity: 0.85; }
+    .alert { margin: 15px 0; padding: 12px 18px; border-radius: 6px; font-weight: bold; display: none; }
+    .alert-success { background: #28a745; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="layout-page">
+    <div class="content-wrapper">
+      <!-- Thông báo -->
+      <div id="alertBox" class="alert"></div>
+
+      <!-- Thông tin khách hàng -->
+      <div class="panel">
+        <div class="panel-heading">
+          <h3 class="panel-title">Thông tin khách hàng</h3>
+        </div>
+        <div class="panel-body text-left" id="customerInfo"></div>
+      </div>
+
+      <!-- Chi tiết đơn hàng -->
+      <div class="panel-heading">
+        <h3 class="panel-title">Thông tin chi tiết đơn hàng</h3>
+      </div>
+      <div class="card">
+        <div class="table-responsive">
+          <table class="table" id="orderDetails">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tên sản phẩm</th>
+                <th>Hình ảnh</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Thành tiền</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+              <tr>
+                <td colspan="5"><strong>Tổng tiền:</strong></td>
+                <td id="totalPrice"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- Form cập nhật trạng thái -->
+      <form id="updateForm">
+        <div class="form-group mt-4">
+          <select name="status" id="status" required>
+            <option value="0">Chưa xử lý</option>
+            <option value="1">Đã Hủy</option>
+            <option value="2">Đã xử lý</option>
+            <option value="3">Đã giao hàng</option>
+          </select>
+        </div>
+        <button class="mt-4 btn btn-primary" type="submit">Cập nhật</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Giả lập dữ liệu đơn hàng
+    const order = {
+      id: 101,
+      customer: {
+        Fullname: "Nguyễn Văn A",
+        number_phone: "0901234567",
+        address: "123 Nguyễn Trãi, Q.1, TP.HCM",
+        order_date: "2025-09-01",
+        Note: "Giao giờ hành chính"
+      },
+      status: 0,
+      products: [
+        {Name:"Bánh Kem Dâu", Image:"anh6.jpg", Quantity:2, Price:200000},
+        {Name:"Bánh Mì Pháp", Image:"anh5.jpg", Quantity:5, Price:15000}
+      ]
+    };
+
+    // Render thông tin khách hàng
+    const customerDiv = document.getElementById("customerInfo");
+    customerDiv.innerHTML = `
+      <p>Tên khách hàng: ${order.customer.Fullname}</p>
+      <p>Số điện thoại: ${order.customer.number_phone}</p>
+      <p>Địa chỉ nhận hàng: ${order.customer.address}</p>
+      <p>Ngày đặt hàng: ${order.customer.order_date}</p>
+      <p>Ghi chú: ${order.customer.Note}</p>
+      <p>Trạng thái đơn hàng: 
+        ${order.status==0?"Chưa xử lý":order.status==1?"Đã Hủy":order.status==2?"Đã xử lý":"Đã giao hàng"}
+      </p>
+    `;
+
+    // Render sản phẩm
+    const tbody=document.querySelector("#orderDetails tbody");
+    let total=0;
+    order.products.forEach((p,i)=>{
+      let thanhTien=p.Quantity*p.Price;
+      total+=thanhTien;
+      tbody.innerHTML+=`
+        <tr>
+          <td>${i+1}</td>
+          <td>${p.Name}</td>
+          <td><img src="../uploads/${p.Image}" width="100"></td>
+          <td>${p.Quantity}</td>
+          <td>${p.Price.toLocaleString()} đ</td>
+          <td>${thanhTien.toLocaleString()} đ</td>
+        </tr>`;
+    });
+    document.getElementById("totalPrice").textContent=total.toLocaleString()+" đ";
+
+    // Cập nhật trạng thái
+    const updateForm=document.getElementById("updateForm");
+    updateForm.addEventListener("submit",function(e){
+      e.preventDefault();
+      const newStatus=document.getElementById("status").value;
+      order.status=parseInt(newStatus);
+
+      showAlert("✅ Cập nhật trạng thái đơn hàng thành công!","success");
+
+      // Sau 2s chuyển về TRANG CHỦ
+      setTimeout(()=>{ window.location.href="index.html"; },2000);
+    });
+
+    // Thông báo
+    function showAlert(message,type){
+      const box=document.getElementById("alertBox");
+      box.textContent=message;
+      box.className="alert alert-"+type;
+      box.style.display="block";
+      setTimeout(()=>{box.style.display="none";},1800);
+    }
+  </script>
+</body>
+</html>

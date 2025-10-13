@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đang chuyển hướng…</title>
+  <style>
+    html,body{height:100%}body{display:flex;align-items:center;justify-content:center;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#fff}
+    .box{padding:24px 20px;border:1px solid #eee;border-radius:8px;box-shadow:0 4px 24px rgba(0,0,0,.06);text-align:center;max-width:520px}
+    .spinner{width:36px;height:36px;border:3px solid #eee;border-top-color:#f08632;border-radius:50%;margin:0 auto 12px;animation:spin .9s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .muted{color:#666;font-size:14px}
+    .link{color:#f08632;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="spinner"></div>
+    <div>Đang kiểm tra giỏ hàng và trạng thái đăng nhập…</div>
+    <div class="muted" style="margin-top:6px">Bạn sẽ được chuyển tiếp ngay. Nếu không, <a id="fallback" class="link" href="user_order.html">bấm vào đây</a>.</div>
+  </div>
+
+  <script>
+    (function(){
+      function go(url){ try{ location.replace(url); } catch{ location.href = url; } }
+      function getUser(){ try{ return JSON.parse(localStorage.getItem('user')||'null'); } catch{ return null; } }
+      function getCartCount(){ try{ return (window.Cart && Cart.getCart && Cart.getCart().length) || 0; } catch{ return 0; } }
+
+      // Cho phép override bằng ?return=
+      const params = new URLSearchParams(location.search);
+      const ret = params.get('return');
+
+      const user = getUser();
+      const hasItems = getCartCount() > 0;
+
+      if(!user){
+        const target = ret || 'user_order.html';
+        go('login.html?return=' + encodeURIComponent(target));
+        return;
+      }
+      if(!hasItems){
+        go('view_cart.html');
+        return;
+      }
+      go(ret || 'user_order.html');
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+[
+    {
+        "ProductId": 1,
+        "Name": "Bánh Kem Cà Rốt Hoàng Kim",
+        "SellPrice": 350000,
+        "Image": "img/shop/product-1.jpg",
+        "Avaiable_quantity": 10,
+        "CategoryId": 1,
+        "CategoryName": "Bánh Kem",
+        "CountView": 45,
+        "BrandName": "Sweet Treats"
+    },
+    {
+        "ProductId": 2,
+        "Name": "Bánh Cupcake Socola Bão Táp",
+        "SellPrice": 150000,
+        "Image": "img/shop/product-2.jpg",
+        "Avaiable_quantity": 0,
+        "CategoryId": 2,
+        "CategoryName": "Cupcake",
+        "CountView": 18,
+        "BrandName": "Choco Bliss"
+    },
+    {
+        "ProductId": 3,
+        "Name": "Bông Lan Socola Bạc Hà",
+        "SellPrice": 280000,
+        "Image": "img/shop/product-3.jpg",
+        "Avaiable_quantity": 5,
+        "CategoryId": 3,
+        "CategoryName": "Bông Lan",
+        "CountView": 32,
+        "BrandName": "Salt & Sweet"
+    },
+    {
+        "ProductId": 4,
+        "Name": "Bánh Mousse Cầu Vồng Diệu Kỳ",
+        "SellPrice": 320000,
+        "Image": "img/shop/product-4.jpg",
+        "Avaiable_quantity": 20,
+        "CategoryId": 1,
+        "CategoryName": "Bánh Kem",
+        "CountView": 25,
+        "BrandName": "Tropical Delights"
+    },
+    {
+        "ProductId": 5,
+        "Name": "Bánh Tart Trái Cây Nhiệt Đới",
+        "SellPrice": 200000,
+        "Image": "img/shop/product-5.jpg",
+        "Avaiable_quantity": 15,
+        "CategoryId": 4,
+        "CategoryName": "Tart",
+        "CountView": 12,
+        "BrandName": "Fruit Fiesta"
+    },
+    {
+        "ProductId": 6,
+        "Name": "Bánh Cheesecake Mini Dâu Rừng",
+        "SellPrice": 180000,
+        "Image": "img/shop/product-6.jpg",
+        "Avaiable_quantity": 8,
+        "CategoryId": 5,
+        "CategoryName": "Cheesecake",
+        "CountView": 22,
+        "BrandName": "Paris Sweets"
+    },
+    {
+        "ProductId": 7,
+        "Name": "Bánh Kem Tình Yêu Ngọt Ngào",
+        "SellPrice": 300000,
+        "Image": "img/shop/product-7.jpg",
+        "Avaiable_quantity": 0,
+        "CategoryId": 1,
+        "CategoryName": "Bánh Kem",
+        "CountView": 30,
+        "BrandName": "Berry Delight"
+    },
+    {
+        "ProductId": 8,
+        "Name": "Bánh Donut Red Velvet Mâm Xôi",
+        "SellPrice": 120000,
+        "Image": "img/shop/product-8.jpg",
+        "Avaiable_quantity": 25,
+        "CategoryId": 6,
+        "CategoryName": "Donut",
+        "CountView": 40,
+        "BrandName": "Sweet Rings"
+    },
+    {
+        "ProductId": 9,
+        "Name": "Bánh Bông Lan Dâu Tây Mộng Mơ",
+        "SellPrice": 260000,
+        "Image": "img/shop/product-9.jpg",
+        "Avaiable_quantity": 18,
+        "CategoryId": 3,
+        "CategoryName": "Bông Lan",
+        "CountView": 28,
+        "BrandName": "Cheesy Bites"
+    },
+    {
+        "ProductId": 10,
+        "Name": "Bánh Pudding Thiên Đường Socola",
+        "SellPrice": 140000,
+        "Image": "img/shop/product-10.jpg",
+        "Avaiable_quantity": 30,
+        "CategoryId": 7,
+        "CategoryName": "Pudding",
+        "CountView": 15,
+        "BrandName": "Caramel Dreams"
+    },
+    {
+        "ProductId": 11,
+        "Name": "Bánh Bông Black Forest Cổ Điển",
+        "SellPrice": 270000,
+        "Image": "img/shop/product-11.jpg",
+        "Avaiable_quantity": 12,
+        "CategoryId": 3,
+        "CategoryName": "Bông Lan",
+        "CountView": 20,
+        "BrandName": "Green Tea Delights"
+    },
+    {
+        "ProductId": 12,
+        "Name": "Bánh Cupcake Nhung Đỏ Kiêu Sa",
+        "SellPrice": 160000,
+        "Image": "img/shop/product-12.jpg",
+        "Avaiable_quantity": 0,
+        "CategoryId": 2,
+        "CategoryName": "Cupcake",
+        "CountView": 10,
+        "BrandName": "Berry Bliss"
+    }
+]

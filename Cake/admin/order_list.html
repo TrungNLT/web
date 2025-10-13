@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách đơn đặt hàng</title>
+  <style>
+    body { 
+  font-family: Arial, sans-serif; 
+  background: #1b1b1b; 
+  color: #eee; 
+  margin: 0; 
+  padding: 0; 
+  display: flex; 
+}
+
+.layout-menu { 
+  width: 220px; 
+  background: #2a2a2a; 
+  min-height: 100vh; 
+  padding: 20px 10px; 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  border-right: 2px solid #ffcc00; 
+}
+
+.app-brand { 
+  color: #ffcc00; 
+  font-weight: bold; 
+  text-align: center; 
+  margin-bottom: 20px; 
+  font-size: 20px; 
+}
+
+.menu-inner { 
+  list-style: none; 
+  padding: 0; 
+}
+
+.menu-item { 
+  margin: 8px 0; 
+}
+
+.menu-link { 
+  display: block; 
+  padding: 10px; 
+  border-radius: 6px; 
+  text-decoration: none; 
+  color: #eee; 
+}
+
+.menu-link:hover { 
+  background: #3a3a3a; 
+  color: #ffcc00; 
+}
+
+.layout-page { 
+  margin-left: 220px; 
+  flex: 1; 
+  display: flex; 
+  flex-direction: column; 
+  min-height: 100vh; 
+}
+
+.layout-navbar { 
+  background: #2a2a2a; 
+  padding: 12px 20px; 
+  border-bottom: 2px solid #ffcc00; 
+}
+
+h4 { 
+  text-align: center; 
+  color: #ffcc00; 
+  margin: 20px 0; 
+}
+
+/* ==== Bộ lọc ==== */
+.form-inline { 
+  background: #2c2c2c; 
+  padding: 30px; 
+  border-radius: 8px; 
+  margin-bottom: 20px; 
+  display: grid; 
+  grid-template-columns: repeat(4, minmax(200px, 1fr)); /* 4 cột đều nhau */
+  gap: 20px; 
+  align-items: end; 
+}
+
+.form-inline label { 
+  display: block; 
+  margin-bottom: 6px; 
+  font-size: 14px; 
+  color: #ffcc00; 
+  white-space: nowrap; /* không cho label xuống dòng */
+}
+
+.form-inline input, 
+.form-inline select { 
+  width: 100%; 
+  padding: 8px; 
+  border-radius: 6px; 
+  border: 1px solid #444; 
+  background: #333; 
+  color: #fff; 
+  min-width: 180px; 
+}
+
+.form-actions { 
+  grid-column: span 4; 
+  text-align: center; 
+  margin-top: 10px; 
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .form-inline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 576px) {
+  .form-inline {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==== Nút ==== */
+.btn { 
+  display: inline-block; 
+  padding: 8px 14px; 
+  border-radius: 6px; 
+  text-decoration: none; 
+  font-weight: bold; 
+  margin: 2px; 
+  text-align: center; 
+  cursor: pointer; 
+}
+
+.btn-primary { 
+  background: #007bff; 
+  color: #fff; 
+}
+
+.btn-secondary { 
+  background: #6c757d; 
+  color: #fff; 
+}
+
+.btn:hover { 
+  opacity: 0.85; 
+}
+
+/* ==== Thẻ, bảng ==== */
+.card { 
+  background: #2c2c2c; 
+  border-radius: 12px; 
+  padding: 20px; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4); 
+}
+
+table { 
+  width: 100%; 
+  border-collapse: collapse; 
+}
+
+th, td { 
+  border: 1px solid #444; 
+  padding: 10px; 
+  text-align: center; 
+}
+
+th { 
+  background: #2a2a2a; 
+  color: #ffcc00; 
+}
+
+tr:nth-child(even) { 
+  background: #333; 
+}
+
+tr:nth-child(odd) { 
+  background: #222; 
+}
+
+/* ==== Phân trang ==== */
+.pagination { 
+  list-style: none; 
+  display: flex; 
+  justify-content: center; 
+  gap: 8px; 
+  margin-top: 20px; 
+  padding: 0; 
+}
+
+.pagination a { 
+  padding: 6px 12px; 
+  background: #333; 
+  color: #fff; 
+  text-decoration: none; 
+  border-radius: 4px; 
+  cursor: pointer; 
+}
+
+.pagination a:hover { 
+  background: #ffcc00; 
+  color: #000; 
+}
+
+.pagination .active a { 
+  background: #ffcc00; 
+  color: #000; 
+}
+
+/* ==== Trạng thái ==== */
+/* ==== Trạng thái ==== */
+.label { 
+  display: inline-block;      /* để giữ form nhãn đúng */
+  padding: 10px 10px;          /* padding rộng hơn để chữ không bị bó */
+  border-radius: 4px; 
+  font-weight: bold; 
+  font-size: 13px;            /* tăng nhẹ size cho dễ đọc */
+  line-height: 1.4;           /* chiều cao chữ thoáng hơn */
+  white-space: nowrap;        /* luôn giữ nguyên 1 dòng, không bị xuống hàng */
+  text-align: center; 
+}
+
+
+.bg-red { background: #dc3545; color: #fff; }
+.bg-yellow { background: #ffc107; color: #000; }
+.bg-blue { background: #007bff; color: #fff; }
+.bg-green { background: #28a745; color: #fff; }
+
+/* ==== Alert ==== */
+.alert { 
+  position: fixed; 
+  top: 20px; 
+  right: 20px; 
+  padding: 12px 18px; 
+  border-radius: 8px; 
+  font-weight: bold; 
+  display: none; 
+  animation: fadeIn 0.5s, fadeOut 0.5s 2.5s; 
+}
+
+.alert-success { background: #28a745; color: #fff; }
+.alert-danger { background: #dc3545; color: #fff; }
+.alert-info { background: #007bff; color: #fff; }
+
+@keyframes fadeIn { 
+  from { opacity: 0; transform: translateY(-20px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}
+
+@keyframes fadeOut { 
+  from { opacity: 1; transform: translateY(0); } 
+  to { opacity: 0; transform: translateY(-20px); } 
+}
+
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside id="layout-menu" class="layout-menu">
+    <div class="app-brand">cake-sale</div>
+    <ul class="menu-inner">
+      <li class="menu-item"><a href="index.html" class="menu-link">Bảng điều khiển</a></li>
+      <li class="menu-item"><a href="category_list.html" class="menu-link">Loại bánh</a></li>
+      <li class="menu-item"><a href="brand_list.html" class="menu-link">Thương hiệu</a></li>
+      <li class="menu-item"><a href="product_list.html" class="menu-link">Sản phẩm</a></li>
+      <li class="menu-item"><a href="price_management.html" class="menu-link">Quản lý giá bán</a></li>
+      <li class="menu-item"><a href="order_list.html" class="menu-link">Đơn đặt hàng</a></li>
+      <li class="menu-item"><a href="import_list.html" class="menu-link">Quản lý nhập hàng</a></li>
+      <li class="menu-item"><a href="stock_management.html" class="menu-link">Quản lý tồn kho</a></li>
+      <li class="menu-item"><a href="user_list.html" class="menu-link">Người dùng</a></li>
+    </ul>
+  </aside>
+
+  <div class="layout-page">
+    <nav class="layout-navbar"></nav>
+
+    <div class="content-wrapper">
+      <h4>Danh sách đơn đặt hàng</h4>
+
+      <!-- Bộ lọc -->
+      <form id="filterForm" class="form-inline">
+        <div>
+          <label for="status">Tình trạng đơn hàng</label>
+          <select name="status" id="status">
+            <option value="">Tất cả</option>
+            <option value="0">Chưa xử lý</option>
+            <option value="1">Đã Hủy</option>
+            <option value="2">Đã xử lý</option>
+            <option value="3">Đã giao hàng</option>
+          </select>
+        </div>
+        <div>
+          <label for="start_date">Từ ngày</label>
+          <input type="date" name="start_date" id="start_date">
+        </div>
+        <div>
+          <label for="end_date">Đến ngày</label>
+          <input type="date" name="end_date" id="end_date">
+        </div>
+        <div>
+          <label for="location">Địa điểm giao hàng</label>
+          <input type="text" name="location" id="location" placeholder="Nhập quận/huyện/thành phố">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Lọc</button>
+          <button type="button" class="btn btn-secondary" onclick="resetFilter()">Xóa bộ lọc</button>
+        </div>
+      </form>
+
+      <!-- Bảng đơn hàng -->
+      <div class="card">
+        <div class="table-responsive">
+          <table id="orderTable">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tên khách hàng</th>
+                <th>Tổng tiền</th>
+                <th>Ngày đặt</th>
+                <th>Trạng thái</th>
+                <th>Chức năng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td><td>Nguyễn Văn A</td><td>500000</td><td>2025-09-01</td>
+                <td><span class="label bg-red">Chưa xử lý</span></td>
+                <td><a href="order_detail.html" class="btn btn-primary">Chi tiết</a></td>
+              </tr>
+              <tr>
+                <td>2</td><td>Trần Thị B</td><td>1200000</td><td>2025-09-05</td>
+                <td><span class="label bg-yellow">Đã Hủy</span></td>
+                <td><a href="order_detail.html" class="btn btn-primary">Chi tiết</a></td>
+              </tr>
+              <tr>
+                <td>3</td><td>Lê Văn C</td><td>800000</td><td>2025-09-10</td>
+                <td><span class="label bg-blue">Đã xử lý</span></td>
+                <td><a href="order_detail.html" class="btn btn-primary">Chi tiết</a></td>
+              </tr>
+              <tr>
+                <td>4</td><td>Phạm Thị D</td><td>950000</td><td>2025-09-15</td>
+                <td><span class="label bg-green">Đã giao hàng</span></td>
+                <td><a href="order_detail.html" class="btn btn-primary">Chi tiết</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Phân trang -->
+      <ul id="pagination" class="pagination"></ul>
+    </div>
+  </div>
+
+  <!-- Alert -->
+  <div id="alertBox" class="alert"></div>
+
+  <script>
+    function showAlert(message, type){
+      const alertBox=document.getElementById("alertBox");
+      alertBox.textContent=message;
+      alertBox.className="alert alert-"+type;
+      alertBox.style.display="block";
+      setTimeout(()=>{alertBox.style.display="none";},3000);
+    }
+
+    // Lọc đơn hàng
+    const filterForm=document.getElementById("filterForm");
+    filterForm.addEventListener("submit", function(e){
+      e.preventDefault();
+      const status=document.getElementById("status").value;
+      const start=document.getElementById("start_date").value;
+      const end=document.getElementById("end_date").value;
+      const location=document.getElementById("location").value.toLowerCase();
+
+      const statusMap = {
+        "0": "Chưa xử lý",
+        "1": "Đã Hủy",
+        "2": "Đã xử lý",
+        "3": "Đã giao hàng"
+      };
+
+      const rows=document.querySelectorAll("#orderTable tbody tr");
+      let matchCount=0;
+      rows.forEach(row=>{
+        let orderStatus=row.cells[4].innerText.trim();
+        let orderDate=row.cells[3].innerText.trim();
+        let orderLocation="";
+        let show=true;
+
+        if(status!=="" && orderStatus !== statusMap[status]) show=false;
+        if(start && orderDate<start) show=false;
+        if(end && orderDate>end) show=false;
+        if(location && !orderLocation.includes(location)) show=false;
+
+        row.style.display=show? "":"none";
+        if(show) matchCount++;
+      });
+
+      if(matchCount>0){
+        showAlert("Lọc đơn hàng thành công! ("+matchCount+" kết quả)", "info");
+      }else{
+        showAlert("Không có đơn hàng phù hợp!", "danger");
+      }
+    });
+
+    function resetFilter(){
+      filterForm.reset();
+      const rows=document.querySelectorAll("#orderTable tbody tr");
+      rows.forEach(r=>r.style.display="");
+      showAlert("Đã xóa bộ lọc!", "danger");
+    }
+
+    // Phân trang
+    const rowsPerPage=2;
+    let currentPage=1;
+    const tbody=document.querySelector("#orderTable tbody");
+    const rows=Array.from(tbody.querySelectorAll("tr"));
+    const pagination=document.getElementById("pagination");
+
+    function displayPage(page){
+      const totalPages=Math.ceil(rows.length/rowsPerPage);
+      if(page<1) page=1;
+      if(page>totalPages) page=totalPages;
+      currentPage=page;
+      const start=(page-1)*rowsPerPage;
+      const end=start+rowsPerPage;
+      rows.forEach((r,i)=>{ r.style.display=(i>=start && i<end)?"":"none"; });
+      renderPagination(totalPages);
+    }
+    function renderPagination(totalPages){
+      pagination.innerHTML="";
+      const prev=document.createElement("li");
+      prev.innerHTML=`<a ${currentPage>1? 'onclick="displayPage('+(currentPage-1)+')"': ''}>«</a>`;
+      pagination.appendChild(prev);
+      for(let i=1;i<=totalPages;i++){
+        const li=document.createElement("li");
+        li.className=(i===currentPage)?"active":""; 
+        li.innerHTML=`<a onclick="displayPage(${i})">${i}</a>`;
+        pagination.appendChild(li);
+      }
+      const next=document.createElement("li");
+      next.innerHTML=`<a ${currentPage<totalPages? 'onclick="displayPage('+(currentPage+1)+')"': ''}>»</a>`;
+      pagination.appendChild(next);
+    }
+    displayPage(1);
+  </script>
+</body>
+</html>

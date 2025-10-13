@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - Admin</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    /* --- Cơ bản (dựa trên layout trước) --- */
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: Inter, Arial, sans-serif;
+      background:#0f0f10;
+      color:#eee;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+
+    .card{
+      width:100%;
+      max-width:520px;
+      background:linear-gradient(180deg,#202020 0,#252525 100%);
+      border-radius:12px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.6);
+      overflow:hidden;
+    }
+
+    .card-body{
+      padding:28px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      justify-content:center;
+      padding:18px 28px;
+      background:#171717;
+      border-bottom:2px solid #ffcc00;
+    }
+    .brand .logo{
+      width:36px;height:36px;border-radius:6px;
+      background:linear-gradient(135deg,#6a6cff,#3ab6ff);
+      display:inline-block;
+    }
+    .brand .title{ color:#ffcc00; font-weight:700; font-size:18px; }
+
+    h4{ text-align:center;color:#ffcc00;margin-bottom:8px; font-size:20px; }
+    p.lead{ text-align:center;color:#cfcfcf;margin-bottom:20px; }
+
+    form .mb-3{ margin-bottom:14px; }
+    label{ display:block;color:#bdbdbd;font-size:13px;margin-bottom:6px; }
+    input[type="text"], input[type="password"]{
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #3a3a3a;
+      background:#171717;
+      color:#fff;
+      outline:none;
+    }
+    .input-group{ display:flex; gap:8px; align-items:center; }
+    .input-group .eye{
+      padding:8px 10px;
+      background:#232323;
+      border-radius:8px;
+      border:1px solid #333;
+      color:#bbb;
+      cursor:pointer;
+      user-select:none;
+    }
+
+    .form-check{ display:flex; align-items:center; gap:8px; color:#bdbdbd; margin-bottom:12px; }
+    .btn{
+      display:inline-block;
+      width:100%;
+      padding:10px 14px;
+      border-radius:8px;
+      background:#ffcc00;
+      color:#111;
+      font-weight:700;
+      border:none;
+      cursor:pointer;
+    }
+    .small-text{ color:#9d9d9d; font-size:13px; text-align:center; margin-top:12px; }
+
+    /* Alert */
+    .alert {
+      position:fixed;
+      top:22px;
+      right:22px;
+      padding:12px 16px;
+      border-radius:8px;
+      font-weight:700;
+      box-shadow:0 6px 18px rgba(0,0,0,0.6);
+      transform:translateY(-12px);
+      opacity:0;
+      pointer-events:none;
+      transition:all .35s ease;
+      z-index:9999;
+    }
+    .alert.show{ transform:translateY(0); opacity:1; pointer-events:auto;}
+    .alert.success{ background:#28a745; color:#fff; }
+    .alert.error{ background:#dc3545; color:#fff; }
+
+    /* Responsive */
+    @media (max-width:520px){
+      .card{ padding:0 12px; }
+    }
+
+    /* Hint box for demo credentials */
+    .demo-cred{
+      margin-top:12px;
+      background:#111;
+      border:1px dashed #333;
+      padding:10px;
+      border-radius:8px;
+      color:#cfcfcf;
+      font-size:13px;
+    }
+    .demo-cred b{ color:#ffcc00; }
+  </style>
+</head>
+<body>
+  <div class="card" role="main" aria-labelledby="loginHeading">
+    <div class="brand" aria-hidden="true">
+      <span class="logo" aria-hidden="true"></span>
+      <span class="title">cake-sale - Admin</span>
+    </div>
+
+    <div class="card-body">
+      <h4 id="loginHeading">Welcome back 👋</h4>
+      <p class="lead">Please sign-in to your admin account</p>
+
+      <!-- Login form (no PHP) -->
+      <form id="loginForm" autocomplete="off" novalidate>
+        <div class="mb-3">
+          <label for="email">Email</label>
+          <input id="email" name="Email" type="text" placeholder="admin@cake.com" required />
+        </div>
+
+        <div class="mb-3">
+          <label for="password">Password</label>
+          <div class="input-group">
+            <input id="password" name="Password" type="password" placeholder="Your password" required />
+            <button type="button" class="eye" id="togglePwd" aria-label="Hiện/ẩn mật khẩu">👁️</button>
+          </div>
+        </div>
+
+        <div class="form-check mb-3">
+          <input id="remember" type="checkbox" />
+          <label for="remember">Remember me</label>
+        </div>
+
+        <div class="mb-3">
+          <button type="submit" class="btn">Sign in</button>
+        </div>
+      </form>
+
+      <div class="small-text">New on our platform? <a href="#" style="color:#ffcc00;text-decoration:none;">Create an account</a></div>
+
+      <div class="demo-cred" aria-live="polite">
+        <div><strong>Demo admin:</strong></div>
+        <div>Email: <b>admin@cake.com</b></div>
+        <div>Password: <b>Admin123</b></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert box -->
+  <div id="alertBox" class="alert" role="status" aria-live="polite"></div>
+
+  <script>
+    // --- Cấu hình tài khoản admin mặc định (có thể đổi dễ dàng ở đây) ---
+    const ADMIN_EMAIL = 'admin@cake.com';
+    const ADMIN_PASSWORD = 'Admin123';
+
+    const form = document.getElementById('loginForm');
+    const emailInput = document.getElementById('email');
+    const pwdInput = document.getElementById('password');
+    const alertBox = document.getElementById('alertBox');
+    const togglePwdBtn = document.getElementById('togglePwd');
+    const rememberCheckbox = document.getElementById('remember');
+
+    // Nếu người dùng đã chọn "remember", auto điền (chỉ demo, lưu localStorage)
+    if (localStorage.getItem('admin_remember') === '1') {
+      const saved = localStorage.getItem('admin_saved_email');
+      if (saved) emailInput.value = saved;
+      rememberCheckbox.checked = true;
+    }
+
+    // Hiển thị thông báo (success / error)
+    function showAlert(message, type = 'success') {
+      alertBox.textContent = message;
+      alertBox.className = 'alert ' + (type === 'error' ? 'error' : 'success') + ' show';
+      // ẩn sau 2.2s
+      clearTimeout(window._alertTimeout);
+      window._alertTimeout = setTimeout(() => {
+        alertBox.classList.remove('show');
+      }, 2200);
+    }
+
+    // Toggle show/hide password
+    togglePwdBtn.addEventListener('click', () => {
+      const t = pwdInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      pwdInput.setAttribute('type', t);
+      togglePwdBtn.textContent = t === 'password' ? '👁️' : '🙈';
+    });
+
+    // Xử lý submit: kiểm tra client-side
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      const em = emailInput.value.trim();
+      const pw = pwdInput.value;
+
+      if (!em || !pw) {
+        showAlert('Vui lòng nhập email và mật khẩu', 'error');
+        return;
+      }
+
+      // So sánh với tài khoản mẫu
+      if (em.toLowerCase() === ADMIN_EMAIL.toLowerCase() && pw === ADMIN_PASSWORD) {
+        // Lưu remember nếu được tick
+        if (rememberCheckbox.checked) {
+          localStorage.setItem('admin_remember', '1');
+          localStorage.setItem('admin_saved_email', em);
+        } else {
+          localStorage.removeItem('admin_remember');
+          localStorage.removeItem('admin_saved_email');
+        }
+
+        showAlert('Đăng nhập thành công! Đang chuyển hướng...', 'success');
+
+        // Redirect tới dashboard sau 800ms (đổi URL theo dự án của bạn)
+        setTimeout(() => {
+          // Thay thành đường dẫn admin thật của bạn
+          window.location.href = 'index.html';
+        }, 900);
+      } else {
+        showAlert('Email hoặc mật khẩu không đúng', 'error');
+      }
+    });
+
+    // Tắt gửi form khi bấm Enter trong password (để trải nghiệm nhất quán)
+    pwdInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        form.requestSubmit();
+      }
+    });
+  </script>
+</body>
+</html>

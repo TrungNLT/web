@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lịch Sử Đơn Hàng</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/flaticon.css" type="text/css" />
+    <link rel="stylesheet" href="css/barfiller.css" type="text/css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <!-- Global inline theme (merged) -->
+    <style>
+      :root {--orange-50:#fff7f1;--orange-100:#ffe8d6;--orange-150:#ffeedf;--orange-200:#ffd4b0;--orange-300:#ffb374;--orange-400:#ff943d;--orange-450:#ff8624;--orange-500:#ff7a00;--orange-600:#e56700;--orange-650:#d85f00;--orange-700:#c75400;--choco:#4b2e2e;--choco-soft:#6b463c;--radius-sm:10px;--radius-md:18px;--radius-lg:26px;--radius-xl:34px;--shadow-soft:0 4px 14px -6px rgba(255,122,0,.45),0 2px 6px -2px rgba(0,0,0,.08);} 
+      body {background:linear-gradient(180deg,var(--orange-50),#ffffff 300px) fixed;}
+      .primary-btn,.btn.primary-btn{background:var(--orange-500);border:none;border-radius:20px;padding:12px 24px;font-weight:700;font-size:.78rem;letter-spacing:.55px;box-shadow:var(--shadow-soft);transition:.25s;} .primary-btn:hover{background:var(--orange-600);transform:translateY(-2px);} .primary-btn:active{background:var(--orange-700);transform:translateY(0);}      
+    </style>
+
+    <style>
+      /* local history overrides */
+      /* Card wrapper */
+      #orders-wrapper {animation:fadeSlide .5s ease .05s both;}
+      .orders-card {background:linear-gradient(135deg,var(--orange-50),#fff);border:1px solid var(--orange-200);border-radius:26px;padding:26px 26px 34px;box-shadow:0 4px 14px -6px rgba(255,122,0,.35),0 2px 6px -2px rgba(0,0,0,.06);position:relative;overflow:hidden;}
+      .orders-card:before {content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;background:radial-gradient(circle at 30% 30%,var(--orange-300),transparent 70%);opacity:.25;}
+      .orders-card h5 {font-weight:700;margin-bottom:18px;color:var(--orange-600);}
+      /* Table */
+      table.table {background:#fff;border-radius:20px;overflow:hidden;border:1px solid var(--orange-100);}
+      table.table thead th {background:var(--orange-500);color:#fff;border-color:var(--orange-500);font-weight:600;font-size:.8rem;letter-spacing:.5px;text-transform:uppercase;padding:14px 16px;}
+      table.table tbody td {vertical-align:top;font-size:.85rem;padding:14px 16px;border-color:#f5e0ce;}
+      table.table tbody tr {transition:.18s;}
+      table.table tbody tr:hover {background:var(--orange-50);}
+      /* Badge status override */
+      .badge {border-radius:40px;padding:6px 12px;font-weight:600;font-size:.7rem;letter-spacing:.5px;}
+      .badge-success {background:var(--orange-500);color:#fff;}
+      .badge-warning {background:#ffcf66;color:#5c3e00;}
+      /* Responsive table scroll improvements */
+      .table-responsive {border-radius:22px;}
+      /* Filter placeholder (future extensibility) */
+      #history-filters {display:flex;flex-wrap:wrap;gap:12px;margin-bottom:18px;}
+      #history-filters .filter-pill {background:#fff;border:1px solid var(--orange-200);padding:8px 14px;border-radius:18px;font-size:.75rem;font-weight:600;color:var(--orange-600);display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 4px -2px rgba(255,122,0,.4);}      
+      #history-filters .filter-pill button {background:none;border:none;color:var(--orange-600);cursor:pointer;padding:0;line-height:1;}
+      /* Alert adjustments */
+      #login-required, #no-orders {border-radius:18px;}
+      /* Animations */
+      @keyframes fadeSlide {from {opacity:0;transform:translateY(6px);} to {opacity:1;transform:translateY(0);} }
+      /* Small devices */
+      @media (max-width:576px){ table.table thead th,table.table tbody td {padding:10px 12px;} .orders-card{padding:22px 18px 28px;} }
+    </style>
+  </head>
+  <body>
+    <div id="preloder"><div class="loader"></div></div>
+
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <main class="page">
+      <div class="breadcrumb-option">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="breadcrumb__text"><h2>Lịch Sử Đơn Hàng</h2></div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="breadcrumb__links">
+                <a href="./index.html">Trang chủ</a
+                ><span>Lịch Sử Đơn Hàng</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="shop spad">
+        <div class="container">
+          <!-- Khi CHƯA đăng nhập -->
+          <div
+            id="login-required"
+            class="alert alert-danger text-center"
+            style="display: none"
+          >
+            <strong>Vui lòng đăng nhập để xem lịch sử đơn hàng.</strong
+            ><br /><br />
+            <a class="primary-btn" href="login.html?return=history_order.html"
+              >Đến trang đăng nhập</a
+            >
+          </div>
+
+          <!-- Khi ĐÃ đăng nhập -->
+          <div id="orders-wrapper" style="display: none">
+            <div class="orders-card">
+              <h5>Lịch sử đơn hàng của bạn</h5>
+              <div id="history-filters" class="mb-2" style="display:none;"><!-- future dynamic filters --></div>
+              <div class="table-responsive">
+              <table class="table align-middle">
+                <thead>
+                  <tr>
+                    <th style="white-space: nowrap">Mã đơn</th>
+                    <th style="white-space: nowrap">Ngày đặt</th>
+                    <th>Tên món</th>
+                    <th style="white-space: nowrap">Tổng tiền</th>
+                    <th style="white-space: nowrap">Trạng thái</th>
+                    <th>Địa chỉ</th>
+                  </tr>
+                </thead>
+                <tbody id="orders-tbody">
+                  <!-- JS render -->
+                </tbody>
+              </table>
+              </div>
+            </div>
+            <div
+              id="no-orders"
+              class="alert alert-info text-center"
+              style="display: none"
+            >
+              Chưa có đơn hàng nào.
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      window.jQuery ||
+        document.write('<script src="js/jquery-3.3.1.min.js"><\/script>');
+    </script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/auth.js"></script>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      main.page {
+        flex: 1 0 auto;
+      }
+      td .badge {
+        font-size: 90%;
+      }
+    </style>
+
+    <script>
+      // Helpers: include header/footer + update header UI
+      function applySetBg() {
+        $(".set-bg").each(function () {
+          const bg = $(this).data("setbg");
+          if (bg) $(this).css("background-image", "url(" + bg + ")");
+        });
+      }
+      function include(id, file, cb) {
+        fetch(file)
+          .then((r) => (r.ok ? r.text() : Promise.reject(file)))
+          .then((html) => {
+            const el = document.getElementById(id);
+            if (el) el.innerHTML = html;
+            applySetBg();
+            cb && cb();
+          })
+          .catch((e) => console.error("Include lỗi:", e));
+      }
+      function updateHeader() {
+        const user = JSON.parse(localStorage.getItem("user") || "null");
+        const inEl = document.getElementById("header-user-loggedin");
+        const outEl = document.getElementById("header-user-loggedout");
+        const nameEl = document.getElementById("header-fullname-placeholder");
+        const menuHistory = document.getElementById("menu-history");
+        if (user) {
+          inEl && (inEl.style.display = "inline-flex");
+          outEl && (outEl.style.display = "none");
+          nameEl && (nameEl.textContent = user.fullname || user.email);
+          menuHistory && (menuHistory.style.display = "");
+        } else {
+          inEl && (inEl.style.display = "none");
+          outEl && (outEl.style.display = "inline");
+          menuHistory && (menuHistory.style.display = "none");
+        }
+        let c = 0;
+        if (user && window.Cart?.getCart) {
+          try {
+            c = (Cart.getCart() || []).reduce(
+              (s, it) => s + Number(it.qty ?? it.quantity ?? 1),
+              0
+            );
+          } catch {}
+        }
+        const head = document.getElementById("header-cart-count");
+        const off = document.getElementById("offcanvas-cart-count");
+        head && (head.textContent = c);
+        off && (off.textContent = c);
+      }
+
+      // Auth guard for page
+      function guard() {
+        const user = JSON.parse(localStorage.getItem("user") || "null");
+        const need = document.getElementById("login-required");
+        const ok = document.getElementById("orders-wrapper");
+        if (user) {
+          need.style.display = "none";
+          ok.style.display = "block";
+        } else {
+          need.style.display = "block";
+          ok.style.display = "none";
+        }
+        return !!user;
+      }
+
+      // Load product map for names/prices
+      async function getProductMap() {
+        try {
+          const arr = await (window.loadProducts ? window.loadProducts() : fetch("./database/product.json").then(r=>r.json()));
+          return Object.fromEntries(arr.map((p) => [Number(p.ProductId), p]));
+        } catch (e) {
+          console.warn("Không tải được product.json", e);
+          return {};
+        }
+      }
+
+      // Load orders of current user
+      function getOrdersOfUser(userId) {
+        try {
+          const key = "orders_" + userId;
+          return JSON.parse(localStorage.getItem(key) || "[]");
+        } catch {
+          return [];
+        }
+      }
+
+      function fmtMoney(n) {
+        return (Number(n) || 0).toLocaleString("vi-VN") + " VND";
+      }
+      function fmtDate(iso) {
+        try {
+          const d = new Date(iso || Date.now());
+          const dd = d.toLocaleString("vi-VN");
+          return dd;
+        } catch {
+          return iso || "";
+        }
+      }
+      function paymentStatus(pm) {
+        const v = (pm || "").toLowerCase();
+        return v === "bank" || v === "online"
+          ? { text: "Đã thanh toán", cls: "badge-success" }
+          : { text: "Chưa thanh toán", cls: "badge-warning" };
+      }
+
+      async function renderOrders() {
+        const user = JSON.parse(localStorage.getItem("user") || "null");
+        if (!user) return;
+        const tbody = document.getElementById("orders-tbody");
+        const empty = document.getElementById("no-orders");
+        const orders = getOrdersOfUser(user.id);
+        if (!orders.length) {
+          tbody.innerHTML = "";
+          empty.style.display = "block";
+          return;
+        }
+        empty.style.display = "none";
+        const pmap = await getProductMap();
+
+        const rows = orders
+          .map((o) => {
+            const id = o.id || o.orderId || "ORD" + Date.now();
+            const created = fmtDate(
+              o.createdAt || o.date || o.created || o.time
+            );
+            const info = o.info || o.shipping || {};
+            const pm = (
+              o.paymentMethod ||
+              info.paymentMethod ||
+              ""
+            ).toLowerCase();
+            const st = paymentStatus(pm);
+
+            // Items and total
+            const items = Array.isArray(o.items) ? o.items : [];
+            let total = 0;
+            const names = items.map((it) => {
+              const pid = Number(it.productId ?? it.id);
+              const qty = Number(it.qty ?? it.quantity ?? 1);
+              const prod = pmap[pid];
+              const name = prod ? prod.Name : "SP #" + pid;
+              const price = prod
+                ? Number(prod.SellPrice ?? prod.Price ?? 0)
+                : Number(it.price ?? 0);
+              total += price * qty;
+              return `${name} x${qty}`;
+            });
+
+            const addr = info.address || o.address || "";
+
+            return `<tr>
+          <td>${id}</td>
+          <td>${created}</td>
+          <td style="text-align:left;">${names.join("<br/>")}</td>
+          <td>${fmtMoney(o.total ?? total)}</td>
+          <td><span class="badge ${st.cls}">${st.text}</span></td>
+          <td style="text-align:left;">${addr}</td>
+        </tr>`;
+          })
+          .join("");
+
+        tbody.innerHTML = rows;
+      }
+
+      // Preloader
+      const hidePreloader = () => {
+        const pre = document.getElementById("preloder");
+        if (pre) pre.style.display = "none";
+      };
+      window.addEventListener("load", hidePreloader);
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        await new Promise((res) =>
+          include("header-placeholder", "inc/header.html", res)
+        );
+        include("footer-placeholder", "inc/footer.html");
+        updateHeader();
+        if (guard()) await renderOrders();
+        window.addEventListener("authChanged", async () => {
+          updateHeader();
+          if (guard()) await renderOrders();
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Quản lý Phiếu Nhập</title>
+<style>
+body { font-family: Arial,sans-serif; background:#1b1b1b; color:#eee; padding:20px; }
+h2 { color:#ffcc00; margin-bottom:20px; }
+table { width:100%; border-collapse:collapse; margin-top:20px; }
+th, td { padding:10px; border:1px solid #333; text-align:center; }
+th { background:#2a2a2a; color:#ffcc00; }
+tr:nth-child(even) { background:#333; }
+tr:nth-child(odd) { background:#222; }
+button { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; margin:3px; font-weight:bold; }
+.btn-add { background:#ffcc00; color:#111; }
+.btn-edit { background:#0d6efd; color:#fff; }
+.btn-complete { background:#28a745; color:#fff; }
+
+#formContainer { 
+  display:none; 
+  margin-top:20px; 
+  max-width:500px; 
+  background:#2c2c2c; 
+  padding:20px; 
+  border-radius:12px; 
+  box-shadow:0 4px 12px rgba(0,0,0,0.4);
+}
+#formContainer label { display:block; margin-top:10px; margin-bottom:5px; }
+#formContainer input { width:100%; padding:8px; border-radius:6px; border:1px solid #555; background:#333; color:#fff; }
+#formContainer button { margin-top:15px; }
+
+/* Nút trang chủ cuối trang */
+.btn-home-container {
+  text-align:center;
+  margin-top:30px;
+}
+.btn-home {
+  background:#ffcc00; 
+  color:#111; 
+  padding:10px 20px; 
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<h2>Quản lý Phiếu Nhập</h2>
+
+<button class="btn-add" onclick="showAddForm()">Thêm phiếu nhập mới</button>
+
+<table>
+<thead>
+<tr>
+<th>STT</th><th>Ngày nhập</th><th>Sản phẩm</th><th>Giá nhập</th><th>Số lượng</th><th>Trạng thái</th><th>Hành động</th>
+</tr>
+</thead>
+<tbody id="receiptTable"></tbody>
+</table>
+
+<!-- Form thêm/sửa phiếu nhập -->
+<div id="formContainer">
+<h3 id="formTitle">Thêm Phiếu Nhập</h3>
+<label>Tên sản phẩm:</label>
+<input type="text" id="productInput" placeholder="Nhập tên sản phẩm...">
+
+<label>Giá nhập:</label>
+<input type="number" id="priceInput">
+
+<label>Số lượng:</label>
+<input type="number" id="quantityInput">
+
+<label>Ngày nhập:</label>
+<input type="date" id="dateInput">
+
+<button onclick="saveReceipt()">Lưu phiếu</button>
+<button onclick="hideForm()">Hủy</button>
+</div>
+
+<!-- Nút trang chủ cuối trang -->
+<div class="btn-home-container">
+  <a href="index.html" class="btn-home">🏠 Quay về Trang chủ</a>
+</div>
+
+<script>
+let receipts = JSON.parse(localStorage.getItem("receipts")) || [];
+
+function renderReceipts(){
+  const tbody = document.getElementById("receiptTable");
+  tbody.innerHTML = receipts.map((r,i)=>`
+    <tr>
+      <td>${i+1}</td>
+      <td>${r.date}</td>
+      <td>${r.product}</td>
+      <td>${r.price}</td>
+      <td>${r.quantity}</td>
+      <td>${r.completed ? "Hoàn thành":"Chưa hoàn thành"}</td>
+      <td>
+        ${r.completed ? "" : `<button class="btn-edit" onclick="editReceipt(${i})">Sửa</button>
+        <button class="btn-complete" onclick="completeReceipt(${i})">Hoàn thành</button>`}
+      </td>
+    </tr>
+  `).join('');
+}
+
+function showAddForm(){
+  document.getElementById("formContainer").style.display="block";
+  document.getElementById("formTitle").innerText="Thêm Phiếu Nhập";
+  document.getElementById("productInput").value="";
+  document.getElementById("priceInput").value="";
+  document.getElementById("quantityInput").value="";
+  document.getElementById("dateInput").value="";
+}
+
+function hideForm(){ document.getElementById("formContainer").style.display="none"; }
+
+function saveReceipt(){
+  const product = document.getElementById("productInput").value;
+  const price = parseInt(document.getElementById("priceInput").value);
+  const quantity = parseInt(document.getElementById("quantityInput").value);
+  const date = document.getElementById("dateInput").value;
+
+  if(!product || !price || !quantity || !date){ alert("Vui lòng điền đầy đủ thông tin!"); return; }
+
+  if(window.editIndex !== undefined){ // chỉnh sửa
+    receipts[window.editIndex] = {product, price, quantity, date, completed:false};
+    delete window.editIndex;
+  } else { // thêm mới
+    receipts.push({product, price, quantity, date, completed:false});
+  }
+
+  localStorage.setItem("receipts", JSON.stringify(receipts));
+  renderReceipts();
+  hideForm();
+}
+
+function editReceipt(index){
+  const r = receipts[index];
+  window.editIndex = index;
+  document.getElementById("formContainer").style.display="block";
+  document.getElementById("formTitle").innerText="Sửa Phiếu Nhập";
+  document.getElementById("productInput").value = r.product;
+  document.getElementById("priceInput").value = r.price;
+  document.getElementById("quantityInput").value = r.quantity;
+  document.getElementById("dateInput").value = r.date;
+}
+
+function completeReceipt(index){
+  receipts[index].completed = true;
+  localStorage.setItem("receipts", JSON.stringify(receipts));
+  renderReceipts();
+}
+
+renderReceipts();
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: Arial, sans-serif;
+  background: #1b1b1b;
+  color: #eee;
+  line-height: 1.6;
+}
+
+/* ===== Sidebar ===== */
+.layout-menu {
+  width: 240px;
+  background: #222;
+  color: #eee;
+  min-height: 100vh;
+  padding-top: 20px;
+  position: fixed;
+  top: 0; left: 0;
+  border-right: 2px solid #ffcc00;
+}
+.app-brand {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  margin-bottom: 25px;
+}
+.app-brand-text {
+  color: #ffcc00;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+.menu-inner { list-style: none; padding: 0; margin: 0; }
+.menu-item { margin: 5px 0; }
+.menu-link {
+  display: flex; align-items: center;
+  padding: 12px 20px;
+  color: #eee; text-decoration: none;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+}
+.menu-link:hover,
+.menu-item.active .menu-link {
+  background: #333;
+  color: #ffcc00;
+  border-left: 4px solid #ffcc00;
+}
+.menu-icon { margin-right: 10px; color: #ffcc00; }
+
+/* ===== Navbar ===== */
+.layout-navbar {
+  background: #2a2a2a;
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #ffcc00;
+  margin-left: 240px; /* đẩy qua bên phải vì có sidebar */
+}
+
+/* ===== Search ===== */
+.search-container { display: flex; align-items: center; gap: 10px; }
+.search-bar {
+  width: 250px; padding: 8px 12px;
+  border: 1px solid #666; border-radius: 8px;
+  background: #333; color: #fff;
+}
+.search-bar:focus { border-color: #ffcc00; }
+.search-container input[type="date"] {
+  background: #333; border: 1px solid #666;
+  border-radius: 8px; color: #fff;
+  padding: 8px 12px;
+}
+.search-button {
+  background: #ffcc00; color: #111; border: none;
+  border-radius: 8px; padding: 8px 16px;
+  font-weight: bold; cursor: pointer; transition: 0.3s;
+}
+.search-button:hover { background: #ffaa00; }
+
+/* ===== Layout Content ===== */
+.layout-container {
+  margin-left: 240px;
+  padding: 20px;
+}
+
+/* ===== Card ===== */
+.card {
+  background: #2c2c2c;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(255,204,0,0.3);
+}
+.card h3, .card h5 { color: #ffcc00; margin-bottom: 10px; }
+.card p { margin-bottom: 15px; }
+
+/* ===== Button ===== */
+.btn {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: #ffcc00;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+.btn:hover { background: #ffaa00; }
+.btn-outline-primary {
+  background: transparent;
+  border: 2px solid #ffcc00;
+  color: #ffcc00;
+}
+.btn-outline-primary:hover {
+  background: #ffcc00;
+  color: #111;
+}
+
+/* ===== Table ===== */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.table th, .table td {
+  border: 1px solid #333;
+  padding: 10px;
+  text-align: center;
+}
+.table th {
+  background: #2a2a2a;
+  color: #ffcc00;
+}
+.table tr:nth-child(even) { background: #333; }
+.table tr:nth-child(odd) { background: #222; }
+.table td a {
+  color: #ffcc00; text-decoration: none; font-weight: bold;
+}
+.table td a:hover { color: #fff; }
+
+/* ===== Responsive ===== */
+@media (max-width: 992px) {
+  .layout-menu { width: 200px; }
+  .layout-navbar, .layout-container { margin-left: 200px; }
+}
+@media (max-width: 768px) {
+  .layout-menu { display: none; }
+  .layout-navbar, .layout-container { margin-left: 0; }
+}

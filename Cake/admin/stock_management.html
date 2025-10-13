@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Quản lý Tồn Kho</title>
+<style>
+body { font-family: Arial,sans-serif; background:#1b1b1b; color:#eee; padding:20px; }
+h2 { color:#ffcc00; margin-bottom:20px; }
+table { width:100%; border-collapse:collapse; margin-top:20px; }
+th,td { padding:10px; border:1px solid #333; text-align:center; }
+th { background:#2a2a2a; color:#ffcc00; }
+tr:nth-child(even){background:#333;}
+tr:nth-child(odd){background:#222;}
+input, select { padding:5px; border-radius:5px; border:1px solid #555; background:#333; color:#fff; margin-right:10px; }
+button { padding:5px 10px; border:none; border-radius:5px; cursor:pointer; background:#ffcc00; color:#111; }
+.alert { color:#ff4444; font-weight:bold; }
+
+/* Nút trang chủ cuối trang */
+.btn-home-container { text-align:center; margin-top:30px; }
+.btn-home { background:#ffcc00; color:#111; padding:10px 20px; border-radius:8px; text-decoration:none; font-weight:bold; }
+</style>
+</head>
+<body>
+
+<h2>Quản lý Tồn Kho</h2>
+
+<!-- Tra cứu tồn -->
+<div>
+<label>Sản phẩm:</label>
+<select id="productSelect"></select>
+
+<label>Loại:</label>
+<select id="categorySelect">
+  <option value="">Tất cả</option>
+  <option value="Bánh kem">Bánh kem</option>
+  <option value="Bánh mì">Bánh mì</option>
+  <option value="Bánh ngọt">Bánh ngọt</option>
+</select>
+
+<label>Từ ngày:</label>
+<input type="date" id="startDate">
+<label>Đến ngày:</label>
+<input type="date" id="endDate">
+<button onclick="filterStock()">Tra cứu</button>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>STT</th><th>Sản phẩm</th><th>Loại</th><th>Stock hiện tại</th><th>Nhập</th><th>Xuất</th><th>Trạng thái</th>
+</tr>
+</thead>
+<tbody id="stockTable"></tbody>
+</table>
+
+<!-- Nút trang chủ -->
+<div class="btn-home-container">
+  <a href="index.html" class="btn-home">🏠 Quay về Trang chủ</a>
+</div>
+
+<script>
+// Dữ liệu mặc định (có vài sản phẩm stock <= 10)
+let defaultProducts = [
+  {name:"Bánh Kem Dâu",type:"Bánh kem",stock:5},
+  {name:"Bánh Mì Pháp",type:"Bánh mì",stock:200},
+  {name:"Bánh Ngọt Socola",type:"Bánh ngọt",stock:8},
+  {name:"Bánh Kem Matcha",type:"Bánh kem",stock:40},
+  {name:"Bánh Su Kem",type:"Bánh ngọt",stock:10}
+];
+
+// Luôn dùng defaultProducts (bỏ qua localStorage)
+let products = defaultProducts;
+
+// Lưu lại vào localStorage (cho sau này)
+localStorage.setItem("products", JSON.stringify(products));
+
+// Điền select sản phẩm
+const productSelect = document.getElementById("productSelect");
+productSelect.innerHTML = `<option value="">Tất cả</option>` + products.map(p=>`<option value="${p.name}">${p.name}</option>`).join('');
+
+// Render bảng stock
+function renderStock(filteredProducts){
+  const tbody = document.getElementById("stockTable");
+  tbody.innerHTML = filteredProducts.map((p,i)=>{
+    let totalImport = 0;
+    let totalExport = 0;
+    let status = p.stock<=20 ? "⚠️ Sắp hết hàng" : "OK";
+
+    return `<tr>
+      <td>${i+1}</td>
+      <td>${p.name}</td>
+      <td>${p.type}</td>
+      <td>${p.stock}</td>
+      <td>${totalImport}</td>
+      <td>${totalExport}</td>
+      <td class="${p.stock<=20?'alert':''}">${status}</td>
+    </tr>`;
+  }).join('');
+}
+
+// Lọc theo sản phẩm và loại
+function filterStock(){
+  let prod = productSelect.value;
+  let cat = document.getElementById("categorySelect").value;
+
+  let filtered = products.filter(p=>{
+    return (!prod || p.name===prod) && (!cat || p.type===cat);
+  });
+
+  renderStock(filtered);
+}
+
+// Render toàn bộ lúc đầu
+renderStock(products);
+</script>
+</body>
+</html>

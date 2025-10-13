@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản lý giá bán</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: Arial, sans-serif; background:#1b1b1b; color:#eee; }
+
+    /* Sidebar */
+    .layout-menu {
+      width: 240px; background:#222; color:#eee; min-height:100vh; padding-top:20px;
+      position:fixed; top:0; left:0; border-right:2px solid #ffcc00;
+    }
+    .menu-inner { list-style:none; padding:0; margin:0; }
+    .menu-item { margin:5px 0; }
+    .menu-link { display:flex; align-items:center; padding:12px 20px; color:#eee; text-decoration:none; border-left:4px solid transparent; transition:0.3s; }
+    .menu-link:hover, .menu-item.active .menu-link { background:#333; color:#ffcc00; border-left:4px solid #ffcc00; }
+    .menu-icon { margin-right:10px; color:#ffcc00; }
+
+    /* Navbar */
+    .layout-navbar { background:#2a2a2a; padding:15px 25px; margin-left:240px; border-bottom:2px solid #ffcc00; display:flex; justify-content:space-between; align-items:center; }
+    .search-container { display:flex; align-items:center; gap:10px; }
+    .search-bar { padding:8px 12px; border-radius:8px; background:#333; color:#fff; border:1px solid #666; }
+    .search-bar:focus { border-color:#ffcc00; outline:none; }
+    .search-button { background:#ffcc00; color:#111; border:none; border-radius:8px; padding:8px 16px; font-weight:bold; cursor:pointer; transition:0.3s; }
+    .search-button:hover { background:#ffaa00; }
+
+    /* Layout content */
+    .layout-container { margin-left:240px; padding:20px; }
+
+    /* Table */
+    .table { width:100%; border-collapse:collapse; margin-top:20px; }
+    .table th, .table td { border:1px solid #333; padding:10px; text-align:center; }
+    .table th { background:#2a2a2a; color:#ffcc00; }
+    .table tr:nth-child(even) { background:#333; }
+    .table tr:nth-child(odd) { background:#222; }
+
+    /* Button */
+    .btn { padding:6px 12px; border-radius:8px; background:#ffcc00; color:#111; font-weight:bold; cursor:pointer; transition:0.3s; border:none; }
+    .btn:hover { background:#ffaa00; }
+
+    /* Modal */
+    .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:100; }
+    .modal-content { background:#2c2c2c; padding:20px; border-radius:12px; width:400px; text-align:center; position:relative; }
+    .modal-content h3 { color:#ffcc00; margin-bottom:15px; }
+    .modal-content input { width:80%; padding:8px; border-radius:8px; border:1px solid #666; margin-bottom:10px; background:#333; color:#fff; }
+    .close-btn { position:absolute; top:10px; right:15px; cursor:pointer; color:#ffcc00; font-weight:bold; }
+
+    /* Responsive */
+    @media(max-width:768px){ .layout-menu{display:none;} .layout-container{margin-left:0;} .layout-navbar{margin-left:0;} }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="layout-menu">
+  <ul class="menu-inner">
+    <li class="menu-item"><a href="index.html" class="menu-link"><i class="menu-icon bx bx-home-circle"></i>Bảng điều khiển</a></li>
+    <li class="menu-item"><a href="category_list.html" class="menu-link"><i class="menu-icon bx bx-layout"></i>Loại bánh</a></li>
+    <li class="menu-item"><a href="brand_list.html" class="menu-link"><i class="menu-icon bx bx-cube-alt"></i>Thương hiệu</a></li>
+    <li class="menu-item"><a href="product_list.html" class="menu-link"><i class="menu-icon bx bx-collection"></i>Sản phẩm</a></li>
+    <li class="menu-item active"><a href="price_management.html" class="menu-link"><i class="menu-icon bx bx-dollar-circle"></i>Quản lý giá bán</a></li>
+    <li class="menu-item"><a href="order_list.html" class="menu-link"><i class="menu-icon bx bx-detail"></i>Đơn đặt hàng</a></li>
+    <li class="menu-item"><a href="import_list.html" class="menu-link">Quản lý nhập hàng</a></li>
+    <li class="menu-item"><a href="stock_management.html" class="menu-link">Quản lý tồn kho</a></li>
+    <li class="menu-item"><a href="user_list.html" class="menu-link"><i class="menu-icon bx bx-dock-top"></i>Người dùng</a></li>
+  </ul>
+</aside>
+
+<!-- Navbar -->
+<nav class="layout-navbar">
+  <div class="search-container">
+    <input type="text" class="search-bar" placeholder="Tìm kiếm sản phẩm...">
+    <button class="search-button">Tìm kiếm</button>
+  </div>
+</nav>
+
+<!-- Content -->
+<div class="layout-container">
+  <h2>Quản lý giá bán</h2>
+
+  <!-- Chọn theo loại -->
+  <label for="categorySelect">Chọn loại sản phẩm:</label>
+  <select id="categorySelect">
+    <option value="">--Tất cả--</option>
+    <option value="Bánh kem">Bánh kem</option>
+    <option value="Bánh quy">Bánh quy</option>
+    <option value="Bánh mì">Bánh mì</option>
+    <option value="Bánh ngọt">Bánh ngọt</option>
+  </select>
+
+  <!-- Table -->
+  <table class="table" id="priceTable">
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>Tên sản phẩm</th>
+        <th>Loại sản phẩm</th>
+        <th>Giá vốn (VND)</th>
+        <th>% Lợi nhuận</th>
+        <th>Giá bán (VND)</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-category="Bánh kem">
+        <td>1</td>
+        <td>Bánh Kem Dâu</td>
+        <td>Bánh kem</td>
+        <td>150,000</td>
+        <td>33%</td>
+        <td>200,000</td>
+        <td><button class="btn editBtn">Sửa</button></td>
+      </tr>
+      <tr data-category="Bánh mì">
+        <td>2</td>
+        <td>Bánh Mì Pháp</td>
+        <td>Bánh mì</td>
+        <td>10,000</td>
+        <td>50%</td>
+        <td>15,000</td>
+        <td><button class="btn editBtn">Sửa</button></td>
+      </tr>
+      <tr data-category="Bánh ngọt">
+        <td>3</td>
+        <td>Bánh Ngọt Socola</td>
+        <td>Bánh ngọt</td>
+        <td>50,000</td>
+        <td>50%</td>
+        <td>75,000</td>
+        <td><button class="btn editBtn">Sửa</button></td>
+      </tr>
+      <tr data-category="Bánh kem">
+        <td>4</td>
+        <td>Bánh Kem Matcha</td>
+        <td>Bánh kem</td>
+        <td>120,000</td>
+        <td>42%</td>
+        <td>170,000</td>
+        <td><button class="btn editBtn">Sửa</button></td>
+      </tr>
+      <tr data-category="Bánh ngọt">
+        <td>5</td>
+        <td>Bánh Su Kem</td>
+        <td>Bánh ngọt</td>
+        <td>30,000</td>
+        <td>67%</td>
+        <td>50,000</td>
+        <td><button class="btn editBtn">Sửa</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal chỉnh sửa -->
+<div class="modal" id="editModal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeModal">&times;</span>
+    <h3>Chỉnh sửa giá vốn & giá bán</h3>
+    <p id="productName"></p>
+    <input type="number" id="costInput" placeholder="Giá vốn">
+    <input type="number" id="priceInput" placeholder="Giá bán">
+    <br>
+    <button class="btn" id="saveBtn">Lưu</button>
+  </div>
+</div>
+
+<script>
+  // Hiển thị modal
+  const editBtns = document.querySelectorAll('.editBtn');
+  const modal = document.getElementById('editModal');
+  const closeModal = document.getElementById('closeModal');
+  const productName = document.getElementById('productName');
+  const costInput = document.getElementById('costInput');
+  const priceInput = document.getElementById('priceInput');
+  let currentRow;
+
+  editBtns.forEach(btn => {
+    btn.addEventListener('click', function(){
+      currentRow = this.closest('tr');
+      const name = currentRow.cells[1].innerText;
+      const cost = currentRow.cells[3].innerText.replace(/,/g,'');
+      const price = currentRow.cells[5].innerText.replace(/,/g,'');
+      productName.innerText = name;
+      costInput.value = cost;
+      priceInput.value = price;
+      modal.style.display = 'flex';
+    });
+  });
+
+  closeModal.addEventListener('click', ()=>{ modal.style.display='none'; });
+
+  // Lưu thay đổi
+  document.getElementById('saveBtn').addEventListener('click', function(){
+    let cost = parseFloat(costInput.value);
+    let price = parseFloat(priceInput.value);
+
+    if(isNaN(cost) || isNaN(price) || cost <= 0 || price <= 0){
+      alert("Nhập giá hợp lệ!");
+      return;
+    }
+
+    // Tính % lợi nhuận
+    let profitPercent = ((price - cost) / cost * 100).toFixed(0);
+
+    // Cập nhật bảng
+    currentRow.cells[3].innerText = cost.toLocaleString();
+    currentRow.cells[4].innerText = profitPercent + '%';
+    currentRow.cells[5].innerText = price.toLocaleString();
+
+    modal.style.display='none';
+  });
+
+  // Lọc theo loại
+  const categorySelect = document.getElementById('categorySelect');
+  categorySelect.addEventListener('change', function(){
+    const value = this.value;
+    document.querySelectorAll('#priceTable tbody tr').forEach(tr=>{
+      if(value === '' || tr.dataset.category === value){
+        tr.style.display='';
+      } else {
+        tr.style.display='none';
+      }
+    });
+  });
+
+  // Tìm kiếm sản phẩm
+  document.querySelector('.search-button').addEventListener('click', function(){
+    const keyword = document.querySelector('.search-bar').value.toLowerCase();
+    document.querySelectorAll('#priceTable tbody tr').forEach(tr=>{
+      const name = tr.cells[1].innerText.toLowerCase();
+      if(name.includes(keyword)){
+        tr.style.display='';
+      } else {
+        tr.style.display='none';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

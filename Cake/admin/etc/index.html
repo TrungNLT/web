@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Hp Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header__top">
+      <div class="header__logo">
+        <h2>Hp Shop</h2>
+      </div>
+      <div class="header__menu">
+        <ul>
+          <li class="active"><a href="#">Trang chủ</a></li>
+          <li><a href="#">Sản phẩm</a></li>
+          <li><a href="#">Người dùng</a></li>
+          <li><a href="#">Liên hệ</a></li>
+        </ul>
+      </div>
+      <div class="header__cart">
+        <input type="text" class="search-bar" placeholder="Tìm kiếm...">
+      </div>
+    </div>
+  </header>
+
+  <!-- Thống kê -->
+  <section class="class">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="class__item">
+            <h3>Sản phẩm mới</h3>
+            <p>Số lượng: <b>25</b></p>
+            <a href="product_list.html">Xem chi tiết</a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="class__item">
+            <h3>Người dùng</h3>
+            <p>Số lượng: <b>120</b></p>
+            <a href="user_list.html">Xem chi tiết</a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="class__item">
+            <h3>Thương hiệu</h3>
+            <p>Số lượng: <b>18</b></p>
+            <a href="brand_list.html">Xem chi tiết</a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="class__item">
+            <h3>Đơn hàng chưa xử lý</h3>
+            <p>Số lượng: <b>7</b></p>
+            <a href="order_list.html">Xem chi tiết</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Khách hàng tiêu biểu -->
+  <section class="team">
+    <div class="container">
+      <div class="section-title">
+        <h2>Khách hàng tiêu biểu</h2>
+      </div>
+      <table class="table" style="width:100%; text-align:center;">
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>Tên khách hàng</th>
+            <th>Tổng tiền đã chi</th>
+            <th>Ngày đặt hàng gần nhất</th>
+            <th>Chi tiết</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Nguyễn Văn A</td>
+            <td>15,000,000 VND</td>
+            <td>12-09-2025</td>
+            <td><a href="customer_orders.html">Chi tiết</a></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Trần Thị B</td>
+            <td>10,500,000 VND</td>
+            <td>10-09-2025</td>
+            <td><a href="customer_orders.html">Chi tiết</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</body>
+</html>

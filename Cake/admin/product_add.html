@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Thêm sản phẩm mới</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1b1b1b;
+      color: #eee;
+      margin: 0;
+      padding: 0;
+    }
+    .content-wrapper { padding: 20px; }
+    h4 { color: #ffcc00; margin-bottom: 20px; text-align:center; }
+    .card {
+      background: #2c2c2c;
+      border-radius: 12px;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .form-label { display: block; margin-bottom: 6px; }
+    .form-control, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #555;
+      background: #333;
+      color: #fff;
+      margin-bottom: 15px;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .btn-success { background: #28a745; color: #fff; }
+    .btn-success:hover { opacity: 0.9; }
+    /* Alert */
+    .alert {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      display: none;
+    }
+    .alert-success { background: #28a745; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="content-wrapper">
+    <h4>Thêm sản phẩm mới</h4>
+    <div class="card">
+      <form id="addProductForm">
+        <div class="mb-3">
+          <label class="form-label" for="name">Tên sản phẩm</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Bánh kem Le Castella" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Thương hiệu</label>
+          <select name="id_brands" class="form-control" required>
+            <option value="">--------------Chọn thương hiệu--------------</option>
+            <option value="1">Paris Bakery</option>
+            <option value="2">Sweet House</option>
+            <option value="3">Tokyo Bakery</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Loại bánh</label>
+          <select name="id_categories" class="form-control" required>
+            <option value="">--------------Chọn loại bánh--------------</option>
+            <option value="1">Bánh kem</option>
+            <option value="2">Bánh mì</option>
+            <option value="3">Bánh ngọt</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="image">Hình ảnh sản phẩm</label>
+          <input type="file" class="form-control" id="image" name="image" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="buy_price">Giá nhập</label>
+          <input type="number" class="form-control" id="buy_price" name="buy_price" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="sell_price">Giá bán</label>
+          <input type="number" class="form-control" id="sell_price" name="sell_price" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="description">Mô tả</label>
+          <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Trạng thái</label><br>
+          <label><input type="radio" name="status" value="1" checked> Hiện</label><br>
+          <label><input type="radio" name="status" value="0"> Ẩn</label>
+        </div>
+        <button type="submit" class="btn btn-success">Thêm sản phẩm</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Alert -->
+  <div id="alertBox" class="alert alert-success">Thêm sản phẩm thành công!</div>
+
+  <script>
+    document.getElementById("addProductForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const alertBox = document.getElementById("alertBox");
+      alertBox.style.display = "block";
+
+      setTimeout(()=>{
+        window.location.href = "product_list.html";
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

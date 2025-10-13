@@ -1,0 +1,575 @@
+<!-- Offcanvas (mobile) -->
+<div class="offcanvas-menu-overlay"></div>
+<div class="offcanvas-menu-wrapper">
+  <div class="offcanvas__cart">
+    <div class="offcanvas__cart__links">
+      <a href="#" class="search-switch"
+        ><img src="img/icon/search.png" alt="Tìm kiếm"
+      /></a>
+    </div>
+    <div class="offcanvas__cart__item">
+      <a href="view_cart.html"
+        ><img src="img/icon/cart.png" alt="Giỏ hàng" />
+        <span id="offcanvas-cart-count">0</span></a
+      >
+    </div>
+  </div>
+  <div class="offcanvas__logo">
+    <a href="index.html"><img src="img/logo.png" alt="Logo" /></a>
+  </div>
+  <div id="mobile-menu-wrap"></div>
+  <div class="offcanvas__option">
+    <ul>
+      <li id="user-menu-loggedout">
+        <a href="login.html">Đăng nhập</a> / <a href="register.html">Đăng ký</a>
+      </li>
+      <li id="user-menu-loggedin" style="display: none">
+        <span id="user-fullname-placeholder"></span>
+        <a href="#" data-logout class="ms-2">Đăng xuất</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- Offcanvas End -->
+
+<!-- Header -->
+<header class="header">
+  <!-- Top (nền trắng): logo + tài khoản + giỏ -->
+  <div class="header__topline">
+    <div class="container">
+      <div class="topline-flex">
+        <div class="header__logo">
+          <a href="index.html"><img src="img/logo.png" alt="Cake" /></a>
+        </div>
+        <div class="account-cart">
+          
+          <!-- KHU VỰC USER: trạng thái ĐÃ đăng nhập -->
+          <div id="header-user-loggedin" style="display: none">
+            <details class="user-dropdown">
+              <summary class="user-trigger" aria-label="Tài khoản">
+                <i class="fa fa-user"></i>
+                <span id="header-fullname-placeholder" class="ml-1"
+                  >Tài khoản</span
+                >
+                <i class="fa fa-caret-down ml-1"></i>
+              </summary>
+              <div class="user-menu">
+                <a href="account.html"
+                  ><i class="fa fa-id-card-o mr-2"></i> Thông tin tài khoản</a
+                >
+                <a href="history_order.html"
+                  ><i class="fa fa-list-alt mr-2"></i> Lịch sử mua hàng</a
+                >
+                <a href="#" data-logout
+                  ><i class="fa fa-sign-out mr-2"></i> Đăng xuất</a
+                >
+              </div>
+            </details>
+
+            <!-- Giỏ hàng -->
+            <a
+              href="view_cart.html"
+              class="header__cart big-icon-link ml-2"
+              title="Giỏ hàng"
+            >
+              <i class="fa fa-shopping-bag"></i>
+              <span id="header-cart-count">0</span>
+            </a>
+          </div>
+
+          <!-- KHU VỰC USER: trạng thái CHƯA đăng nhập -->
+          <div id="header-user-loggedout" style="display: inline">
+            <a href="login.html" class="login-icon" title="Đăng nhập">
+              <i class="fa fa-user"></i>
+              <span class="txt">Đăng nhập</span>
+            </a>
+            <span class="divider">/</span>
+            <a href="register.html" class="register-link"
+              ><i class="fa fa-user-plus"></i> Đăng ký</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thanh menu cam (chỉ thanh điều hướng) -->
+  <div class="header__menu__bar">
+    <div class="container">
+      <nav class="header__menu mobile-menu">
+        <ul>
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="list_product.html">Cửa hàng</a></li>
+          <li><a href="contact_add.html">Liên hệ</a></li>
+        </ul>
+      </nav>
+      <!-- Tránh trùng id với offcanvas phía trên -->
+      <div id="mobile-menu-wrap-2"></div>
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Basic palette (no dark mode) */
+  body { background: #ffffff; color: #222; }
+  :root { --border-color:#e3e3e3; }
+  /* Tách nền: top trắng, menu cam */
+  .header__topline {
+    background: #fff;
+    transition: 0.35s ease;
+  }
+  .header__menu__bar {
+    background: linear-gradient(90deg, #f08632, #e56700);
+    position: relative;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+  }
+  .header__menu__bar:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  background: radial-gradient(circle at 18% 120%, rgba(255,255,255,.18), transparent 60%);
+    pointer-events: none;
+  }
+  /* Bảo đảm dropdown nằm trên thanh menu cam */
+  .header__topline {
+    position: relative;
+    z-index: 2000;
+  }
+  /* Căn giữa & icon lớn */
+  .topline-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 4px 0;
+    width: 100%;
+  }
+  .account-cart {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 18px;
+    margin-left: auto;
+  }
+  /* Logo sát hẳn mép trái */
+  .header__topline > .container {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+  @media (min-width: 1200px) {
+    .header__topline > .container {
+      max-width: 100%;
+    }
+  }
+  .header__logo a {
+    display: inline-flex;
+    align-items: center;
+    padding-left: 4px;
+  }
+  .account-cart .big-icon-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #f8f8f9, #ffffff);
+    box-shadow: 0 7px 22px -12px rgba(0,0,0,.18), 0 3px 10px -6px rgba(0,0,0,.12);
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  .account-cart .big-icon-link:hover {
+    background: linear-gradient(135deg, #fff, #ffe8d6);
+    transform: translateY(-3px);
+  }
+  .account-cart .big-icon-link i {
+    font-size: 24px;
+    color: #e56700 !important;
+    line-height: 1;
+  }
+  .account-cart .big-icon-link span#header-cart-count {
+    top: 2px;
+    right: 2px;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    font-size: 0.65rem;
+  }
+  /* Logged-out login link: inline small icon + text (match register style) */
+  #header-user-loggedout a.login-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    background: transparent;
+    box-shadow: none;
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    padding: 0;
+    transition: color .25s ease;
+  }
+  #header-user-loggedout a.login-icon i {
+    font-size: 16px;
+    color: #e56700 !important;
+  }
+  #header-user-loggedout a.login-icon .txt {
+    position: static;
+    width: auto; height: auto; padding: 0; margin: 0;
+    overflow: visible; clip: auto; border: 0;
+    font-weight: 600; color: #e56700;
+  }
+  #header-user-loggedout a.login-icon:hover .txt,
+  #header-user-loggedout a.login-icon:hover i {
+    color: #ff7a00 !important;
+  }
+  #header-user-loggedout span.divider { margin: 0 6px; opacity: 0.4; }
+  #header-user-loggedout a.register-link { font-weight: 600; color: #e56700; display:inline-flex; align-items:center; gap:6px; }
+  #header-user-loggedout a.register-link i { font-size:16px; }
+  #header-user-loggedout a.register-link:hover { color: #ff7a00; }
+  /* Bỏ dấu/chấm/đường kẻ quanh icon giỏ */
+  .header__cart ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .header__cart ul li::after {
+    display: none !important;
+  }
+  /* Dropdown dùng <details> để không phụ thuộc JS */
+  details.user-dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 4000;
+  }
+  /* Enlarge logged-in user trigger */
+  .user-trigger {
+    list-style: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 52px;
+    padding: 0 18px 0 16px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #f8f8f9, #ffffff);
+    box-shadow: 0 7px 22px -12px rgba(0,0,0,.18), 0 3px 10px -6px rgba(0,0,0,.12);
+    font-weight: 600;
+    transition: 0.3s;
+  }
+  .user-trigger:hover {
+    background: linear-gradient(135deg, #fff, #ffe8d6);
+    transform: translateY(-3px);
+  }
+  .user-trigger .fa-user {
+    font-size: 26px;
+    color: #e56700 !important;
+  }
+  .user-trigger .fa-caret-down {
+    font-size: 16px;
+    color: #e56700 !important;
+  }
+  .user-trigger #header-fullname-placeholder {
+    font-size: 0.9rem;
+    color: #333;
+    font-weight: 600;
+  }
+  .user-trigger::-webkit-details-marker {
+    display: none;
+  }
+  .user-dropdown .user-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 230px;
+    background: #fff;
+    border: 1px solid var(--orange-100, #ffe8d6);
+    border-radius: 18px;
+    box-shadow: 0 10px 28px -8px rgba(0, 0, 0, 0.18),
+      0 4px 12px -4px rgba(255, 122, 0, 0.35);
+    padding: 8px 0 10px;
+    display: none;
+    z-index: 3000;
+    animation: menuFade 0.28s ease;
+  }
+  .user-dropdown .user-menu:before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: 22px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    transform: rotate(45deg);
+    border-left: 1px solid var(--orange-100, #ffe8d6);
+    border-top: 1px solid var(--orange-100, #ffe8d6);
+  }
+  /* Mở bằng click (native <details>), tự ẩn khi chuột rời khỏi khu vực */
+  .user-dropdown[open] .user-menu {
+    display: block;
+  }
+  .user-dropdown[open]:not(:hover) .user-menu {
+    display: none;
+  }
+  .user-dropdown .user-menu a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap;
+    font-weight: 500;
+    font-size: 0.87rem;
+    transition: 0.25s;
+  }
+  .user-dropdown .user-menu a i {
+    width: 18px;
+    text-align: center;
+    color: #ff7a00;
+  }
+  .user-dropdown .user-menu a:hover {
+    background: linear-gradient(90deg, #fff7f1, #fff);
+    color: #d85f00;
+  }
+
+  /* Màu thương hiệu cho icon người và giỏ hàng ở header */
+  .account-cart .fa-user,
+  .account-cart .fa-caret-down,
+  .account-cart .fa-shopping-bag,
+  .account-cart .header__cart,
+  .account-cart .header__cart #header-cart-count {
+    color: #e56700 !important;
+  }
+  .account-cart .header__cart {
+    position: relative;
+  }
+  .account-cart .header__cart:hover {
+    color: var(--orange-500, #ff7a00) !important;
+  }
+  .account-cart .header__cart span {
+    background: var(--orange-500, #ff7a00);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 600;
+    min-width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    box-shadow: 0 4px 10px -4px rgba(255, 122, 0, 0.55);
+  }
+  /* Make the cart number text black (header) */
+  .account-cart .header__cart #header-cart-count {
+    color: #000 !important;
+  }
+  /* Màu cam cho icon Đăng nhập / Đăng ký ở trạng thái chưa đăng nhập */
+  #header-user-loggedout .fa-user,
+  #header-user-loggedout .fa-user-plus {
+    color: #f08632 !important;
+  }
+  #header-user-loggedout a:hover .fa-user,
+  #header-user-loggedout a:hover .fa-user-plus {
+    color: #da792d !important;
+  }
+  /* Căn logo trắng thẳng hàng mép trên & cách đều khung cam */
+  .header__topline .row {
+    display: none;
+  }
+  .header__topline {
+    padding: 2px 0;
+  }
+  .header__logo {
+    display: flex;
+    align-items: center;
+    /* Reset any absolute centering from external CSS */
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    margin-left: 0 !important;
+  }
+  .header__logo img {
+    display: block;
+    height: 52px;
+    width: auto;
+    object-fit: contain;
+    transition: 0.35s ease;
+    background: var(--bg-surface);
+  }
+  /* Đảm bảo không chồng lấn lên thanh cam */
+  .header__menu__bar {
+    position: relative;
+    z-index: 1500;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  /* Nếu image có nền trắng không đều, thêm viền để cảm giác cân đối */
+  .header__logo img {
+    box-shadow: 0 0 0 1px var(--border-color);
+    border-radius: 12px;
+    padding: 4px 8px;
+  }
+  /* Nav items refinement */
+  .header__menu ul li {
+    position: relative;
+  }
+  /* Tăng chiều cao thanh menu */
+  .header__menu ul li a {
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    padding: 26px 34px 24px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+  }
+  .header__menu ul li a:after {
+    content: "";
+    position: absolute;
+    left: 26px;
+    right: 26px;
+    bottom: 14px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--orange-400, #ff943d),
+      var(--orange-600, #e56700)
+    );
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: 0.35s;
+  }
+  .header__menu ul li:hover > a:after,
+  .header__menu ul li.active > a:after {
+    transform: scaleX(1);
+  }
+  /* Sticky effect */
+  .header--scrolled .header__topline {
+    box-shadow: 0 10px 28px -12px rgba(0, 0, 0, 0.35),
+      0 4px 12px -4px rgba(255, 122, 0, 0.35);
+    background: var(--bg-surface);
+  }
+  .header--scrolled .header__logo img {
+    height: 46px;
+  }
+  /* Offcanvas enhancements */
+  .offcanvas-menu-wrapper {
+    background: linear-gradient(145deg, #fff, #fff7f1);
+    box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.3);
+  }
+  .offcanvas__cart__item span {
+    /* Make the offcanvas cart number black */
+    color: #000 !important;
+  }
+  .canvas__open {
+    display: none !important;
+  }
+  /* Removed theme-toggle styles */
+  /* Dark overrides */
+  /* Removed dark-mode overrides */
+  @keyframes menuFade {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @media (max-width: 576px) {
+    .header__logo img {
+      height: 48px;
+    }
+    .header__menu__bar {
+      min-height: 60px;
+    }
+    .header__menu ul li a {
+      padding: 16px 20px 14px;
+      font-size: 0.8rem;
+    }
+    .header__menu ul li a:after {
+      left: 20px;
+      right: 20px;
+      bottom: 8px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    // Sticky header on scroll
+    const rootHeader = document.querySelector("header.header");
+    const onScroll = () => {
+      if (!rootHeader) return;
+      if (window.scrollY > 40) rootHeader.classList.add("header--scrolled");
+      else rootHeader.classList.remove("header--scrolled");
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    function updateHeader() {
+      const user = JSON.parse(localStorage.getItem("user") || "null");
+      const inEl = document.getElementById("header-user-loggedin");
+      const outEl = document.getElementById("header-user-loggedout");
+      const offIn = document.getElementById("user-menu-loggedin");
+      const offOut = document.getElementById("user-menu-loggedout");
+      const name1 = document.getElementById("header-fullname-placeholder");
+      const name2 = document.getElementById("user-fullname-placeholder");
+      // menu-history đã bị xoá khỏi nav, không cần xử lý nữa
+
+      if (user) {
+        if (inEl) inEl.style.display = "inline-flex";
+        if (outEl) outEl.style.display = "none";
+        if (offIn) offIn.style.display = "";
+        if (offOut) offOut.style.display = "none";
+        if (name1)
+          name1.textContent = user.fullname || user.email || "Tài khoản";
+        if (name2)
+          name2.textContent = user.fullname || user.email || "Tài khoản";
+        // no-op
+      } else {
+        if (inEl) inEl.style.display = "none";
+        if (outEl) outEl.style.display = "inline";
+        if (offIn) offIn.style.display = "none";
+        if (offOut) offOut.style.display = "";
+        // no-op
+      }
+
+      // Chỉ hiển thị số lượng giỏ của tài khoản đã đăng nhập (tổng số lượng, không phải số dòng)
+      let count = 0;
+      try {
+        if (user && window.Cart?.getCart) {
+          const items = Cart.getCart() || [];
+          count = items.reduce(
+            (s, it) => s + Number(it.qty ?? it.quantity ?? 1),
+            0
+          );
+        }
+      } catch {}
+      const headCount = document.getElementById("header-cart-count");
+      const offCount = document.getElementById("offcanvas-cart-count");
+      if (headCount) headCount.textContent = count;
+      if (offCount) offCount.textContent = count;
+    }
+
+    // Lưu ý: Xử lý logout tập trung ở IIFE phía dưới để tránh trùng lặp
+
+    document.addEventListener("DOMContentLoaded", updateHeader);
+    window.addEventListener("authChanged", updateHeader);
+    window.addEventListener("cartUpdated", updateHeader);
+  })();
+
+  // Hỗ trợ phím Esc để đóng dropdown; Logout đã được xử lý tập trung trong js/auth.js
+  (function () {
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      const d = document.querySelector("details.user-dropdown[open]");
+      if (d) d.removeAttribute("open");
+    });
+  })();
+</script>

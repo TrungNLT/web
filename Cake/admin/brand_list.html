@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Thương hiệu bánh</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1b1b1b;
+      color: #eee;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    /* Sidebar */
+    .layout-menu {
+      width: 220px;
+      background: #2a2a2a;
+      min-height: 100vh;
+      padding: 20px 10px;
+      border-right: 2px solid #ffcc00;
+    }
+    .app-brand {
+      color: #ffcc00;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .menu-inner {
+      list-style: none;
+      padding: 0;
+    }
+    .menu-item { margin: 8px 0; }
+    .menu-link {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #eee;
+    }
+    .menu-link:hover {
+      background: #3a3a3a;
+      color: #ffcc00;
+    }
+
+    /* Main layout */
+    .layout-page {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navbar */
+    .layout-navbar {
+      background: #2a2a2a;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid #ffcc00;
+    }
+    .search-input {
+      flex: 1;
+      max-width: 500px;
+      padding: 8px 12px;
+      border: 1px solid #555;
+      border-radius: 6px;
+      background: #333;
+      color: #fff;
+      text-align: center;
+    }
+    .search-input::placeholder { color: #aaa; text-align: center; }
+
+    /* Content */
+    .content-wrapper { padding: 20px; }
+    h4 { color: #ffcc00; margin-bottom: 20px; }
+    .card {
+      background: #2c2c2c;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    /* Table */
+    .table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    .table th, .table td {
+      border: 1px solid #444;
+      padding: 10px;
+      text-align: center;
+    }
+    .table th {
+      background: #2a2a2a;
+      color: #ffcc00;
+    }
+    .table tr:nth-child(even) { background: #333; }
+    .table tr:nth-child(odd) { background: #222; }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 2px;
+      cursor: pointer;
+    }
+    .btn-primary { background: #007bff; color: #fff; }
+    .btn-danger { background: #dc3545; color: #fff; }
+    .btn-success { background: #28a745; color: #fff; }
+    .btn:hover { opacity: 0.85; }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      list-style: none;
+      gap: 5px;
+      justify-content: center;
+      margin-top: 20px;
+      padding: 0;
+    }
+    .pagination .page-item .page-link {
+      padding: 8px 12px;
+      border-radius: 6px;
+      background: #333;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .pagination .active .page-link {
+      background: #ffcc00;
+      color: #111;
+    }
+    .pagination .page-link:hover {
+      background: #ffaa00;
+      color: #111;
+    }
+
+    /* Alert */
+    .alert {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      display: none;
+      animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+    }
+    .alert-success { background: #28a745; color: #fff; }
+    .alert-danger { background: #dc3545; color: #fff; }
+    .alert-info { background: #007bff; color: #fff; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeOut {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-20px); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside id="layout-menu" class="layout-menu">
+    <div class="app-brand">cake-sale</div>
+    <ul class="menu-inner">
+      <li class="menu-item"><a href="index.html" class="menu-link">Bảng điều khiển</a></li>
+      <li class="menu-item"><a href="category_list.html" class="menu-link">Loại bánh</a></li>
+      <li class="menu-item"><a href="brand_list.html" class="menu-link">Thương hiệu</a></li>
+      <li class="menu-item"><a href="product_list.html" class="menu-link">Sản phẩm</a></li>
+       <li class="menu-item"><a href="price_management.html" class="menu-link">Quản lý giá bán</a></li>
+      <li class="menu-item"><a href="order_list.html" class="menu-link">Đơn đặt hàng</a></li>
+       <li class="menu-item"><a href="import_list.html"" class="menu-link">Quản lý nhập hàng</a></li>
+      <li class="menu-item"><a href="stock_management.html" class="menu-link">Quản lý tồn kho</a></li>
+      <li class="menu-item"><a href="user_list.html" class="menu-link">Người dùng</a></li>
+     
+    </ul>
+  </aside>
+
+  <!-- Main Page -->
+  <div class="layout-page">
+    <!-- Navbar -->
+    <!-- Ô tìm kiếm trong navbar -->
+
+<nav class="layout-navbar">
+  <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm thương hiệu..." onkeyup="searchBrand()">
+</nav>
+    <!-- Content -->
+    <div class="content-wrapper">
+      <h4>Thương hiệu bánh</h4>
+      <div class="card">
+        <table class="table" id="brandTable">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Tên thương hiệu</th>
+              <th>Hình ảnh</th>
+              <th>Chức năng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- render bằng JS -->
+          </tbody>
+        </table>
+        <div class="mt-4">
+          <a href="brand_add.html" class="btn btn-success">Thêm Mới</a>
+        </div>
+        <nav>
+          <ul class="pagination" id="pagination"></ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert -->
+  <div id="alertBox" class="alert"></div>
+
+  <script>
+    const brands = [
+      { name: "Bánh Ngọt Paris", img: "../uploads/anh1.jpg" },
+      { name: "Bánh Kem Hoàng Gia", img: "../uploads/anh2.jpg" },
+      { name: "Bánh Mì Việt", img: "../uploads/anh3.jpg" },
+      { name: "Bakery Tokyo", img: "../uploads/anh4.jpg" },
+      { name: "Sweet House", img: "../uploads/anh5.jpg" },
+      { name: "Bánh Pháp Rose", img: "../uploads/anh6.jpg" }
+    ];
+
+    const rowsPerPage = 3;
+    let currentPage = 1;
+
+    function renderTable(page) {
+      const tbody = document.querySelector("#brandTable tbody");
+      tbody.innerHTML = "";
+
+      const start = (page - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      const pageData = brands.slice(start, end);
+
+      pageData.forEach((brand, index) => {
+        const row = `<tr>
+          <td>${start + index + 1}</td>
+          <td>${brand.name}</td>
+          <td><img src="${brand.img}" alt="${brand.name}" width="100"></td>
+          <td>
+            <a href="brand_update.html" class="btn btn-primary">Sửa</a>
+            <button class="btn btn-danger" onclick="deleteBrand(${start + index})">Xóa</button>
+          </td>
+        </tr>`;
+        tbody.innerHTML += row;
+      });
+    }
+
+    function renderPagination() {
+      const totalPages = Math.ceil(brands.length / rowsPerPage);
+      const pagination = document.getElementById("pagination");
+      pagination.innerHTML = "";
+
+      for (let i = 1; i <= totalPages; i++) {
+        pagination.innerHTML += `
+          <li class="page-item ${i === currentPage ? 'active' : ''}">
+            <a class="page-link" onclick="goToPage(${i})">${i}</a>
+          </li>`;
+      }
+    }
+
+    function goToPage(page) {
+      currentPage = page;
+      renderTable(page);
+      renderPagination();
+    }
+
+    function deleteBrand(index) {
+      if (confirm("Bạn có chắc muốn xóa thương hiệu này?")) {
+       
+       alert("Xóa thành công!");
+        renderTable(currentPage);
+        renderPagination();
+      }
+    }
+      // tìm kiếm 
+    function showAlert(message, type) {
+      const alertBox = document.getElementById("alertBox");
+      alertBox.textContent = message;
+      alertBox.className = "alert alert-" + type;
+      alertBox.style.display = "block";
+      setTimeout(() => { alertBox.style.display = "none"; }, 3000);
+    }
+
+    // init
+    renderTable(currentPage);
+    renderPagination();
+      function searchBrand() {
+    const keyword = document.getElementById("searchInput").value.toLowerCase();
+    const rows = document.querySelector("#brandTable tbody").getElementsByTagName("tr");
+    let found = false;
+
+    for (let row of rows) {
+      const brandName = row.cells[1].textContent.toLowerCase();
+      if (brandName.includes(keyword) && keyword !== "") {
+        row.style.display = "";
+        found = true;
+      } else if (keyword === "") {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    }
+
+    if (keyword !== "") {
+      if (found) {
+        showAlert("Tìm thấy thương hiệu phù hợp!", "success");
+      } else {
+        showAlert("Không có thương hiệu nào phù hợp!", "danger");
+      }
+    }
+  }
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Cake Template" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cake Shop - Trang Chủ</title>
+
+    <!-- Google Font & CSS -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/flaticon.css" type="text/css" />
+    <link rel="stylesheet" href="css/barfiller.css" type="text/css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <!-- Inline themed enhancements (was theme-orange.css) -->
+    <style>
+      :root {
+        --orange-50: #fff7f1;
+        --orange-100: #ffe8d6;
+        --orange-150: #ffeedf;
+        --orange-200: #ffd4b0;
+        --orange-300: #ffb374;
+        --orange-400: #ff943d;
+        --orange-450: #ff8624;
+        --orange-500: #ff7a00;
+        --orange-600: #e56700;
+        --orange-650: #d85f00;
+        --orange-700: #c75400;
+        --choco: #4b2e2e;
+        --choco-soft: #6b463c;
+        --radius-sm: 10px;
+        --radius-md: 18px;
+        --radius-lg: 26px;
+        --radius-xl: 34px;
+        --shadow-soft: 0 4px 14px -6px rgba(255, 122, 0, 0.45),
+          0 2px 6px -2px rgba(0, 0, 0, 0.08);
+        --shadow-lift: 0 10px 28px -10px rgba(255, 122, 0, 0.55),
+          0 4px 12px -4px rgba(0, 0, 0, 0.12);
+      }
+      body {
+        background: linear-gradient(180deg, var(--orange-50), #ffffff 300px)
+          fixed;
+      }
+      .primary-btn,
+      .btn.primary-btn {
+        background: var(--orange-500);
+        border: none;
+        border-radius: var(--radius-lg);
+        padding: 14px 30px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        box-shadow: var(--shadow-soft);
+        transition: 0.28s;
+      }
+      .primary-btn:hover {
+        background: var(--orange-600);
+        color: #fff;
+        transform: translateY(-2px);
+      }
+      .primary-btn:active {
+        background: var(--orange-700);
+        transform: translateY(0);
+      }
+      .hero {
+        position: relative;
+      }
+      .hero__item:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          120deg,
+          rgba(0, 0, 0, 0.45),
+          rgba(0, 0, 0, 0.15) 60%,
+          rgba(0, 0, 0, 0.55)
+        );
+      }
+      .hero__item .hero__text {
+        position: relative;
+        z-index: 2;
+        animation: fadeSlide 0.9s ease 0.15s both;
+      }
+      .hero__text--milk {
+        background: linear-gradient(
+          135deg,
+          rgba(245, 237, 230, 0.82),
+          rgba(250, 244, 238, 0.78)
+        );
+        padding: 40px 46px;
+        border-radius: var(--radius-xl);
+        border: 1px solid rgba(102, 64, 32, 0.15);
+        box-shadow: 0 10px 32px -18px rgba(75, 46, 46, 0.35);
+        backdrop-filter: blur(6px) saturate(120%);
+        -webkit-backdrop-filter: blur(6px) saturate(120%);
+      }
+      .hero__text--milk h2 {
+        font-weight: 800;
+        line-height: 1.18;
+        color: var(--choco);
+        padding: 8px 0;
+        text-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+      }
+      .section-title span {
+        background: linear-gradient(
+          90deg,
+          var(--orange-500),
+          var(--orange-600)
+        );
+        color: #fff !important;
+        padding: 6px 14px;
+        border-radius: 16px;
+        font-size: 0.68rem;
+        letter-spacing: 0.8px;
+        font-weight: 600;
+        display: inline-block;
+        box-shadow: 0 4px 12px -6px rgba(255, 122, 0, 0.5);
+      }
+      .section-title h2 {
+        font-weight: 800;
+        color: var(--orange-650);
+        position: relative;
+      }
+      .section-title h2:after {
+        content: "";
+        display: block;
+        width: 70px;
+        height: 5px;
+        border-radius: 3px;
+        margin-top: 14px;
+        background: linear-gradient(
+          90deg,
+          var(--orange-400),
+          var(--orange-600)
+        );
+        box-shadow: 0 2px 8px -2px rgba(255, 122, 0, 0.55);
+      }
+      .about__bar__item p {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        color: var(--orange-650);
+        margin-bottom: 6px;
+      }
+      .about__bar__item .about__percentage {
+        font-weight: 700;
+        color: var(--orange-600);
+        font-size: 0.9rem;
+      }
+      .barfiller {
+        background: var(--orange-100);
+        border-radius: 20px;
+        overflow: hidden;
+      }
+      .barfiller .fill {
+        background: linear-gradient(
+          90deg,
+          var(--orange-400),
+          var(--orange-600)
+        );
+        box-shadow: 0 2px 8px -2px rgba(255, 122, 0, 0.4);
+      }
+      .product__item.product-card {
+        background: #fff;
+        border: 1px solid var(--orange-100);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: 0 4px 18px -10px rgba(255, 122, 0, 0.4),
+          0 2px 6px -2px rgba(0, 0, 0, 0.08);
+        transition: 0.35s;
+        position: relative;
+      }
+      .product__item.product-card:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0) 60%,
+          rgba(255, 122, 0, 0.15)
+        );
+        opacity: 0;
+        transition: 0.35s;
+      }
+      .product__item.product-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-lift);
+      }
+      .product__item.product-card:hover:before {
+        opacity: 1;
+      }
+      .product__item.product-card .product__item__text {
+        padding: 18px 18px 20px;
+      }
+      .product__item.product-card h6 a {
+        color: #333;
+        transition: 0.25s;
+      }
+      .product__item.product-card h6 a:hover {
+        color: var(--orange-600);
+      }
+      .product__item.product-card h5 {
+        color: var(--orange-650);
+        font-weight: 700;
+        font-size: 1rem;
+        margin-top: 4px;
+      }
+      .product__item__pic {
+        border-bottom: 1px solid var(--orange-100);
+        min-height: 180px;
+        background-size: cover;
+        background-position: center;
+      }
+      .product__item.product-card .btn.primary-btn {
+        padding: 9px 18px;
+        border-radius: 18px;
+        font-size: 0.65rem;
+        letter-spacing: 0.7px;
+        margin-top: 8px;
+      }
+      .product__slider.owl-carousel .owl-nav button {
+        background: var(--orange-500);
+        width: 44px;
+        height: 44px;
+        line-height: 44px;
+        border-radius: 14px;
+        color: #fff;
+        font-size: 18px;
+        box-shadow: 0 4px 12px -6px rgba(255, 122, 0, 0.5);
+        transition: 0.25s;
+        margin: 0 4px;
+      }
+      .product__slider.owl-carousel .owl-nav button:hover {
+        background: var(--orange-600);
+      }
+      .testimonial {
+        background: linear-gradient(180deg, var(--orange-50), #fff);
+      }
+      .testimonial__item {
+        background: #fff;
+        border: 1px solid var(--orange-100);
+        border-radius: 30px;
+        padding: 34px 32px;
+        box-shadow: 0 4px 16px -8px rgba(255, 122, 0, 0.35),
+          0 2px 6px -2px rgba(0, 0, 0, 0.06);
+        transition: 0.35s;
+      }
+      .testimonial__item:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lift);
+      }
+      .testimonial__author__pic img {
+        border-radius: 14px;
+        border: 3px solid var(--orange-300);
+      }
+      .testimonial__author__text h5 {
+        color: var(--orange-650);
+        font-weight: 700;
+      }
+      .rating span {
+        color: var(--orange-500);
+      }
+      .instagram__text {
+        background: linear-gradient(
+          135deg,
+          var(--orange-500),
+          var(--orange-600)
+        );
+        color: #fff;
+        border-radius: 30px;
+        padding: 42px 40px;
+        box-shadow: 0 6px 24px -12px rgba(255, 122, 0, 0.55);
+      }
+      .instagram__text .section-title span {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: none;
+      }
+      .instagram__text h2 {
+        color: #fff;
+      }
+      .instagram__pic {
+        position: relative;
+        border-radius: 26px;
+        overflow: hidden;
+        box-shadow: 0 4px 14px -8px rgba(255, 122, 0, 0.4);
+      }
+      .instagram__pic:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0) 55%,
+          rgba(0, 0, 0, 0.5)
+        );
+        opacity: 0;
+        transition: 0.35s;
+      }
+      .instagram__pic:hover:after {
+        opacity: 1;
+      }
+      .map__inner {
+        background: #fff;
+        border: 1px solid var(--orange-100);
+        border-radius: 26px;
+        padding: 30px 32px;
+        box-shadow: 0 4px 18px -10px rgba(255, 122, 0, 0.45),
+          0 2px 6px -2px rgba(0, 0, 0, 0.06);
+      }
+      .map__inner h6 {
+        font-weight: 700;
+        color: var(--orange-600);
+        font-size: 1.05rem;
+        margin-bottom: 16px;
+      }
+      .map__inner ul li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 10px;
+        font-weight: 500;
+        color: #444;
+      }
+      .map__inner ul li:before {
+        content: "\f041";
+        font-family: "FontAwesome";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--orange-500);
+      }
+      [data-fade] {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: fadeUp 0.8s ease forwards;
+      }
+      [data-fade="2"] {
+        animation-delay: 0.15s;
+      }
+      [data-fade="3"] {
+        animation-delay: 0.3s;
+      }
+      [data-fade="4"] {
+        animation-delay: 0.45s;
+      }
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeSlide {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .text-choco {
+        color: var(--choco) !important;
+      }
+      .bg-orange-soft {
+        background: var(--orange-50) !important;
+      }
+      .border-orange {
+        border: 1px solid var(--orange-300) !important;
+      }
+      @media (max-width: 992px) {
+        .product__item.product-card {
+          margin: 4px;
+        }
+        .instagram__text {
+          margin-bottom: 26px;
+        }
+      }
+      @media (max-width: 576px) {
+        .hero__text--milk {
+          padding: 30px 28px;
+          border-radius: 26px;
+        }
+        .hero__text--milk h2 {
+          font-size: 1.55rem;
+        }
+      }
+    </style>
+    <!-- Page-specific enhanced orange theme overrides -->
+    <style>
+      :root {
+        --orange-50: #fff7f1;
+        --orange-100: #ffe8d6;
+        --orange-150: #ffeedf;
+        --orange-200: #ffd4b0;
+        --orange-300: #ffb374;
+        --orange-400: #ff943d;
+        --orange-450: #ff8624;
+        --orange-500: #ff7a00;
+        --orange-600: #e56700;
+        --orange-650: #d85f00;
+        --orange-700: #c75400;
+      }
+      body {
+        background: linear-gradient(180deg, var(--orange-50), #ffffff 280px)
+          fixed;
+      }
+      /* Unified primary button */
+      .primary-btn,
+      .btn.primary-btn {
+        background: var(--orange-500);
+        border: none;
+        border-radius: 26px;
+        padding: 14px 30px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        box-shadow: 0 6px 18px -8px rgba(255, 122, 0, 0.55),
+          0 2px 6px -2px rgba(0, 0, 0, 0.08);
+        transition: 0.28s;
+      }
+      .primary-btn:hover {
+        background: var(--orange-600);
+        color: #fff;
+        transform: translateY(-2px);
+      }
+      .primary-btn:active {
+        background: var(--orange-700);
+        transform: translateY(0);
+      }
+      /* Hero */
+      .hero {
+        position: relative;
+      }
+      .hero__item:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          120deg,
+          rgba(0, 0, 0, 0.45),
+          rgba(0, 0, 0, 0.15) 60%,
+          rgba(0, 0, 0, 0.55)
+        );
+        border-radius: 0;
+      }
+      .hero__item .hero__text {
+        position: relative;
+        z-index: 2;
+        animation: fadeSlide 0.9s ease 0.15s both;
+      }
+      /* Transparent hero panel with strong orange heading */
+      .hero__text {
+        background: linear-gradient(
+          135deg,
+          rgba(245, 237, 230, 0.82),
+          rgba(250, 244, 238, 0.78)
+        );
+        padding: 40px 46px;
+        border-radius: 34px;
+        border: 1px solid rgba(102, 64, 32, 0.15);
+        box-shadow: 0 10px 32px -18px rgba(75, 46, 46, 0.35);
+        backdrop-filter: blur(6px) saturate(120%);
+        -webkit-backdrop-filter: blur(6px) saturate(120%);
+      }
+      .hero__text h2 {
+        font-weight: 800;
+        line-height: 1.18;
+        color: var(--orange-600);
+        padding: 8px 0;
+        text-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+      }
+      @media (max-width: 576px) {
+        .hero__text {
+          padding: 30px 28px;
+          border-radius: 26px;
+        }
+      }
+      /* Section titles */
+      .section-title span {
+        display: inline-block;
+        background: linear-gradient(
+          90deg,
+          var(--orange-500),
+          var(--orange-600)
+        );
+        color: #fff;
+        padding: 6px 14px;
+        border-radius: 16px;
+        font-size: 0.68rem;
+        letter-spacing: 0.8px;
+        font-weight: 600;
+        box-shadow: 0 4px 12px -6px rgba(255, 122, 0, 0.5);
+      }
+      .section-title h2 {
+        font-weight: 800;
+        color: var(--orange-650);
+        position: relative;
+      }
+      .section-title h2:after {
+        content: "";
+        display: block;
+        width: 70px;
+        height: 5px;
+        border-radius: 3px;
+        margin-top: 14px;
+        background: linear-gradient(
+          90deg,
+          var(--orange-400),
+          var(--orange-600)
+        );
+        box-shadow: 0 2px 8px -2px rgba(255, 122, 0, 0.55);
+      }
+      /* About progress bars */
+      .about__bar__item p {
+        font-weight: 600;
+        color: var(--orange-650);
+      }
+      .barfiller {
+        background: var(--orange-100);
+        border-radius: 20px;
+        overflow: hidden;
+      }
+      .barfiller .fill {
+        background: linear-gradient(
+          90deg,
+          var(--orange-400),
+          var(--orange-600)
+        );
+        box-shadow: 0 2px 8px -2px rgba(255, 122, 0, 0.4);
+      }
+      /* Product slider cards */
+      .product__item.product-card {
+        background: #fff;
+        border: 1px solid var(--orange-100);
+        border-radius: 26px;
+        overflow: hidden;
+        box-shadow: 0 4px 18px -10px rgba(255, 122, 0, 0.4),
+          0 2px 6px -2px rgba(0, 0, 0, 0.08);
+        transition: 0.35s;
+        position: relative;
+      }
+      .product__item.product-card:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0) 60%,
+          rgba(255, 122, 0, 0.15)
+        );
+        opacity: 0;
+        transition: 0.35s;
+      }
+      .product__item.product-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 28px -10px rgba(255, 122, 0, 0.55),
+          0 4px 12px -4px rgba(0, 0, 0, 0.12);
+      }
+      .product__item.product-card:hover:before {
+        opacity: 1;
+      }
+      .product__item.product-card .product__item__text {
+        padding: 18px 18px 20px;
+      }
+      .product__item.product-card h6 a {
+        color: #333;
+        transition: 0.25s;
+      }
+      .product__item.product-card h6 a:hover {
+        color: var(--orange-600);
+      }
+      .product__item.product-card h5 {
+        color: var(--orange-650);
+        font-weight: 700;
+        font-size: 1rem;
+        margin-top: 4px;
+      }
+      .product__item__pic {
+        border-bottom: 1px solid var(--orange-100);
+        min-height: 180px;
+        background-size: cover;
+        background-position: center;
+      }
+      .product__item.product-card .btn.primary-btn {
+        padding: 9px 18px;
+        border-radius: 18px;
+        font-size: 0.65rem;
+        letter-spacing: 0.7px;
+        margin-top: 8px;
+      }
+      /* Carousel navigation overrides */
+      .product__slider.owl-carousel .owl-nav button {
+        background: var(--orange-500);
+        width: 44px;
+        height: 44px;
+        line-height: 44px;
+        border-radius: 14px;
+        color: #fff;
+        font-size: 18px;
+        box-shadow: 0 4px 12px -6px rgba(255, 122, 0, 0.5);
+        transition: 0.25s;
+        margin: 0 4px;
+      }
+      .product__slider.owl-carousel .owl-nav button:hover {
+        background: var(--orange-600);
+      }
+      /* Testimonial */
+      .testimonial {
+        background: linear-gradient(180deg, var(--orange-50), #fff);
+      }
+      .testimonial__item {
+        background: #fff;
+        border: 1px solid var(--orange-100);
+        border-radius: 30px;
+        padding: 34px 32px;
+        box-shadow: 0 4px 16px -8px rgba(255, 122, 0, 0.35),
+          0 2px 6px -2px rgba(0, 0, 0, 0.06);
+        transition: 0.35s;
+      }
+      .testimonial__item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 28px -10px rgba(255, 122, 0, 0.55),
+          0 4px 12px -4px rgba(0, 0, 0, 0.12);
+      }
+      .testimonial__author__pic img {
+        border-radius: 14px;
+        border: 3px solid var(--orange-300);
+      }
+      .testimonial__author__text h5 {
+        color: var(--orange-650);
+        font-weight: 700;
+      }
+      .rating span {
+        color: var(--orange-500);
+      }
+      /* Instagram */
+      .instagram__text {
+        background: linear-gradient(
+          135deg,
+          var(--orange-500),
+          var(--orange-600)
+        );
+        color: #fff;
+        border-radius: 30px;
+        padding: 42px 40px;
+        box-shadow: 0 6px 24px -12px rgba(255, 122, 0, 0.55);
+      }
+      .instagram__text .section-title span {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: none;
+      }
+      .instagram__text h2 {
+        color: #fff;
+      }
+      .instagram__pic {
+        position: relative;
+        border-radius: 26px;
+        overflow: hidden;
+        box-shadow: 0 4px 14px -8px rgba(255, 122, 0, 0.4);
+      }
+      .instagram__pic:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0) 55%,
+          rgba(0, 0, 0, 0.5)
+        );
+        opacity: 0;
+        transition: 0.35s;
+      }
+      .instagram__pic:hover:after {
+        opacity: 1;
+      }
+      /* Map block */
+      .map__inner {
+        background: #fff;
+        border: 1px solid var(--orange-100);
+        border-radius: 26px;
+        padding: 30px 32px;
+        box-shadow: 0 4px 18px -10px rgba(255, 122, 0, 0.45),
+          0 2px 6px -2px rgba(0, 0, 0, 0.06);
+      }
+      .map__inner h6 {
+        font-weight: 700;
+        color: var(--orange-600);
+        font-size: 1.05rem;
+        margin-bottom: 16px;
+      }
+      .map__inner ul li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 10px;
+        font-weight: 500;
+        color: #444;
+      }
+      .map__inner ul li:before {
+        content: "\f041";
+        font-family: "FontAwesome";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--orange-500);
+      }
+      /* Subtle reveal animation */
+      [data-fade] {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: fadeUp 0.8s ease forwards;
+      }
+      [data-fade="2"] {
+        animation-delay: 0.15s;
+      }
+      [data-fade="3"] {
+        animation-delay: 0.3s;
+      }
+      [data-fade="4"] {
+        animation-delay: 0.45s;
+      }
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeSlide {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      /* Responsive tweaks */
+      @media (max-width: 992px) {
+        .product__item.product-card {
+          margin: 4px;
+        }
+        .instagram__text {
+          margin-bottom: 26px;
+        }
+      }
+      @media (max-width: 576px) {
+        .hero__text h2 {
+          font-size: 1.55rem;
+        }
+        .primary-btn {
+          padding: 12px 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+      <div class="loader"></div>
+    </div>
+    <!-- Header will be injected here -->
+    <div id="header-placeholder"></div>
+
+    <!-- Hero Section Begin -->
+    <section class="hero">
+      <div class="hero__slider owl-carousel">
+        <div class="hero__item set-bg" data-setbg="img/hero/hero-1.jpg">
+          <div class="container">
+            <div class="row d-flex justify-content-center">
+              <div class="col-lg-8">
+                <div class="hero__text hero__text--milk">
+                  <h2>
+                    Chúng tôi làm cuộc sống của bạn ngọt ngào hơn từng miếng
+                    bánh!
+                  </h2>
+                  <a href="list_product.html" class="primary-btn"
+                    >Bánh của chúng tôi</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hero__item set-bg" data-setbg="img/hero/hero-1.jpg">
+          <div class="container">
+            <div class="row d-flex justify-content-center">
+              <div class="col-lg-8">
+                <div class="hero__text hero__text--milk">
+                  <h2>Những chiếc bánh được làm bằng tình yêu và sự đam mê</h2>
+                  <a href="list_product.html" class="primary-btn"
+                    >Bánh của chúng tôi</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- About Section Begin -->
+    <section class="about spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6">
+            <div class="about__text">
+              <div class="section-title">
+                <span>Về Cửa Hàng Bánh</span>
+                <h2>Bánh và các sản phẩm nướng từ nhà Queens!</h2>
+              </div>
+              <p>
+                "Cake Shop" là một thương hiệu Jordan, bắt đầu là một doanh
+                nghiệp gia đình nhỏ. Các chủ sở hữu là Tiến sĩ Iyad Sultan và
+                Tiến sĩ Sereen Sharabati, được hỗ trợ bởi đội ngũ 80 nhân viên.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="about__bar">
+              <div class="about__bar__item">
+                <p>Thiết kế bánh <span class="about__percentage">95%</span></p>
+                <div id="bar1" class="barfiller">
+                  <span class="fill" data-percentage="95"></span>
+                </div>
+              </div>
+              <div class="about__bar__item">
+                <p>Lớp học làm bánh <span class="about__percentage">80%</span></p>
+                <div id="bar2" class="barfiller">
+                  <span class="fill" data-percentage="80"></span>
+                </div>
+              </div>
+              <div class="about__bar__item">
+                <p>Công thức bánh <span class="about__percentage">90%</span></p>
+                <div id="bar3" class="barfiller">
+                  <span class="fill" data-percentage="90"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- About Section End -->
+
+    <!-- Product Section Begin -->
+    <section class="product spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-title">
+              <span>Sản Phẩm Nổi Bật</span>
+            </div>
+            <!-- Slider sẽ được đổ dữ liệu vào đây -->
+            <div
+              class="product__slider owl-carousel"
+              id="featured-products-slider"
+            >
+              <!-- Sản phẩm nổi bật sẽ được chèn vào đây bởi JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Product Section End -->
+
+    <!-- Testimonial Section Begin -->
+    <section class="testimonial spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <div class="section-title">
+              <span>Đánh Giá</span>
+              <h2>Ý kiến khách hàng</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="testimonial__slider owl-carousel">
+            <!-- Các đánh giá giữ nguyên, vì chúng là nội dung tĩnh -->
+            <div class="col-lg-6">
+              <div class="testimonial__item">
+                <div class="testimonial__author">
+                  <div class="testimonial__author__pic">
+                    <img src="img/testimonial/ta-1.jpg" alt="" />
+                  </div>
+                  <div class="testimonial__author__text">
+                    <h5>Gia Khánh</h5>
+                    <span>Quảng Bình</span>
+                  </div>
+                </div>
+                <div class="rating">
+                  <span class="icon_star"></span><span class="icon_star"></span
+                  ><span class="icon_star"></span><span class="icon_star"></span
+                  ><span class="icon_star-half_alt"></span>
+                </div>
+                <p>
+                  Sản phẩm thật sự rất tuyệt vời! Chất lượng vượt trội, thiết kế
+                  tinh tế và sử dụng rất dễ dàng.
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="testimonial__item">
+                <div class="testimonial__author">
+                  <div class="testimonial__author__pic">
+                    <img src="img/testimonial/ta-2.jpg" alt="" />
+                  </div>
+                  <div class="testimonial__author__text">
+                    <h5>Minh Anh</h5>
+                    <span>Hà Nội</span>
+                  </div>
+                </div>
+                <div class="rating">
+                  <span class="icon_star"></span><span class="icon_star"></span
+                  ><span class="icon_star"></span><span class="icon_star"></span
+                  ><span class="icon_star"></span>
+                </div>
+                <p>
+                  Tôi đã sử dụng sản phẩm này được vài tuần và nhìn chung là khá
+                  hài lòng. Dịch vụ khách hàng rất chu đáo.
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="testimonial__item">
+                <div class="testimonial__author">
+                  <div class="testimonial__author__pic">
+                    <img src="img/testimonial/ta-1.jpg" alt="" />
+                  </div>
+                  <div class="testimonial__author__text">
+                    <h5>Hoàng Duy</h5>
+                    <span>Cali</span>
+                  </div>
+                </div>
+                <div class="rating">
+                  <span class="icon_star"></span><span class="icon_star"></span
+                  ><span class="icon_star"></span><span class="icon_star"></span
+                  ><span class="icon_star-half_alt"></span>
+                </div>
+                <p>
+                  Sản phẩm thực sự đáp ứng đúng kỳ vọng của tôi. Chất lượng tốt,
+                  dễ sử dụng và hỗ trợ kỹ thuật rất nhanh chóng.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Testimonial Section End -->
+
+    <!-- Instagram Section Begin -->
+    <section class="instagram spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 p-0">
+            <div class="instagram__text">
+              <div class="section-title">
+                <span>Theo dõi chúng tôi trên Instagram</span>
+                <h2>Những khoảnh khắc ngọt ngào nhất!</h2>
+              </div>
+              <h5><i class="fa fa-instagram"></i> @sweetcake</h5>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-6">
+                <div class="instagram__pic">
+                  <img src="img/instagram/instagram-1.jpg" alt="" />
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-6">
+                <div class="instagram__pic middle__pic">
+                  <img src="img/instagram/instagram-2.jpg" alt="" />
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-6">
+                <div class="instagram__pic">
+                  <img src="img/instagram/instagram-3.jpg" alt="" />
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-6">
+                <div class="instagram__pic">
+                  <img src="img/instagram/instagram-4.jpg" alt="" />
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-6">
+                <div class="instagram__pic middle__pic">
+                  <img src="img/instagram/instagram-5.jpg" alt="" />
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-6">
+                <div class="instagram__pic">
+                  <img src="img/instagram/instagram-3.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Instagram Section End -->
+
+    <!-- Map Begin -->
+    <div class="map">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-7">
+            <div class="map__inner">
+              <h6>Cake</h6>
+              <ul>
+                <li>273 An Dương Vương, Quận 5, TP HCM</li>
+                <li>Sweetcake@support.com</li>
+                <li>0901641800</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="map__iframe">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10784.188505644011!2d19.053119335158936!3d47.48899529453826!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1543907528304"
+          height="300"
+          style="border: 0"
+          allowfullscreen=""
+          aria-hidden="false"
+          tabindex="0"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- Map End -->
+
+    <!-- Footer sẽ được tải vào đây -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JS Plugins -->
+    <!-- Tải jQuery trước, có fallback -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      window.jQuery ||
+        document.write('<script src="js/jquery-3.3.1.min.js"><\/script>');
+    </script>
+
+  <!-- Các plugin phụ thuộc jQuery (thứ tự này) -->
+  <script src="js/bootstrap.min.js"></script>
+  <!-- Bật lại Owl Carousel chỉ cho trang chủ để chạy 2 slide hero luân phiên -->
+  <script src="js/owl.carousel.min.js"></script>
+
+  <!-- Mã của bạn -->
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/auth.js"></script>
+  <!-- Fallback JSON cho chế độ mở file trực tiếp (file://) khi fetch bị chặn -->
+  <script id="inline-products" type="application/json">
+[
+  {
+    "ProductId": 1,
+    "Name": "Bánh Kem Cà Rốt Hoàng Kim",
+    "SellPrice": 350000,
+    "Image": "img/shop/product-1.jpg",
+    "Avaiable_quantity": 10,
+    "CategoryId": 1,
+    "CategoryName": "Bánh Kem",
+    "CountView": 45,
+    "BrandName": "Sweet Treats"
+  },
+  {
+    "ProductId": 2,
+    "Name": "Bánh Cupcake Socola Bão Táp",
+    "SellPrice": 150000,
+    "Image": "img/shop/product-2.jpg",
+    "Avaiable_quantity": 0,
+    "CategoryId": 2,
+    "CategoryName": "Cupcake",
+    "CountView": 18,
+    "BrandName": "Choco Bliss"
+  },
+  {
+    "ProductId": 3,
+    "Name": "Bông Lan Socola Bạc Hà",
+    "SellPrice": 280000,
+    "Image": "img/shop/product-3.jpg",
+    "Avaiable_quantity": 5,
+    "CategoryId": 3,
+    "CategoryName": "Bông Lan",
+    "CountView": 32,
+    "BrandName": "Salt & Sweet"
+  },
+  {
+    "ProductId": 4,
+    "Name": "Bánh Mousse Cầu Vồng Diệu Kỳ",
+    "SellPrice": 320000,
+    "Image": "img/shop/product-4.jpg",
+    "Avaiable_quantity": 20,
+    "CategoryId": 1,
+    "CategoryName": "Bánh Kem",
+    "CountView": 25,
+    "BrandName": "Tropical Delights"
+  },
+  {
+    "ProductId": 5,
+    "Name": "Bánh Tart Trái Cây Nhiệt Đới",
+    "SellPrice": 200000,
+    "Image": "img/shop/product-5.jpg",
+    "Avaiable_quantity": 15,
+    "CategoryId": 4,
+    "CategoryName": "Tart",
+    "CountView": 12,
+    "BrandName": "Fruit Fiesta"
+  },
+  {
+    "ProductId": 6,
+    "Name": "Bánh Cheesecake Mini Dâu Rừng",
+    "SellPrice": 180000,
+    "Image": "img/shop/product-6.jpg",
+    "Avaiable_quantity": 8,
+    "CategoryId": 5,
+    "CategoryName": "Cheesecake",
+    "CountView": 22,
+    "BrandName": "Paris Sweets"
+  },
+  {
+    "ProductId": 7,
+    "Name": "Bánh Kem Tình Yêu Ngọt Ngào",
+    "SellPrice": 300000,
+    "Image": "img/shop/product-7.jpg",
+    "Avaiable_quantity": 0,
+    "CategoryId": 1,
+    "CategoryName": "Bánh Kem",
+    "CountView": 30,
+    "BrandName": "Berry Delight"
+  },
+  {
+    "ProductId": 8,
+    "Name": "Bánh Donut Red Velvet Mâm Xôi",
+    "SellPrice": 120000,
+    "Image": "img/shop/product-8.jpg",
+    "Avaiable_quantity": 25,
+    "CategoryId": 6,
+    "CategoryName": "Donut",
+    "CountView": 40,
+    "BrandName": "Sweet Rings"
+  },
+  {
+    "ProductId": 9,
+    "Name": "Bánh Bông Lan Dâu Tây Mộng Mơ",
+    "SellPrice": 260000,
+    "Image": "img/shop/product-9.jpg",
+    "Avaiable_quantity": 18,
+    "CategoryId": 3,
+    "CategoryName": "Bông Lan",
+    "CountView": 28,
+    "BrandName": "Cheesy Bites"
+  },
+  {
+    "ProductId": 10,
+    "Name": "Bánh Pudding Thiên Đường Socola",
+    "SellPrice": 140000,
+    "Image": "img/shop/product-10.jpg",
+    "Avaiable_quantity": 30,
+    "CategoryId": 7,
+    "CategoryName": "Pudding",
+    "CountView": 15,
+    "BrandName": "Caramel Dreams"
+  },
+  {
+    "ProductId": 11,
+    "Name": "Bánh Bông Black Forest Cổ Điển",
+    "SellPrice": 270000,
+    "Image": "img/shop/product-11.jpg",
+    "Avaiable_quantity": 12,
+    "CategoryId": 3,
+    "CategoryName": "Bông Lan",
+    "CountView": 20,
+    "BrandName": "Green Tea Delights"
+  },
+  {
+    "ProductId": 12,
+    "Name": "Bánh Cupcake Nhung Đỏ Kiêu Sa",
+    "SellPrice": 160000,
+    "Image": "img/shop/product-12.jpg",
+    "Avaiable_quantity": 0,
+    "CategoryId": 2,
+    "CategoryName": "Cupcake",
+    "CountView": 10,
+    "BrandName": "Berry Bliss"
+  }
+]
+  </script>
+    <!-- TOÀN BỘ LOGIC CỦA TRANG ĐƯỢC ĐẶT Ở ĐÂY -->
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        // Fallback: Ẩn preloader an toàn
+        const hidePreloader = () => {
+          const pre = document.getElementById("preloder");
+          const loader = pre ? pre.querySelector(".loader") : null;
+          if (loader) loader.style.display = "none";
+          if (pre) pre.style.display = "none";
+        };
+        // Nếu có sự cố JS, vẫn ẩn khi window load
+        window.addEventListener("load", hidePreloader);
+
+        // --- CÁC HÀM DÙNG CHUNG (TÍCH HỢP) ---
+        const includeHTML = (elementId, filePath, callback) => {
+          fetch(filePath)
+            .then((response) =>
+              response.ok ? response.text() : Promise.reject("File not found")
+            )
+            .then((data) => {
+              const element = document.getElementById(elementId);
+              if (element) {
+                element.innerHTML = data;
+              }
+              if (callback) callback(); // luôn gọi để không kẹt init
+            })
+            .catch((error) => {
+              console.error(`Lỗi khi tải ${filePath}:`, error);
+              if (callback) callback(); // gọi callback cả khi lỗi
+            });
+        };
+
+        // Update cart count in both header and offcanvas (0 nếu chưa đăng nhập)
+        const updateCartCountInHeader = () => {
+          const user = JSON.parse(localStorage.getItem("user") || "null");
+          let count = 0;
+          if (user && window.Cart?.getCart) {
+            try {
+              count = (Cart.getCart() || []).reduce(
+                (s, it) => s + Number(it.qty ?? it.quantity ?? 1),
+                0
+              );
+            } catch {}
+          }
+          const headerCount = document.getElementById("header-cart-count");
+          const offcanvasCount = document.getElementById(
+            "offcanvas-cart-count"
+          );
+          if (headerCount) headerCount.textContent = count;
+          if (offcanvasCount) offcanvasCount.textContent = count;
+        };
+
+        // Update login state for both header and offcanvas menus
+        const updateUserStatus = () => {
+          const user = JSON.parse(localStorage.getItem("user") || "null");
+          const headerIn = document.getElementById("header-user-loggedin");
+          const headerOut = document.getElementById("header-user-loggedout");
+          const offIn = document.getElementById("user-menu-loggedin");
+          const offOut = document.getElementById("user-menu-loggedout");
+          if (user) {
+            if (headerIn && headerOut) {
+              headerIn.style.display = "block";
+              headerOut.style.display = "none";
+              const nameEl = document.getElementById(
+                "header-fullname-placeholder"
+              );
+              if (nameEl) nameEl.textContent = user.fullname;
+            }
+            if (offIn && offOut) {
+              offIn.style.display = "block";
+              offOut.style.display = "none";
+              const offName = document.getElementById(
+                "user-fullname-placeholder"
+              );
+              if (offName) offName.textContent = user.fullname;
+            }
+          } else {
+            if (headerIn && headerOut) {
+              headerIn.style.display = "none";
+              headerOut.style.display = "block";
+            }
+            if (offIn && offOut) {
+              offIn.style.display = "none";
+              offOut.style.display = "block";
+            }
+          }
+        };
+
+        // Initialize UI after header/footer are injected
+        const initUI = () => {
+          if (
+            $.fn.slicknav &&
+            $(".mobile-menu").length &&
+            !$("#mobile-menu-wrap .slicknav_menu").length
+          ) {
+            $(".mobile-menu").slicknav({
+              prependTo: "#mobile-menu-wrap",
+              allowParentLinks: true,
+            });
+          }
+          $(".canvas__open")
+            .off("click")
+            .on("click", function () {
+              $(".offcanvas-menu-wrapper").addClass("active");
+              $(".offcanvas-menu-overlay").addClass("active");
+            });
+          $(".offcanvas-menu-overlay")
+            .off("click")
+            .on("click", function () {
+              $(".offcanvas-menu-wrapper").removeClass("active");
+              $(".offcanvas-menu-overlay").removeClass("active");
+            });
+          $(".search-switch")
+            .off("click")
+            .on("click", function () {
+              $(".search-model").fadeIn(400);
+            });
+          $(".search-close-switch")
+            .off("click")
+            .on("click", function () {
+              $(".search-model").fadeOut(400, function () {
+                $("#search-input").val("");
+              });
+            });
+          $(".set-bg").each(function () {
+            var bg = $(this).data("setbg");
+            $(this).css("background-image", "url(" + bg + ")");
+          });
+          updateCartCountInHeader();
+          updateUserStatus();
+
+          // Logout được xử lý tập trung trong js/auth.js (delegated [data-logout])
+        };
+
+        // Cập nhật tên khi trạng thái đăng nhập thay đổi
+        window.addEventListener("authChanged", () => {
+          updateUserStatus();
+          updateCartCountInHeader();
+        });
+
+        // --- LOGIC RIÊNG CỦA TRANG CHỦ ---
+        async function renderFeaturedProducts() {
+          try {
+            // Dùng helper dùng chung để tránh lỗi file://
+            const allProducts = await (window.loadProducts ? window.loadProducts() : fetch("./database/product.json").then(r=>r.json()));
+            console.log(
+              "renderFeaturedProducts -> total:",
+              Array.isArray(allProducts) ? allProducts.length : 0
+            );
+
+            const featuredProducts = [...allProducts]
+              .sort((a, b) => (b.CountView || 0) - (a.CountView || 0))
+              .slice(0, 8);
+
+            if (!featuredProducts.length) {
+              document.getElementById("featured-products-slider").innerHTML =
+                '<div style="padding:16px">Chưa có sản phẩm nổi bật.</div>';
+              return;
+            }
+
+            const itemsHTML = featuredProducts
+              .map((product) => {
+                const price = Number(product.SellPrice ?? product.Price ?? 0);
+                const qty = Number(
+                  product.Avaiable_quantity ??
+                    product.Available_quantity ??
+                    product.Quantity ??
+                    0
+                );
+                const isHot = (product.CountView || 0) > 20;
+                const img = product.Image || "img/product/default.jpg";
+                return `
+              <div class="product__item product-card" data-product-id="${
+                product.ProductId
+              }" style="cursor:pointer;">
+                <div class="product__item__pic set-bg" data-setbg="${img}"></div>
+                <div class="product__item__text">
+                  <h6>
+                    <a href="product_detail.html?id=${product.ProductId}">${
+                  product.Name
+                }</a>
+                    ${
+                      isHot
+                        ? '<span style="color: red; font-size: 0.8em; margin-left: 5px;"><i class="fa fa-fire"></i> Hot</span>'
+                        : ""
+                    }
+                  </h6>
+                  <h5>${price.toLocaleString("vi-VN")} VND</h5>
+                  <div>
+                    ${
+                      qty > 0
+                        ? `<button class=\"btn primary-btn btn-sm mt-2\" onclick=\"event.stopPropagation();handleAddToCart(${product.ProductId})\">Thêm giỏ hàng</button>`
+                        : '<span style="color: red; font-weight: bold;">Hết hàng</span>'
+                    }
+                  </div>
+                </div>
+              </div>`;
+              })
+              .join("");
+
+            initOrUpdateProductSlider(itemsHTML);
+          } catch (error) {
+            console.error("Lỗi khi tải sản phẩm nổi bật:", error);
+            // Fallback inline được xử lý trong window.loadProducts()
+            document.getElementById("featured-products-slider").innerHTML =
+              '<div style="padding:16px;color:#c00">Không tải được dữ liệu sản phẩm.</div>';
+          }
+        }
+
+        // Khởi tạo hoặc cập nhật Owl Carousel cho slider sản phẩm
+        function initOrUpdateProductSlider(itemsHTML) {
+          const $slider = $(".product__slider");
+          const container = document.getElementById("featured-products-slider");
+          if (!$slider.length) {
+            console.warn("Thiếu .product__slider");
+            return;
+          }
+
+          // Nếu Owl chưa có (plugin chưa load), render dạng lưới để nhìn thấy dữ liệu
+          if (typeof $.fn.owlCarousel !== "function") {
+            console.warn(
+              "Owl Carousel chưa sẵn sàng, hiển thị dạng lưới tạm thời."
+            );
+            container.innerHTML = itemsHTML;
+            // Fallback: hiển thị dạng lưới đẹp
+            const slider = document.querySelector(".product__slider");
+            if (slider) {
+              slider.classList.remove("owl-carousel");
+              Object.assign(slider.style, {
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+                gap: "30px",
+                alignItems: "stretch",
+              });
+            }
+            applySetBg();
+            return;
+          }
+
+          // Đã khởi tạo rồi -> thay nội dung bằng chuỗi HTML (KHÔNG dùng $(itemsHTML))
+          if ($slider.hasClass("owl-loaded")) {
+            $slider
+              .trigger("replace.owl.carousel", [itemsHTML])
+              .trigger("refresh.owl.carousel");
+          } else {
+            // Chưa khởi tạo -> gán HTML rồi init
+            container.innerHTML = itemsHTML;
+            // đợi 1 tick để DOM cập nhật rồi init Owl
+            setTimeout(() => {
+              $slider.owlCarousel({
+                loop: true,
+                margin: 0,
+                items: 4,
+                dots: false,
+                nav: true,
+                navText: [
+                  "<span class='arrow_left'><span/>",
+                  "<span class='arrow_right'><span/>",
+                ],
+                smartSpeed: 1200,
+                autoHeight: false,
+                autoplay: false,
+                responsive: {
+                  0: { items: 1 },
+                  480: { items: 2 },
+                  768: { items: 3 },
+                  992: { items: 4 },
+                },
+              });
+            }, 0);
+          }
+
+          applySetBg();
+
+          // Event delegation: click anywhere on product card to go to detail
+          if (!container.dataset.cardClickBound) {
+            container.addEventListener("click", (e) => {
+              const card = e.target.closest(".product-card");
+              if (!card) return;
+              if (e.target.closest("a, button")) return; // allow default for links/buttons
+              const pid = card.getAttribute("data-product-id");
+              if (pid) window.location.href = "product_detail.html?id=" + pid;
+            });
+            container.dataset.cardClickBound = "1";
+          }
+        }
+
+        function applySetBg() {
+          $(".set-bg").each(function () {
+            const bg = $(this).data("setbg");
+            if (bg) $(this).css("background-image", "url(" + bg + ")");
+          });
+        }
+
+        // --- KHỞI TẠO VÀ CHẠY CHƯƠNG TRÌNH ---
+        let loaded = 0;
+        const afterInclude = () => {
+          loaded++;
+          if (loaded === 2) {
+            initUI();
+            // Gọi luôn để chắc hero/testimonial hoạt động
+            if (typeof initializePlugins === "function") initializePlugins();
+          }
+        };
+        includeHTML("header-placeholder", "inc/header.html", afterInclude);
+        includeHTML("footer-placeholder", "inc/footer.html", afterInclude);
+
+        // Tải và hiển thị sản phẩm nổi bật + ẩn preloader trong mọi trường hợp
+        try {
+          await renderFeaturedProducts();
+        } catch (e) {
+          console.error("Lỗi khi hiển thị sản phẩm nổi bật:", e);
+        } finally {
+          hidePreloader();
+        }
+
+        window.addEventListener("cartUpdated", updateCartCountInHeader);
+      });
+    </script>
+  </body>
+</html>

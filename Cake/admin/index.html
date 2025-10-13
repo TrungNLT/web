@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #1b1b1b;
+      color: #eee;
+      line-height: 1.6;
+    }
+
+    /* ===== Sidebar ===== */
+    .layout-menu {
+      width: 240px;
+      background: #222;
+      color: #eee;
+      min-height: 100vh;
+      padding-top: 20px;
+      position: fixed;
+      top: 0; left: 0;
+      border-right: 2px solid #ffcc00;
+    }
+    .app-brand {
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      margin-bottom: 25px;
+    }
+    .app-brand-text {
+      color: #ffcc00;
+      font-size: 18px;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+    .menu-inner { list-style: none; padding: 0; margin: 0; }
+    .menu-item { margin: 5px 0; }
+    .menu-link {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      color: #eee;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-left: 4px solid transparent;
+    }
+    .menu-link:hover,
+    .menu-item.active .menu-link {
+      background: #333;
+      color: #ffcc00;
+      border-left: 4px solid #ffcc00;
+    }
+
+    /* ===== Navbar ===== */
+    .layout-navbar {
+      background: #2a2a2a;
+      padding: 15px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      border-bottom: 2px solid #ffcc00;
+      margin-left: 240px;
+    }
+
+    /* ===== Layout Content ===== */
+    .layout-container {
+      margin-left: 240px;
+      padding: 20px;
+    }
+
+    /* ===== Chart Grid ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 30px;
+    }
+
+    .chart-card {
+      background: #2c2c2c;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .chart-card h3 {
+      color: #ffcc00;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    /* ===== Avatar + Dropdown ===== */
+    .navbar-right { position: relative; }
+    .avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      cursor: pointer; border: 2px solid #ffcc00;
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: 50px; right: 0;
+      background: #2c2c2c;
+      border: 1px solid #444;
+      border-radius: 8px;
+      width: 160px;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      z-index: 100;
+    }
+    .dropdown-menu a {
+      padding: 10px;
+      text-decoration: none;
+      color: #eee;
+      border-bottom: 1px solid #444;
+      transition: 0.3s;
+      display: block;
+    }
+    .dropdown-menu a:hover { background: #444; color: #ffcc00; }
+    .dropdown-menu a:last-child { border-bottom: none; }
+
+    @media (max-width: 768px) {
+      .layout-menu { display: none; }
+      .layout-navbar, .layout-container { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="layout-navbar">
+    <div class="navbar-right">
+      <img src="https://i.pravatar.cc/42" alt="Avatar" class="avatar" id="avatarBtn">
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="#" id="logoutBtn">🚪 Đăng xuất</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sidebar -->
+  <aside class="layout-menu">
+    <div class="app-brand">
+      <span class="app-brand-text">cake-sale</span>
+    </div>
+    <ul class="menu-inner">
+      <li class="menu-item"><a href="index.html" class="menu-link">🏠 Bảng điều khiển</a></li>
+      <li class="menu-item"><a href="category_list.html" class="menu-link">📂 Loại bánh</a></li>
+      <li class="menu-item"><a href="brand_list.html" class="menu-link">🏷️ Thương hiệu</a></li>
+      <li class="menu-item"><a href="product_list.html" class="menu-link">📦 Sản phẩm</a></li>
+      <li class="menu-item"><a href="price_management.html" class="menu-link">💰 Quản lý giá bán</a></li>
+      <li class="menu-item"><a href="import_list.html" class="menu-link">⬆️ Quản lý Nhập Hàng</a></li>
+      <li class="menu-item"><a href="stock_management.html" class="menu-link">📦 Quản lý Tồn Kho</a></li>
+      <li class="menu-item"><a href="order_list.html" class="menu-link">📝 Đơn đặt hàng</a></li>
+      <li class="menu-item"><a href="user_list.html" class="menu-link">👤 Người dùng</a></li>
+    </ul>
+  </aside>
+
+  <!-- Content -->
+  <div class="layout-container">
+    <div class="grid">
+      <div class="chart-card">
+        <h3>Doanh thu theo loại bánh</h3>
+        <canvas id="chartRevenue"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Số lượng khách hàng theo tháng</h3>
+        <canvas id="chartCustomers"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Số đơn hàng theo trạng thái</h3>
+        <canvas id="chartOrders"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Chart 1: Doanh thu theo loại bánh
+    new Chart(document.getElementById("chartRevenue"), {
+      type: "pie",
+      data: {
+        labels: ["Bánh kem", "Bánh ngọt", "Bánh mì", "Bánh quy"],
+        datasets: [{
+          data: [50000000, 30000000, 15000000, 10000000],
+          backgroundColor: ["#ffcc00", "#ff6600", "#3399ff", "#66cc66"]
+        }]
+      }
+    });
+
+    // Chart 2: Số lượng khách hàng theo tháng
+    new Chart(document.getElementById("chartCustomers"), {
+      type: "doughnut",
+      data: {
+        labels: ["Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10"],
+        datasets: [{
+          data: [50, 70, 90, 120],
+          backgroundColor: ["#ffcc00", "#ff6600", "#3399ff", "#66cc66"]
+        }]
+      }
+    });
+
+    // Chart 3: Số đơn hàng theo trạng thái
+    new Chart(document.getElementById("chartOrders"), {
+      type: "pie",
+      data: {
+        labels: ["Chưa xử lý", "Đang giao", "Hoàn thành", "Đã hủy"],
+        datasets: [{
+          data: [7, 12, 45, 5],
+          backgroundColor: ["#ffcc00", "#ff6600", "#3399ff", "#ff3333"]
+        }]
+      }
+    });
+
+    // Dropdown menu avatar
+    const avatarBtn = document.getElementById('avatarBtn');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    avatarBtn.addEventListener('click', () => {
+      dropdownMenu.style.display = dropdownMenu.style.display === 'flex' ? 'none' : 'flex';
+    });
+    document.addEventListener('click', function(e) {
+      if (!avatarBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        dropdownMenu.style.display = 'none';
+      }
+    });
+    document.getElementById('logoutBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      if (confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
+        window.location.href = "login_admin.html"; 
+      }
+    });
+  </script>
+</body>
+</html>

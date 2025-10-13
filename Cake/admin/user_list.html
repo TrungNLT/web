@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách người dùng</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #1b1b1b; color: #eee; margin: 0; display: flex; }
+    .layout-menu { width: 220px; background: #2a2a2a; min-height: 100vh; position: fixed; top: 0; left: 0; padding: 20px 0; border-right: 2px solid #ffcc00; }
+    .app-brand { text-align: center; color: #ffcc00; font-weight: bold; margin-bottom: 20px; }
+    .menu-inner { list-style: none; padding: 0; margin: 0; }
+    .menu-item { margin: 8px 0; }
+    .menu-link { display: block; padding: 10px 15px; color: #ddd; text-decoration: none; border-radius: 6px; }
+    .menu-link:hover { background: #3a3a3a; color: #ffcc00; }
+    .layout-page { margin-left: 220px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+    .layout-navbar { background: #2a2a2a; padding: 12px 20px; border-bottom: 2px solid #ffcc00; position: sticky; top: 0; z-index: 10; display: flex; justify-content: center; align-items: center; }
+    .search-input { width: 100%; max-width: 400px; padding: 8px; border-radius: 6px; border: 1px solid #555; background: #333; color: #fff; }
+    .search-input::placeholder { color: #aaa; text-align: center; }
+    .content-wrapper { padding: 20px; }
+    h4 { text-align: center; color: #ffcc00; margin-bottom: 20px; }
+    .card { background: #2c2c2c; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; }
+    table th, table td { border: 1px solid #444; padding: 10px; text-align: center; }
+    table th { background: #2a2a2a; color: #ffcc00; }
+    table tr:nth-child(even) { background: #333; }
+    table tr:nth-child(odd) { background: #222; }
+    table tr:hover { background: #444; }
+    .btn { border-radius: 6px; font-weight: bold; padding: 6px 12px; margin: 2px; cursor: pointer; }
+    .btn-warning { background: #ffc107; border: none; color: #000; }
+    .btn-primary { background: #007bff; border: none; color: #fff; }
+    .lock-btn { font-size: 18px; cursor: pointer; border: none; background: none; }
+    .locked { color: #dc3545; }
+    .unlocked { color: #28a745; }
+    .add-user-btn { display: flex; justify-content: center; }
+    .pagination { list-style: none; display: flex; justify-content: center; gap: 8px; padding: 0; margin-top: 20px; }
+    .pagination a { padding: 6px 12px; background: #333; color: #fff; text-decoration: none; border-radius: 4px; cursor: pointer; }
+    .pagination a:hover { background: #ffcc00; color: #000; }
+    .pagination .active a { background: #ffcc00; color: #000; }
+    .alert { position: fixed; top: 20px; right: 20px; padding: 12px 18px; border-radius: 8px; font-weight: bold; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.5); opacity: 0; transform: translateY(-20px); transition: all 0.4s ease; pointer-events: none;}
+    .alert.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .alert-success { background: #28a745; color: #fff; }
+    .alert-warning { background: #ffc107; color: #000; }
+    .alert-danger { background: #dc3545; color: #fff; }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="layout-menu">
+    <div class="app-brand">cake-sale</div>
+    <ul class="menu-inner">
+      <li class="menu-item"><a href="index.html" class="menu-link">Bảng điều khiển</a></li>
+      <li class="menu-item"><a href="category_list.html" class="menu-link">Loại bánh</a></li>
+      <li class="menu-item"><a href="brand_list.html" class="menu-link">Thương hiệu</a></li>
+      <li class="menu-item"><a href="product_list.html" class="menu-link">Sản phẩm</a></li>
+       <li class="menu-item"><a href="price_management.html" class="menu-link">Quản lý giá bán</a></li>
+      <li class="menu-item"><a href="order_list.html" class="menu-link">Đơn đặt hàng</a></li>
+       <li class="menu-item"><a href="import_list.html"" class="menu-link">Quản lý nhập hàng</a></li>
+      <li class="menu-item"><a href="stock_management.html" class="menu-link">Quản lý tồn kho</a></li>
+      <li class="menu-item"><a href="user_list.html" class="menu-link">Người dùng</a></li>
+      
+    </ul>
+  </aside>
+
+  <!-- Main page -->
+  <div class="layout-page">
+   <!-- Navbar -->
+   <nav class="layout-navbar">
+      <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm người dùng..." onkeyup="searchUser()">
+    </nav>
+
+    <!-- Content -->
+    <div class="content-wrapper">
+      <h4>Danh sách người dùng</h4>
+      <div class="card">
+        <div class="table-responsive">
+          <table id="userTable">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tên</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Hình ảnh</th>
+                <th>Thời gian đăng nhập</th>
+                <th>Thời gian đăng xuất</th>
+                <th>Chức năng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>Nguyễn Văn A</td><td>a@gmail.com</td><td>0901234567</td><td>Hà Nội</td><td><img src="../uploads/anh61.jpg" width="80"></td><td>2025-09-01 08:00</td><td>2025-09-01 17:00</td><td><button class="btn btn-warning btn-sm" onclick="editUser(1)">Sửa</button><button class="lock-btn locked" onclick="toggleLock(this)">🔒</button></td></tr>
+              <tr><td>2</td><td>Trần Thị B</td><td>b@gmail.com</td><td>0912345678</td><td>TP.HCM</td><td><img src="../uploads/anh62.jpg" width="80"></td><td>2025-09-02 09:00</td><td>2025-09-02 18:00</td><td><button class="btn btn-warning btn-sm" onclick="editUser(2)">Sửa</button><button class="lock-btn locked" onclick="toggleLock(this)">🔒</button></td></tr>
+              <tr><td>3</td><td>Lê Văn C</td><td>c@gmail.com</td><td>0923456789</td><td>Đà Nẵng</td><td><img src="../uploads/anh63.jpg" width="80"></td><td>2025-09-03 07:30</td><td>2025-09-03 16:00</td><td><button class="btn btn-warning btn-sm" onclick="editUser(3)">Sửa</button><button class="lock-btn locked" onclick="toggleLock(this)">🔒</button></td></tr>
+              <tr><td>4</td><td>Phạm Thị D</td><td>d@gmail.com</td><td>0934567890</td><td>Cần Thơ</td><td><img src="../uploads/anh64.jpg" width="80"></td><td>2025-09-04 08:15</td><td>2025-09-04 17:10</td><td><button class="btn btn-warning btn-sm" onclick="editUser(4)">Sửa</button><button class="lock-btn locked" onclick="toggleLock(this)">🔒</button></td></tr>
+              <tr><td>5</td><td>Ngô Văn E</td><td>e@gmail.com</td><td>0945678901</td><td>Hải Phòng</td><td><img src="../uploads/anh65.jpg" width="80"></td><td>2025-09-05 09:00</td><td>2025-09-05 18:00</td><td><button class="btn btn-warning btn-sm" onclick="editUser(5)">Sửa</button><button class="lock-btn locked" onclick="toggleLock(this)">🔒</button></td></tr>
+              <tr><td>6</td><td>Nguyễn Văn H</td><td>f@gmail.com</td><td>0911678901</td><td>Long An</td><td><img src="../uploads/anh66.jpg" width="80"></td><td>2025-09-05 09:00</td><td>2025-09-05 18:00</td><td><button class="btn btn-warning btn-sm" onclick="editUser(6)">Sửa</button><button class="lock-btn locked" onclick="toggleLock(this)">🔒</button></td></tr>
+              <tr><td>7</td><td>Tô Văn L</td><td>g@gmail.com</td><td>0945678954</td><td>Ninh Thuận</td><td><img src="../uploads/anh67.jpg" width="80"></td><td>2025-09-05 09:00</td><td>2025-09-05 18:00</td><td><button class="btn btn-warning btn-sm" onclick="editUser(7)">Sửa</button><button class="lock-btn locked" onclick="toggleLock(this)">🔒</button></td></tr>
+              <tr><td>8</td><td>Trần Thị M</td><td>m@gmail.com</td><td>0945645901</td><td>Vũng Tàu</td><td><img src="../uploads/anh68.jpg" width="80"></td><td>2025-09-05 09:00</td><td>2025-09-05 18:00</td><td><button class="btn btn-warning btn-sm" onclick="editUser(8)">Sửa</button><button class="lock-btn locked" onclick="toggleLock(this)">🔒</button></td></tr>
+              <tr><td>9</td><td>Lê Thị X</td><td>n@gmail.com</td><td>0945672101</td><td>Lạng Sơn</td><td><img src="../uploads/anh69.jpg" width="80"></td><td>2025-09-05 09:00</td><td>2025-09-05 18:00</td><td><button class="btn btn-warning btn-sm" onclick="editUser(9)">Sửa</button><button class="lock-btn locked" onclick="toggleLock(this)">🔒</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Add button -->
+      <div class="card add-user-btn">
+        <button class="btn btn-primary" onclick="addUser()">Thêm tài khoản người dùng</button>
+      </div>
+
+      <!-- Pagination -->
+      <ul class="pagination" id="pagination"></ul>
+    </div>
+  </div>
+
+  <!-- Alert -->
+  <div id="alertBox" class="alert"></div>
+
+  <script>
+    // Hiển thị thông báo
+    function showAlert(message, type) {
+      const alertBox = document.getElementById("alertBox");
+      alertBox.textContent = message;
+      alertBox.className = "alert alert-" + type + " show";
+      setTimeout(() => { alertBox.classList.remove("show"); }, 2500);
+    }
+
+    // Khóa/Mở khóa
+    function toggleLock(btn) {
+      if (btn.classList.contains("locked")) {
+        btn.classList.remove("locked"); btn.classList.add("unlocked");
+        btn.textContent = "🔓"; showAlert("Mở khóa người dùng thành công!", "success");
+      } else {
+        btn.classList.remove("unlocked"); btn.classList.add("locked");
+        btn.textContent = "🔒"; showAlert("Khóa người dùng thành công!", "warning");
+      }
+    }
+
+    function editUser(id) { window.location.href = "user_edit.html?id=" + id; }
+    function addUser() { window.location.href = "user_add.html"; }
+
+    // --- Phân trang ---
+    const rowsPerPage = 3;
+    const table = document.getElementById("userTable").getElementsByTagName("tbody")[0];
+    const rows = table.getElementsByTagName("tr");
+    let currentPage = 1;
+    const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+    function showPage(page) {
+      for (let i = 0; i < rows.length; i++) rows[i].style.display = "none";
+      let start = (page - 1) * rowsPerPage, end = start + rowsPerPage;
+      for (let i = start; i < end && i < rows.length; i++) rows[i].style.display = "";
+      currentPage = page;
+      renderPagination();
+    }
+
+    function changePage(page) {
+      if (page === "prev" && currentPage > 1) showPage(currentPage - 1);
+      else if (page === "next" && currentPage < totalPages) showPage(currentPage + 1);
+      else if (typeof page === "number") showPage(page);
+    }
+
+    function renderPagination() {
+      const pagination = document.getElementById("pagination");
+      pagination.innerHTML = "";
+      pagination.innerHTML += `<li><a href="#" onclick="changePage('prev')">«</a></li>`;
+      for (let i = 1; i <= totalPages; i++) {
+        pagination.innerHTML += `<li class="${i === currentPage ? 'active' : ''}"><a href="#" onclick="changePage(${i})">${i}</a></li>`;
+      }
+      pagination.innerHTML += `<li><a href="#" onclick="changePage('next')">»</a></li>`;
+    }
+
+    // --- Tìm kiếm ---
+    function searchUser() {
+      const keyword = document.getElementById("searchInput").value.toLowerCase();
+      let found = false;
+      for (let row of rows) {
+        const name = row.cells[1].textContent.toLowerCase();
+        const email = row.cells[2].textContent.toLowerCase();
+        const phone = row.cells[3].textContent.toLowerCase();
+        if (keyword === "" || name.includes(keyword) || email.includes(keyword) || phone.includes(keyword)) {
+          row.style.display = "";
+          found = true;
+        } else {
+          row.style.display = "none";
+        }
+      }
+      if (keyword !== "") {
+        if (found) showAlert("Tìm thấy người dùng phù hợp!", "success");
+        else showAlert("Không có người dùng nào phù hợp!", "danger");
+      } else {
+        showPage(currentPage);
+      }
+    }
+
+    // Init
+    showPage(1);
+  </script>
+</body>
+</html>

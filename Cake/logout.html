@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đang đăng xuất...</title>
+  <!-- Minimal global theme injection for consistent look -->
+  <style>
+    :root {--orange-50:#fff7f1;--orange-100:#ffe8d6;--orange-200:#ffd4b0;--orange-300:#ffb374;--orange-400:#ff943d;--orange-500:#ff7a00;--orange-600:#e56700;--orange-700:#c75400;}
+    body {font-family: 'Montserrat', Arial, sans-serif;display:flex;align-items:center;justify-content:center;min-height:60vh;background:linear-gradient(140deg,var(--orange-50),#fff);color:#444;}
+    p {background:#fff;border:1px solid var(--orange-200);padding:20px 26px;border-radius:18px;box-shadow:0 4px 14px -6px rgba(255,122,0,.35),0 2px 6px -2px rgba(0,0,0,.06);font-weight:600;letter-spacing:.3px;}
+  </style>
+  <script>
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      user.date_logout = new Date().toLocaleString("vi-VN");
+
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      const index = users.findIndex(u => u.email === user.email);
+      if (index !== -1) {
+        users[index].date_logout = user.date_logout;
+        localStorage.setItem("users", JSON.stringify(users));
+      }
+
+      localStorage.removeItem("user");
+
+      // Sau 1s mới chuyển trang để người dùng thấy thông báo
+      setTimeout(() => window.location.href = "login.html", 1000);
+    } else {
+      // Nếu chưa đăng nhập thì đưa thẳng về login
+      window.location.href = "login.html";
+    }
+  </script>
+</head>
+<body>
+  <p>Đang đăng xuất, vui lòng chờ...</p>
+</body>
+</html>

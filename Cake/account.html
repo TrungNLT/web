@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tài khoản của tôi</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
+  <link rel="stylesheet" href="css/flaticon.css" type="text/css" />
+  <link rel="stylesheet" href="css/barfiller.css" type="text/css" />
+  <link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+  <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
+  <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
+  <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <!-- Global inline theme (merged) -->
+  <style>
+    :root {--orange-50:#fff7f1;--orange-100:#ffe8d6;--orange-150:#ffeedf;--orange-200:#ffd4b0;--orange-300:#ffb374;--orange-400:#ff943d;--orange-450:#ff8624;--orange-500:#ff7a00;--orange-600:#e56700;--orange-650:#d85f00;--orange-700:#c75400;--choco:#4b2e2e;--choco-soft:#6b463c;--radius-sm:10px;--radius-md:18px;--radius-lg:26px;--radius-xl:34px;--shadow-soft:0 4px 14px -6px rgba(255,122,0,.45),0 2px 6px -2px rgba(0,0,0,.08);} 
+    body {background:linear-gradient(180deg,var(--orange-50),#ffffff 300px) fixed;}
+  </style>
+  <style>
+    /* local account overrides */
+    :root { --orange-shadow:0 4px 12px -4px rgba(255,122,0,.35),0 2px 6px -2px rgba(0,0,0,.08);}    
+    main.page { min-height:60vh; }
+    .account-card {position:relative;border:1px solid var(--orange-200);border-radius:22px;padding:28px 28px 34px;background:linear-gradient(135deg,var(--orange-50),#fff);box-shadow:var(--orange-shadow);overflow:hidden;}
+    .account-card:before {content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;background:radial-gradient(circle at 30% 30%,var(--orange-200),transparent 70%);opacity:.55;}
+    .account-card h5 {margin-bottom:22px;font-weight:700;display:flex;align-items:center;gap:10px;}
+    .account-card h5:before {content:"\f007";font-family:'FontAwesome';color:var(--orange-500);background:var(--orange-100);width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;border-radius:12px;font-size:16px;}
+    /* Avatar */
+  .avatar-actions {display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+    .badge-muted {background:var(--orange-100);color:var(--orange-600);padding:6px 12px;border-radius:30px;font-size:.75rem;font-weight:600;letter-spacing:.5px;}
+    /* Form fields */
+    #account-form .form-group label {font-weight:600;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;color:#444;margin-bottom:6px;}
+    #account-form .form-control {border:1px solid var(--orange-200);border-radius:14px;padding:12px 14px;transition:.2s;background:#fff;}
+    #account-form .form-control:focus {border-color:var(--orange-400);box-shadow:0 0 0 3px var(--orange-100);}
+    #account-form .form-control.is-invalid {border-color:#dc3545;box-shadow:0 0 0 3px rgba(220,53,69,.15);}
+    #account-form .form-control.is-valid {border-color:#28a745;}
+    .form-group {margin-bottom:18px;}
+    .form-hint {font-size:.7rem;color:#666;margin-top:4px;}
+    /* Buttons */
+  .btn.primary-btn, .primary-btn {background:var(--orange-500);border:none;border-radius:14px;padding:12px 24px;font-size:.85rem;font-weight:600;letter-spacing:.5px;transition:.25s;box-shadow:var(--shadow-soft);} 
+  .btn.primary-btn:hover, .primary-btn:hover {background:var(--orange-600);transform:translateY(-2px);}    
+  .btn.primary-btn:active, .primary-btn:active {background:var(--orange-700);transform:translateY(0);} 
+    .btn-outline-orange {background:#fff;border:1px solid var(--orange-400);color:var(--orange-600);border-radius:14px;padding:12px 18px;font-weight:600;font-size:.8rem;transition:.25s;}
+    .btn-outline-orange:hover {background:var(--orange-500);color:#fff;}
+    .btn-secondary {border-radius:14px;}
+  /* (Password + avatar styles removed as per request) */
+    /* Message */
+    #account-message {border-radius:14px;font-weight:500;}
+    /* Utility */
+    .gap-2 {gap:.75rem !important;}
+    .d-flex {display:flex;}
+    .inline-actions {display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+    /* Animations */
+    @keyframes fadeSlide {from {opacity:0;transform:translateY(6px);} to {opacity:1;transform:translateY(0);} }
+    /* Responsive */
+    @media (max-width: 576px){ .account-card {padding:24px 20px;} }
+  </style>
+</head>
+<body>
+  <div id="preloder"><div class="loader"></div></div>
+
+  <!-- Header -->
+  <div id="header-placeholder"></div>
+
+  <main class="page">
+    <div class="breadcrumb-option">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6"><div class="breadcrumb__text"><h2>Tài khoản</h2></div></div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="breadcrumb__links"><a href="./index.html">Trang chủ</a><span>Tài khoản</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="shop spad">
+      <div class="container">
+        <!-- Yêu cầu đăng nhập -->
+        <div id="login-required" class="alert alert-danger text-center" style="display:none;">
+          <strong>Vui lòng đăng nhập để quản lý tài khoản.</strong><br/><br/>
+          <a class="primary-btn" href="login.html?return=account.html">Đến trang đăng nhập</a>
+        </div>
+
+        <!-- Nội dung khi đã đăng nhập -->
+        <div id="account-wrapper" style="display:none;">
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <div class="account-card">
+                <h5>Thông tin cá nhân</h5>
+                <div class="avatar-actions mb-3">
+                  <span class="badge-muted" id="email-badge">email</span>
+                  <button type="button" id="btn-view-orders" class="btn-outline-orange">Đơn hàng của tôi</button>
+                  <button type="button" id="btn-logout" class="btn-outline-orange">Đăng xuất</button>
+                </div>
+                <form id="account-form" novalidate>
+                  <div class="form-group">
+                    <label for="full_name">Họ và tên</label>
+                    <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Nguyễn Văn A" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email (không thể thay đổi)</label>
+                    <input type="email" class="form-control" id="email" name="email" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="number_phone">Số điện thoại</label>
+                    <input type="tel" class="form-control" id="number_phone" name="number_phone" placeholder="0123456789" pattern="^[0-9]{9,11}$" inputmode="numeric">
+                    <div class="form-hint">9-11 chữ số.</div>
+                  </div>
+                  <div class="form-group">
+                    <label for="address">Địa chỉ</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố">
+                  </div>
+
+                  <!-- Password change removed as requested -->
+
+                  <div class="d-flex gap-2">
+                    <button type="submit" class="btn primary-btn">Lưu thay đổi</button>
+                    <button type="button" id="btn-cancel" class="btn btn-secondary ml-2">Hủy</button>
+                  </div>
+                </form>
+                <div id="account-message" class="mt-3" style="display:none;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/jquery-3.3.1.min.js"><\/script>')</script>
+  <script src="js/bootstrap.min.js"></script>
+
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    // Include header/footer helpers
+    function applySetBg(){ $(".set-bg").each(function(){ const bg=$(this).data("setbg"); if(bg)$(this).css("background-image","url("+bg+")"); }); }
+    function include(id, file, cb){
+      fetch(file).then(r=>r.ok?r.text():Promise.reject(file))
+        .then(html=>{ const el=document.getElementById(id); if(el) el.innerHTML=html; applySetBg(); cb&&cb(); })
+        .catch(e=>{ console.error("Include lỗi:", e); cb&&cb(); });
+    }
+
+    // Header UI helpers
+    function updateHeader(){
+      const user = JSON.parse(localStorage.getItem('user')||'null');
+      const inEl=document.getElementById('header-user-loggedin');
+      const outEl=document.getElementById('header-user-loggedout');
+      const nameEl=document.getElementById('header-fullname-placeholder');
+      if(user){ inEl&&(inEl.style.display='inline-flex'); outEl&&(outEl.style.display='none'); nameEl&&(nameEl.textContent=user.fullname||user.email); }
+      else { inEl&&(inEl.style.display='none'); outEl&&(outEl.style.display='inline'); }
+      let c=0; if(user&&window.Cart?.getCart){ try{ c=(Cart.getCart()||[]).reduce((s,it)=>s+Number(it.qty??it.quantity??1),0);}catch{} }
+      const head=document.getElementById('header-cart-count'); const off=document.getElementById('offcanvas-cart-count'); head&&(head.textContent=c); off&&(off.textContent=c);
+    }
+
+    // Guard + load form
+    function guard(){
+      const u = JSON.parse(localStorage.getItem('user')||'null');
+      const need = document.getElementById('login-required');
+      const ok = document.getElementById('account-wrapper');
+      if(u){ need.style.display='none'; ok.style.display='block'; } else { need.style.display='block'; ok.style.display='none'; }
+      return !!u;
+    }
+    function loadForm(){
+      const u = JSON.parse(localStorage.getItem('user')||'null');
+      if(!u) return;
+      document.getElementById('full_name').value = u.fullname || '';
+      document.getElementById('email').value = u.email || '';
+      document.getElementById('number_phone').value = u.number_phone || u.phone || '';
+      document.getElementById('address').value = u.address || '';
+    }
+
+    function saveUserToUsersList(updated){
+      try{
+        const raw = localStorage.getItem('users');
+        if(!raw) return;
+        const arr = JSON.parse(raw || '[]');
+        const idx = arr.findIndex(x => (x.id ?? x.userId) === updated.id || x.email === updated.email);
+        if(idx >= 0){ arr[idx] = {...arr[idx], ...updated}; localStorage.setItem('users', JSON.stringify(arr)); }
+      }catch{}
+    }
+
+    function showMsg(type, text){
+      const el = document.getElementById('account-message');
+      if(!el) return;
+      el.className = 'mt-3 alert ' + (type === 'success' ? 'alert-success' : 'alert-danger');
+      el.textContent = text;
+      el.style.display = 'block';
+      setTimeout(()=>{ el.style.display='none'; }, 2500);
+    }
+
+    // Preloader
+    const hidePreloader=()=>{const pre=document.getElementById('preloder'); if(pre) pre.style.display='none';};
+    window.addEventListener('load', hidePreloader);
+
+    document.addEventListener('DOMContentLoaded', async ()=>{
+      await new Promise(res=>include('header-placeholder','inc/header.html',res));
+      include('footer-placeholder','inc/footer.html');
+
+      updateHeader();
+      window.addEventListener('authChanged', updateHeader);
+      window.addEventListener('cartUpdated', updateHeader);
+
+      if(!guard()) return;
+      loadForm();
+
+      // Show email badge only
+      const emailBadge = document.getElementById('email-badge');
+      const userForBadge = JSON.parse(localStorage.getItem('user')||'null');
+      if(userForBadge && emailBadge) emailBadge.textContent = userForBadge.email || '';
+
+      // View orders & logout
+      document.getElementById('btn-view-orders').addEventListener('click', ()=>{ window.location.href='user_order.html'; });
+      document.getElementById('btn-logout').addEventListener('click', ()=>{ localStorage.removeItem('user'); window.dispatchEvent(new Event('authChanged')); location.href='login.html'; });
+
+      // Live validation (name + phone)
+      function attachValidation(id, validator){
+        const el = document.getElementById(id); if(!el) return;
+        el.addEventListener('input', ()=>{ const valid = validator(el.value); el.classList.toggle('is-invalid', !valid && el.value.trim()!==''); el.classList.toggle('is-valid', valid && el.value.trim()!==''); });
+      }
+      attachValidation('full_name', v=>v.trim().length>1);
+      attachValidation('number_phone', v=>!v || /^[0-9]{9,11}$/.test(v));
+
+      // Submit
+      document.getElementById('account-form').addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const user = JSON.parse(localStorage.getItem('user')||'null');
+        if(!user){ location.href='login.html?return=account.html'; return; }
+
+        const full_name = document.getElementById('full_name').value.trim();
+        const number_phone = document.getElementById('number_phone').value.trim();
+        const address = document.getElementById('address').value.trim();
+
+        if(!full_name){ showMsg('error','Vui lòng nhập họ và tên.'); return; }
+        if(number_phone && !/^[0-9]{9,11}$/.test(number_phone)){ showMsg('error','Số điện thoại không hợp lệ.'); return; }
+
+        const updated = { ...user, fullname: full_name, number_phone, address };
+        localStorage.setItem('user', JSON.stringify(updated));
+        saveUserToUsersList(updated);
+
+        // Thông báo cho header/offcanvas cập nhật tên hiển thị
+        window.dispatchEvent(new Event('authChanged'));
+
+        showMsg('success','Đã lưu thay đổi.');
+      });
+
+      document.getElementById('btn-cancel').addEventListener('click', ()=>{
+        loadForm();
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Cake Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên Hệ</title>
+
+    <!-- Google Font & CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/elegant-icons.css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" />
+    <link rel="stylesheet" href="css/nice-select.css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="css/slicknav.min.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <!-- Global inline theme (merged) -->
+        <style>
+            :root {--orange-50:#fff7f1;--orange-100:#ffe8d6;--orange-150:#ffeedf;--orange-200:#ffd4b0;--orange-300:#ffb374;--orange-400:#ff943d;--orange-450:#ff8624;--orange-500:#ff7a00;--orange-600:#e56700;--orange-650:#d85f00;--orange-700:#c75400;--choco:#4b2e2e;--choco-soft:#6b463c;--radius-sm:10px;--radius-md:18px;--radius-lg:26px;--radius-xl:34px;--shadow-soft:0 4px 14px -6px rgba(255,122,0,.45),0 2px 6px -2px rgba(0,0,0,.08);} 
+            body {background:linear-gradient(180deg,var(--orange-50),#ffffff 300px) fixed;}
+            .site-btn,.primary-btn,.btn.primary-btn{background:var(--orange-500);border:none;border-radius:18px;padding:14px 26px;font-size:.8rem;font-weight:700;letter-spacing:.55px;text-transform:uppercase;box-shadow:var(--shadow-soft);transition:.25s;} .site-btn:hover,.primary-btn:hover{background:var(--orange-600);transform:translateY(-2px);} .site-btn:active,.primary-btn:active{background:var(--orange-700);transform:translateY(0);} 
+            [data-fade]{opacity:0;transform:translateY(14px);animation:fadeUp .7s ease forwards;}[data-fade-delay="1"]{animation-delay:.1s;}[data-fade-delay="2"]{animation-delay:.2s;}[data-fade-delay="3"]{animation-delay:.3s;}@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+        </style>
+        <style>
+            /* local contact overrides */
+            /* Map & contact card */
+            .map {position:relative;border:1px solid var(--orange-200);border-radius:26px;overflow:hidden;background:linear-gradient(135deg,var(--orange-50),#fff);box-shadow:0 4px 14px -6px rgba(255,122,0,.35),0 2px 6px -2px rgba(0,0,0,.08);margin-bottom:40px;}
+            .map__inner {background:#fff;border-radius:20px;padding:28px 26px;box-shadow:0 4px 12px -6px rgba(0,0,0,.1);position:relative;overflow:hidden;}
+            .map__inner:before {content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;background:radial-gradient(circle at 30% 30%,var(--orange-300),transparent 70%);opacity:.25;}
+            .map__inner h6 {font-weight:700;font-size:1.05rem;margin-bottom:14px;letter-spacing:.5px;color:var(--orange-600);}      
+            .map__inner ul {padding:0;margin:0;list-style:none;font-size:.9rem;}
+            .map__inner li {padding:4px 0;color:#444;display:flex;gap:6px;align-items:flex-start;}
+            /* Address list */
+            .contact__address {margin-top:10px;margin-bottom:28px;}
+            .contact__address__item {background:#fff;border:1px solid var(--orange-100);border-radius:18px;padding:24px 22px;transition:.25s;position:relative;overflow:hidden;min-height:100%;}
+            .contact__address__item:before {content:"";position:absolute;left:-25px;top:-25px;width:120px;height:120px;background:radial-gradient(circle at 40% 40%,var(--orange-200),transparent 70%);opacity:.4;}
+            .contact__address__item h6 {font-weight:700;color:var(--orange-600);margin-bottom:14px;}
+            .contact__address__item ul {list-style:none;padding:0;margin:0;}
+            .contact__address__item li {display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:.85rem;color:#444;}
+            .contact__address__item li span {color:var(--orange-500);}
+            .contact__address__item:hover {border-color:var(--orange-300);box-shadow:0 6px 18px -8px rgba(255,122,0,.4),0 4px 10px -4px rgba(0,0,0,.08);transform:translateY(-3px);}      
+            /* Left text block */
+            .contact__text h3 {font-weight:800;font-size:1.9rem;color:var(--orange-600);}
+            .contact__text ul {list-style:none;padding:0;margin:16px 0 20px;font-size:.9rem;color:#555;}
+            .contact__text li {padding:3px 0;}
+            .contact__text img {width:110px;opacity:.9;filter:drop-shadow(0 2px 4px rgba(0,0,0,.1));}
+            /* Form */
+            .contact__form {background:#fff;border:1px solid var(--orange-200);padding:34px 34px 40px;border-radius:28px;box-shadow:0 4px 14px -6px rgba(255,122,0,.28),0 2px 6px -2px rgba(0,0,0,.06);position:relative;overflow:hidden;}
+            .contact__form:before {content:"";position:absolute;right:-40px;bottom:-40px;width:180px;height:180px;background:radial-gradient(circle at 35% 35%,var(--orange-300),transparent 70%);opacity:.2;}
+            .contact__form input, .contact__form textarea {width:100%;border:1px solid var(--orange-200);border-radius:16px;background:#fff;padding:14px 16px;font-size:.9rem;transition:.2s;resize:vertical;}
+            .contact__form input:focus, .contact__form textarea:focus {outline:none;border-color:var(--orange-400);box-shadow:0 0 0 3px var(--orange-100);}      
+            .contact__form textarea {min-height:160px;}
+            .site-btn {background:var(--orange-500);border:none;border-radius:16px;padding:14px 28px;font-weight:700;letter-spacing:.5px;font-size:.85rem;margin-top:14px;position:relative;overflow:hidden;transition:.25s;box-shadow:0 3px 10px -3px rgba(255,122,0,.5);}      
+            .site-btn:hover {background:var(--orange-600);transform:translateY(-2px);}      
+            .site-btn:active {transform:translateY(0);background:var(--orange-700);}      
+            /* Map iframe refine */
+            .map__iframe iframe {width:100%;display:block;filter:hue-rotate(-5deg) saturate(1.1) brightness(1.02);}
+            /* Anim */
+            [data-fade] {opacity:0;transform:translateY(10px);animation:fadeUp .7s ease forwards;}
+            [data-fade-delay="1"] {animation-delay:.1s;} [data-fade-delay="2"] {animation-delay:.2s;} [data-fade-delay="3"] {animation-delay:.3s;} [data-fade-delay="4"] {animation-delay:.4s;}
+            @keyframes fadeUp {to {opacity:1;transform:translateY(0);} }
+            /* Responsive tweaks */
+            @media (max-width:992px){ .contact__form {padding:28px 26px 34px;} }
+            @media (max-width:576px){ .contact__form {padding:24px 20px 30px;} .contact__text h3 {font-size:1.6rem;} }
+        </style>
+</head>
+<body>
+    <!-- Header sẽ được tải vào đây -->
+    <div id="header-placeholder"></div>
+    
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breadcrumb__text">
+                        <h2>Liên Hệ</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breadcrumb__links">
+                        <a href="./index.html">Trang chủ</a>
+                        <span>Liên Hệ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Contact Section Begin -->
+    <section class="contact spad">
+        <div class="container">
+            <div class="map" data-fade>
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-lg-4 col-md-7">
+                            <div class="map__inner">
+                                <h6>Cake Shop</h6>
+                                <ul>
+                                    <li>273 An Dương Vương, Quận 5, TP HCM</li>
+                                    <li>Sweetcake@support.com</li>
+                                    <li>0901641800</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="map__iframe">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.631882218431!2d106.68026361529686!3d10.762943192330752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1b888ab297%3A0x2a1824151d383556!2zMjczIEFuIETGsMahbmcgVsawxqFuZywgUGjGsOG7nW5nIDMsIFF14bqtbiA1LCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdG5hbQ!5e0!3m2!1svi!2s!4v1663482811425!5m2!1svi!2s" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+                        <div class="contact__address" data-fade data-fade-delay="1">
+                                <div class="row g-4">
+                                        <div class="col-lg-4 col-md-6 col-sm-6">
+                                            <div class="contact__address__item">
+                                                <h6>TP HCM</h6>
+                                                <ul>
+                                                    <li><span class="icon_pin_alt"></span><p>463 Nguyễn Trãi, TP Nha Trang</p></li>
+                                                    <li><span class="icon_headphones"></span><p>0901641800</p></li>
+                                                    <li><span class="icon_mail_alt"></span><p>Sweetcake@support.com</p></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-6">
+                                            <div class="contact__address__item">
+                                                <h6>TP Vũng Tàu</h6>
+                                                <ul>
+                                                    <li><span class="icon_pin_alt"></span><p>182 Trần Hưng Đạo, TP Vũng Tàu</p></li>
+                                                    <li><span class="icon_headphones"></span><p>0901641800</p></li>
+                                                    <li><span class="icon_mail_alt"></span><p>Sweetcake@support.com</p></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-6">
+                                            <div class="contact__address__item">
+                                                <h6>TP Đà Lạt</h6>
+                                                <ul>
+                                                    <li><span class="icon_pin_alt"></span><p>96 Nguyễn Văn Trỗi, TP Đà Lạt</p></li>
+                                                    <li><span class="icon_headphones"></span><p>0901641800</p></li>
+                                                    <li><span class="icon_mail_alt"></span><p>Sweetcake@support.com</p></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                </div>
+                        </div>
+            <div class="row">
+                <div class="col-lg-4" data-fade data-fade-delay="2">
+                    <div class="contact__text">
+                        <h3>Liên hệ với chúng tôi</h3>
+                        <ul>
+                            <li>Đại diện hoặc tư vấn viên có sẵn:</li>
+                            <li>T2 - T6: 5:00 sáng đến 9:00 tối</li>
+                            <li>T7 - CN: 6:00 sáng đến 9:00 tối</li>
+                        </ul>
+                        <img src="img/cake-piece.png" alt="Cake Piece">
+                    </div>
+                </div>
+                <div class="col-lg-8" data-fade data-fade-delay="3">
+                    <div class="contact__form">
+                        <form id="contact-form">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="text" id="contact-name" placeholder="Tên của bạn" required>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="email" id="contact-email" placeholder="Email của bạn" required>
+                                </div>
+                                <div class="col-lg-12">
+                                    <textarea id="contact-message" placeholder="Nội dung tin nhắn" required></textarea>
+                                    <button type="submit" class="site-btn">GỬI PHẢN HỒI</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section End -->
+
+    <!-- Footer sẽ được include giống index -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JS: jQuery trước plugin (giống index) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-3.3.1.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/auth.js"></script>
+
+    <script>
+      // Include partials + áp dụng nền set-bg
+      function applySetBg() {
+        if (!window.jQuery) return;
+        $(".set-bg").each(function () {
+          const bg = $(this).data("setbg");
+          if (bg) $(this).css("background-image", "url(" + bg + ")");
+        });
+      }
+      function include(partId, file, cb) {
+        fetch(file)
+          .then(r => r.ok ? r.text() : Promise.reject(file))
+          .then(html => {
+            const el = document.getElementById(partId);
+            if (el) el.innerHTML = html;
+            applySetBg();
+            cb && cb();
+          })
+          .catch(err => console.error("Include lỗi:", err));
+      }
+
+      // Cập nhật header theo đăng nhập + giỏ
+      function updateHeader() {
+        const cart = (window.Cart && Cart.getCart()) || [];
+        const countEl = document.getElementById('header-cart-count');
+        const offCount = document.getElementById('offcanvas-cart-count');
+        if (countEl) countEl.textContent = cart.length;
+        if (offCount) offCount.textContent = cart.length;
+
+        const user = JSON.parse(localStorage.getItem('user') || 'null');
+        const inEl = document.getElementById('header-user-loggedin');
+        const outEl = document.getElementById('header-user-loggedout');
+        const nameEl = document.getElementById('header-fullname-placeholder');
+        if (user) {
+          if (inEl) inEl.style.display = 'block';
+          if (outEl) outEl.style.display = 'none';
+          if (nameEl) nameEl.textContent = user.fullname;
+        } else {
+          if (inEl) inEl.style.display = 'none';
+          if (outEl) outEl.style.display = 'block';
+        }
+      }
+
+      // Đăng xuất trong header
+      function bindLogout() {
+        document.body.addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-logout]');
+          if (btn) { e.preventDefault(); if (window.Auth) Auth.logout(); }
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Include HEADER (bị thiếu trước đó) và FOOTER
+        include("header-placeholder", "inc/header.html", () => {
+          updateHeader();
+          bindLogout();
+        });
+        include("footer-placeholder", "inc/footer.html");
+
+        // Lắng nghe thay đổi để header luôn đồng bộ
+        window.addEventListener('cartUpdated', updateHeader);
+        window.addEventListener('authChanged', updateHeader);
+      });
+    </script>
+</body>
+</html>
