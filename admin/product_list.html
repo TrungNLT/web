@@ -274,7 +274,7 @@ products.forEach(p=>{
           <tr>
             <td>${start+i+1}</td>
             <td>${p.name}</td>
-            <td><img src="${p.img}" width="100"></td>
+            <td><img src="${resolvePath(p.img.replace('../', 'uploads/'))}" width="100"></td>
             <td>${p.type}</td>
             <td>${p.brand}</td>
             <td>${p.import.toLocaleString()}</td>
