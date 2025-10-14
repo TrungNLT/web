@@ -168,6 +168,10 @@
         <h3>Số đơn hàng theo trạng thái</h3>
         <canvas id="chartOrders"></canvas>
       </div>
+      <div class="chart-card">
+        <h3>Tỷ lệ khách hàng mới và quay lại</h3>
+        <canvas id="chartCustomerType"></canvas>
+      </div>
     </div>
   </div>
 
@@ -206,6 +210,18 @@
         datasets: [{
           data: [7, 12, 45, 5],
           backgroundColor: ["#ffcc00", "#ff6600", "#3399ff", "#ff3333"]
+        }]
+      }
+    });
+
+    // Chart 4: Tỷ lệ khách hàng mới và quay lại
+    new Chart(document.getElementById("chartCustomerType"), {
+      type: "pie",
+      data: {
+        labels: ["Khách mới", "Khách quay lại"],
+        datasets: [{
+          data: [65, 35],
+          backgroundColor: ["#ffcc00", "#3399ff"]
         }]
       }
     });
