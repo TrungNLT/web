@@ -3,9 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Danh sách sản phẩm</title>
-  <!-- Gọi config.js từ thư mục cha -->
-  <script src="../js/config.js"></script>
-  <script>document.write(`<base href="${BASE_URL}">`);</script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -274,7 +271,7 @@ products.forEach(p=>{
           <tr>
             <td>${start+i+1}</td>
             <td>${p.name}</td>
-            <td><img src="${resolvePath(p.img.replace('../', 'uploads/'))}" width="100"></td>
+            <td><img src="${p.img}" width="100"></td>
             <td>${p.type}</td>
             <td>${p.brand}</td>
             <td>${p.import.toLocaleString()}</td>

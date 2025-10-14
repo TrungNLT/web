@@ -4,9 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Đăng nhập - Cake Shop</title>
-    <!-- Gọi file config.js -->
-  <script src="js/config.js"></script>
-  <script>document.write(`<base href="${BASE_URL}">`);</script>
 
     <!-- Google Font & CSS -->
     <link
@@ -193,23 +190,8 @@
 
         // Admin login navigation -> redirect to admin login page
         document.getElementById('adminLoginBtn').addEventListener('click', () => {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-  // Nếu đang chạy trên GitHub Pages (có "github.io" trong URL)
-  if (window.location.hostname.includes('github.io')) {
-    window.location.href = window.location.origin + '/web/admin/login_admin.html';
-  } else {
-    // Nếu là host thật hoặc localhost
-    window.location.href = '../admin/login_admin.html';
-  }
-});
-
-=======
-=======
->>>>>>> Stashed changes
           window.location.href = '../admin/html/login_admin.html';
         });
->>>>>>> Stashed changes
 
         // Keep header counters up to date
         window.addEventListener('authChanged', () => { updateUserStatus(); updateCartCountInHeader(); });
