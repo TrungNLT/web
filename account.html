@@ -150,7 +150,21 @@
     function applySetBg(){ $(".set-bg").each(function(){ const bg=$(this).data("setbg"); if(bg)$(this).css("background-image","url("+bg+")"); }); }
     function include(id, file, cb){
       fetch(file).then(r=>r.ok?r.text():Promise.reject(file))
-        .then(html=>{ const el=document.getElementById(id); if(el) el.innerHTML=html; applySetBg(); cb&&cb(); })
+        .then(html=>{ 
+          const el=document.getElementById(id); 
+          if(el){ 
+            el.innerHTML=html; 
+            // Execute any <script> tags in the included fragment
+            const scripts = el.querySelectorAll('script');
+            scripts.forEach(old=>{ 
+              const s=document.createElement('script');
+              for(const attr of old.attributes) s.setAttribute(attr.name, attr.value);
+              if(old.src) s.src = old.src; else s.textContent = old.textContent || old.innerHTML;
+              (document.body||document.head).appendChild(s);
+            });
+          }
+          applySetBg(); cb&&cb(); 
+        })
         .catch(e=>{ console.error("Include lỗi:", e); cb&&cb(); });
     }
 

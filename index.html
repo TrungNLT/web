@@ -789,7 +789,7 @@
                     Chúng tôi làm cuộc sống của bạn ngọt ngào hơn từng miếng
                     bánh!
                   </h2>
-                  <a href="list_product.html" class="primary-btn"
+                  <a href="shop.html" class="primary-btn"
                     >Bánh của chúng tôi</a
                   >
                 </div>
@@ -803,7 +803,7 @@
               <div class="col-lg-8">
                 <div class="hero__text hero__text--milk">
                   <h2>Những chiếc bánh được làm bằng tình yêu và sự đam mê</h2>
-                  <a href="list_product.html" class="primary-btn"
+                  <a href="shop.html" class="primary-btn"
                     >Bánh của chúng tôi</a
                   >
                 </div>
@@ -1224,11 +1224,19 @@
             .then((response) =>
               response.ok ? response.text() : Promise.reject("File not found")
             )
-            .then((data) => {
+            .then((html) => {
               const element = document.getElementById(elementId);
-              if (element) {
-                element.innerHTML = data;
-              }
+              if (!element) { if (callback) callback(); return; }
+              element.innerHTML = html;
+              // Thực thi các <script> bên trong fragment để đảm bảo chạy trên host thật
+              element.querySelectorAll('script').forEach((old)=>{
+                const s = document.createElement('script');
+                if (old.src) { s.src = old.src; s.async = false; }
+                else { s.textContent = old.textContent || ''; }
+                if (old.type) s.type = old.type;
+                if (old.defer) s.defer = true;
+                document.body.appendChild(s);
+              });
               if (callback) callback(); // luôn gọi để không kẹt init
             })
             .catch((error) => {
@@ -1357,7 +1365,7 @@
 
             const featuredProducts = [...allProducts]
               .sort((a, b) => (b.CountView || 0) - (a.CountView || 0))
-              .slice(0, 8);
+              .slice(0, 4);
 
             if (!featuredProducts.length) {
               document.getElementById("featured-products-slider").innerHTML =

@@ -119,7 +119,26 @@
   <script>
     // Include header/footer + header count
     function applySetBg(){ $(".set-bg").each(function(){ const bg=$(this).data("setbg"); if(bg) $(this).css("background-image","url("+bg+")"); }); }
-    function include(id, file, cb){ fetch(file).then(r=>r.ok?r.text():Promise.reject(file)).then(html=>{ const el=document.getElementById(id); if(el) el.innerHTML=html; applySetBg(); cb&&cb(); }).catch(e=>cb&&cb()); }
+    function include(id, file, cb){ 
+      fetch(file)
+        .then(r=>r.ok?r.text():Promise.reject(file))
+        .then(html=>{ 
+          const el=document.getElementById(id); 
+          if(el){ 
+            el.innerHTML=html; 
+            // Execute any <script> inside fragment
+            const scripts = el.querySelectorAll('script');
+            scripts.forEach(old=>{ 
+              const s=document.createElement('script');
+              for(const attr of old.attributes) s.setAttribute(attr.name, attr.value);
+              if(old.src) s.src = old.src; else s.textContent = old.textContent || old.innerHTML;
+              (document.body||document.head).appendChild(s);
+            });
+          }
+          applySetBg(); cb&&cb(); 
+        })
+        .catch(e=>{ console.error('Include lỗi:', e); cb&&cb(); }); 
+    }
     function updateHeader(){ const u=JSON.parse(localStorage.getItem('user')||'null'); const inEl=document.getElementById('header-user-loggedin'); const outEl=document.getElementById('header-user-loggedout'); const nameEl=document.getElementById('header-fullname-placeholder'); if(u){ inEl&&(inEl.style.display='inline-flex'); outEl&&(outEl.style.display='none'); nameEl&&(nameEl.textContent=u.fullname||u.email);} else { inEl&&(inEl.style.display='none'); outEl&&(outEl.style.display='inline'); } let c=0; if(u&&window.Cart?.getCart){ try{ c=(Cart.getCart()||[]).reduce((s,it)=>s+Number(it.qty??it.quantity??1),0);}catch{} } const head=document.getElementById('header-cart-count'); const off=document.getElementById('offcanvas-cart-count'); head&&(head.textContent=c); off&&(off.textContent=c); }
     document.addEventListener('DOMContentLoaded', async ()=>{ await new Promise(res=>include('header-placeholder','inc/header.html',res)); include('footer-placeholder','inc/footer.html'); updateHeader(); window.addEventListener('authChanged', updateHeader); window.addEventListener('cartUpdated', updateHeader); });
 

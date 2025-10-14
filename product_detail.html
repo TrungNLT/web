@@ -83,9 +83,12 @@
         .qty-btn{background:#f5f5f5;border:0;padding:6px 14px;font-weight:600;cursor:pointer;transition:.25s;user-select:none}
         .qty-btn:hover{background:#e4e4e4}
         .qty-btn:active{background:#d8d8d8}
-        .primary-btn{display:inline-block;background:#ff8a34;color:#fff;padding:10px 26px;border-radius:30px;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:.5px;transition:.3s;border:0}
-        .primary-btn:hover{filter:brightness(.9);color:#fff}
-        .primary-btn.buy-now-btn{background:#2c3e50;margin-left:6px}
+    .primary-btn{display:inline-block;background:#ff8a34;color:#fff;padding:10px 26px;border-radius:30px;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:.5px;transition:.3s;border:0}
+    .primary-btn:hover{filter:brightness(.9);color:#fff}
+    /* Buy Now button style to match shop (green) */
+    .primary-btn.buy-now-btn{background:#28a745;margin-left:5px}
+    .primary-btn.buy-now-btn:hover{background:#218838;color:#fff}
+    .primary-btn.buy-now-btn:active{background:#1e7e34}
         .product-description-block{margin-top:55px;padding:28px 30px;background:#fafafa;border:1px solid #eee;border-radius:14px}
         .product-description-block h4{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:18px}
         .product-description-block p{font-size:15px;line-height:1.6;margin-bottom:14px}
@@ -113,7 +116,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="breadcrumb__links">
                         <a href="./index.html">Trang chủ</a>
-                        <a href="./list_product.html">Cửa hàng</a>
+                        <a href="./shop.html">Cửa hàng</a>
                         <span id="breadcrumb-product-name">Tên sản phẩm</span>
                     </div>
                 </div>
@@ -154,7 +157,18 @@
                     .then(response => response.ok ? response.text() : Promise.reject('File not found'))
                     .then(data => {
                         const element = document.getElementById(elementId);
-                        if (element) { element.innerHTML = data; if (callback) callback(); }
+                        if (element) { 
+                            element.innerHTML = data; 
+                            // Execute scripts inside the fragment
+                            const scripts = element.querySelectorAll('script');
+                            scripts.forEach(old => {
+                                const s = document.createElement('script');
+                                for (const attr of old.attributes) s.setAttribute(attr.name, attr.value);
+                                if (old.src) s.src = old.src; else s.textContent = old.textContent || old.innerHTML;
+                                (document.body || document.head).appendChild(s);
+                            });
+                            if (callback) callback(); 
+                        }
                     })
                     .catch(error => console.error(`Lỗi khi tải ${filePath}:`, error));
             };
@@ -325,10 +339,13 @@
                         return;
                     }
                     const qty = getSelectedQuantity();
-                    const ok = await Cart.add(productId, qty);
-                    if(ok){
-                        window.location.href='checkout.html';
-                    }
+                    // Lưu danh sách buy-now cho phiên hiện tại, không thêm vào giỏ hàng
+                    try {
+                        const key = `buynow_items_${user.id}`;
+                        const payload = [{ productId: Number(productId), qty: Number(qty || 1) }];
+                        sessionStorage.setItem(key, JSON.stringify(payload));
+                    } catch(e){ console.warn('Lưu buy-now thất bại', e); }
+                    window.location.href='user_order.html';
                 } catch(e){
                     console.error(e);
                     if (typeof notify === 'function') notify('Lỗi mua nhanh', 'error'); else alert('Lỗi mua nhanh');

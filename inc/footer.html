@@ -339,15 +339,22 @@
         <div class="col-lg-7">
           <p class="copyright__text text-white">
             Bản quyền &copy;
-            <script>
-              document.write(new Date().getFullYear());
-            </script>
+            <span id="copyright-year"></span>
             Tất cả các quyền được bảo lưu | Mẫu này được tạo bởi
             <i class="fa fa-heart" aria-hidden="true"></i> từ
             <a href="https://colorlib.com" target="_blank" rel="noopener"
               >Colorlib</a
             >
           </p>
+          <script>
+            (function(){
+              try{
+                var y = new Date().getFullYear();
+                var el = document.getElementById('copyright-year');
+                if(el) el.textContent = y;
+              }catch(e){}
+            })();
+          </script>
         </div>
         <div class="col-lg-5">
           <div class="copyright__widget">

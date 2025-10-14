@@ -287,7 +287,21 @@
     }
     function include(id, file, cb) {
       fetch(file).then(r => r.ok ? r.text() : Promise.reject(file))
-        .then(html => { const el = document.getElementById(id); if (el) el.innerHTML = html; applySetBg(); cb && cb(); })
+        .then(html => { 
+          const el = document.getElementById(id); 
+          if (el) {
+            el.innerHTML = html; 
+            // Execute any scripts inside the included fragment
+            const scripts = el.querySelectorAll('script');
+            scripts.forEach(old => {
+              const s = document.createElement('script');
+              for (const attr of old.attributes) s.setAttribute(attr.name, attr.value);
+              if (old.src) s.src = old.src; else s.textContent = old.textContent || old.innerHTML;
+              (document.body || document.head).appendChild(s);
+            });
+          }
+          applySetBg(); cb && cb(); 
+        })
         .catch(e => console.error("Include lỗi:", e));
     }
 
@@ -327,7 +341,18 @@
       const tbody = document.getElementById('order-summary-body');
       const totalEl = document.getElementById('total-price');
       if (!tbody) return;
-      const items = (window.Cart && Cart.getCart && Cart.getCart()) || [];
+      // Ưu tiên danh sách "Mua ngay" theo phiên; nếu không có thì dùng giỏ hàng
+      const user = JSON.parse(localStorage.getItem('user') || 'null');
+      let items = [];
+      if (user) {
+        try {
+          const buyNow = JSON.parse(sessionStorage.getItem(`buynow_items_${user.id}`) || '[]');
+          if (Array.isArray(buyNow) && buyNow.length) items = buyNow;
+        } catch {}
+      }
+      if (!items.length) {
+        items = (window.Cart && Cart.getCart && Cart.getCart()) || [];
+      }
       if (!items.length) {
         tbody.innerHTML = '<tr><td colspan="3">Giỏ hàng trống. <a href="view_cart.html">Quay lại giỏ hàng</a></td></tr>';
         if (totalEl) totalEl.textContent = '0 VND';
@@ -426,11 +451,12 @@
       const numberPhone = document.getElementById('number_phone')?.value?.trim() || '';
       const note = document.getElementById('note')?.value?.trim() || '';
 
-      const items = (window.Cart && Cart.getCart && Cart.getCart()) || [];
-      if (!items.length) {
-        alert('Giỏ hàng trống');
-        return;
-      }
+      // Xác định nguồn dữ liệu đặt hàng: ưu tiên danh sách 'Mua ngay' trong session
+      let buyNowItems = [];
+      try { buyNowItems = JSON.parse(sessionStorage.getItem('buynow_items_' + user.id) || '[]'); } catch {}
+      const cartItems = (window.Cart && Cart.getCart && Cart.getCart()) || [];
+      const itemsToOrder = Array.isArray(buyNowItems) && buyNowItems.length ? buyNowItems : cartItems;
+      if (!itemsToOrder.length) { alert('Không có sản phẩm để đặt hàng'); return; }
 
       const orderPayload = {
         fullName, email, address, numberPhone, note,
@@ -438,47 +464,55 @@
       };
 
       try {
-        if (window.Cart?.placeOrder) {
-          await Cart.placeOrder(orderPayload);
+        let placedOrder = null;
+        if (Array.isArray(buyNowItems) && buyNowItems.length) {
+          // Trường hợp Mua ngay: tạo đơn hàng với danh sách buynow, KHÔNG xóa giỏ hàng
+          const key = 'orders_' + user.id;
+          const orders = JSON.parse(localStorage.getItem(key) || '[]');
+          placedOrder = {
+            id: Date.now(),
+            userId: user.id,
+            date: new Date().toISOString(),
+            items: itemsToOrder,
+            ...orderPayload,
+            status: 'pending'
+          };
+          orders.push(placedOrder);
+          localStorage.setItem(key, JSON.stringify(orders));
+        } else if (window.Cart?.placeOrder) {
+          // Đặt hàng theo giỏ: dùng API để tự clear giỏ
+          placedOrder = await Cart.placeOrder(orderPayload);
         } else {
           // Fallback: tự lưu localStorage nếu Cart.placeOrder chưa có
           const key = 'orders_' + user.id;
           const orders = JSON.parse(localStorage.getItem(key) || '[]');
-          orders.push({
+          const fake = {
             id: Date.now(),
             userId: user.id,
-            items,
-            info: orderPayload,
+            items: itemsToOrder,
+            ...orderPayload,
             status: 'pending',
             createdAt: new Date().toISOString()
-          });
+          };
+          orders.push(fake);
           localStorage.setItem(key, JSON.stringify(orders));
-          if (window.Cart?.setCart) Cart.setCart([]); else localStorage.setItem('cart_' + user.id, '[]');
-          window.dispatchEvent(new Event('cartUpdated'));
+          if (!buyNowItems.length) { // chỉ clear giỏ nếu đặt từ giỏ hàng
+            if (window.Cart?.setCart) Cart.setCart([]); else localStorage.setItem('cart_' + user.id, '[]');
+            window.dispatchEvent(new Event('cartUpdated'));
+          }
+          placedOrder = fake;
         }
-        // Hiển thị banner thành công và chuyển trang chủ sau 3 giây
-        const banner = document.getElementById('order-success');
-        const content = document.getElementById('checkout-content');
-        const needLogin = document.getElementById('login-required-message');
-        if (content) content.style.display = 'none';
-        if (needLogin) needLogin.style.display = 'none';
-        if (banner) {
-          let sec = 3;
-          banner.innerHTML = '<strong>Đặt hàng thành công!</strong> Bạn sẽ được chuyển về trang chủ sau <span id="redirect-countdown">' + sec + '</span> giây.';
-          banner.style.display = 'block';
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          const timer = setInterval(() => {
-            sec--;
-            const c = document.getElementById('redirect-countdown');
-            if (c) c.textContent = String(sec);
-            if (sec <= 0) {
-              clearInterval(timer);
-              location.href = 'index.html';
-            }
-          }, 1000);
-        } else {
-          location.href = 'index.html';
-        }
+        // Sau khi đặt hàng thành công: xoá buy-now (nếu có)
+        try {
+          const u = JSON.parse(localStorage.getItem('user') || 'null');
+          if (u) sessionStorage.removeItem(`buynow_items_${u.id}`);
+        } catch {}
+
+        // Lưu đơn hàng vừa tạo để hiển thị ở view_bill và chuyển trang
+        try {
+          if (placedOrder) sessionStorage.setItem('last_order_' + user.id, JSON.stringify(placedOrder));
+        } catch {}
+        location.href = 'view_bill.html';
       } catch (err) {
         console.error(err);
         alert('Đặt hàng thất bại, vui lòng thử lại.');

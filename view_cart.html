@@ -38,6 +38,9 @@
     table.table tbody td {vertical-align:middle;font-size:.85rem;padding:14px 12px;border-color:#f5e0ce;}
     table.table tbody tr {transition:.2s;}
     table.table tbody tr:hover {background:var(--orange-50);}    
+    /* Product link */
+    .cart-product-link {color:#333;text-decoration:none;font-weight:600;}
+    .cart-product-link:hover {color:var(--orange-600);text-decoration:underline;}
     /* Quantity input & remove button */
     #cart-tbody input.cart-qty {border:1px solid var(--orange-200);border-radius:10px;padding:6px 4px;text-align:center;font-weight:600;transition:.2s;width:74px;}
     #cart-tbody input.cart-qty:focus {outline:none;border-color:var(--orange-400);box-shadow:0 0 0 3px var(--orange-100);}    
@@ -130,7 +133,7 @@
                 <!-- THÊM CỤM NÚT HÀNH ĐỘNG -->
                 <div class="cart__actions">
                   <a
-                    href="list_product.html"
+                    href="shop.html"
                     class="site-btn"
                     id="btn-continue"
                     style="background-color: #f08632; color: white"
@@ -247,7 +250,7 @@
             return `
           <tr data-id="${pid}">
             <td>${idx + 1}</td>
-            <td>${name}</td>
+            <td><a href="product_detail.html?id=${pid}" class="cart-product-link" aria-label="Xem chi tiết ${name}">${name}</a></td>
             <td><img src="${img}" alt="${name}" style="width:70px;height:auto"/></td>
             <td>
               <input type="number" min="1" ${maxAttr} value="${qty}" class="cart-qty" style="width:70px" />
@@ -330,7 +333,22 @@
           .then((r) => (r.ok ? r.text() : Promise.reject(file)))
           .then((html) => {
             const el = document.getElementById(id);
-            if (el) el.innerHTML = html;
+            if (el) {
+              el.innerHTML = html;
+              // Execute any <script> tags inside the included fragment
+              const scripts = el.querySelectorAll("script");
+              scripts.forEach((old) => {
+                const s = document.createElement("script");
+                // preserve attributes like type/defer
+                for (const attr of old.attributes) s.setAttribute(attr.name, attr.value);
+                if (old.src) {
+                  s.src = old.src;
+                } else {
+                  s.textContent = old.textContent || old.innerHTML;
+                }
+                (document.body || document.head).appendChild(s);
+              });
+            }
             applySetBg();
             cb && cb();
           })
@@ -405,37 +423,6 @@
       .cart__total { background: #fff6f0; padding: 14px 16px; margin-top: 12px; border-radius: 4px; }
     </style>
 
-    <script>
-      // Gắn sự kiện cho nút thanh toán
-      document
-        .getElementById("btn-go-checkout")
-        ?.addEventListener("click", (e) => {
-          e.preventDefault();
-          const items = (window.Cart && Cart.getCart && Cart.getCart()) || [];
-          if (!items.length) {
-            alert("Giỏ hàng trống");
-            return;
-          }
-          const user = JSON.parse(localStorage.getItem("user") || "null");
-          if (!user) {
-            // Chưa đăng nhập -> yêu cầu đăng nhập rồi quay về trang đặt hàng
-            window.location.href = "login.html?return=user_order.html";
-            return;
-          }
-          // Đã đăng nhập -> sang trang điền thông tin và đặt hàng
-          window.location.href = "user_order.html";
-        });
-
-      // Tùy chọn: disable nút nếu giỏ trống khi render
-      function toggleCheckoutBtn() {
-        const btn = document.getElementById("btn-go-checkout");
-        if (!btn || !window.Cart?.getCart) return;
-        const disabled = Cart.getCart().length === 0;
-        btn.disabled = disabled;
-        btn.classList.toggle("disabled", disabled);
-      }
-      document.addEventListener("DOMContentLoaded", toggleCheckoutBtn);
-      window.addEventListener("cartUpdated", toggleCheckoutBtn);
-    </script>
+    <!-- (Đã loại bỏ listener trùng lặp #btn-go-checkout để tránh double binding) -->
   </body>
 </html>
