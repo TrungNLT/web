@@ -188,15 +188,10 @@
           }
         });
 
-        document.getElementById('adminLoginBtn').addEventListener('click', () => {
-  // Nếu đang chạy trên GitHub Pages (có "github.io" trong URL)
-  if (window.location.hostname.includes('github.io')) {
-    window.location.href = window.location.origin + '/web/admin/login_admin.html';
-  } else {
-    // Nếu là host thật hoặc localhost
-    window.location.href = '../admin/login_admin.html';
-  }
+       document.getElementById('adminLoginBtn').addEventListener('click', () => {
+  window.location.href = 'admin/login_admin.html';
 });
+
 
 
         // Keep header counters up to date
