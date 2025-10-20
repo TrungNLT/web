@@ -11,16 +11,53 @@
       margin: 0;
       padding: 0;
     }
-    .content-wrapper { padding: 20px; }
-    h4 { color: #ffcc00; margin-bottom: 20px; text-align: center; }
+
+    .content-wrapper { 
+      padding: 20px; 
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    h4 { 
+      color: #ffcc00; 
+      margin-bottom: 20px; 
+      text-align: center; 
+    }
+
     .card {
+      position: relative;
       background: #2c2c2c;
       border-radius: 12px;
       padding: 20px;
       max-width: 600px;
+      width: 100%;
       margin: auto;
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
+
+    /* nút X */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #444;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: bold;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .close-btn:hover {
+      background: #666;
+      color: #ffcc00;
+    }
+
     .form-label { display: block; margin-bottom: 6px; }
     .form-control, textarea, select {
       width: 100%;
@@ -31,6 +68,7 @@
       color: #fff;
       margin-bottom: 15px;
     }
+
     .btn {
       padding: 10px 20px;
       border: none;
@@ -38,8 +76,10 @@
       font-weight: bold;
       cursor: pointer;
     }
+
     .btn-primary { background: #ffcc00; color: #111; }
     .btn-primary:hover { background: #ffaa00; }
+
     /* Alert */
     .alert {
       position: fixed;
@@ -55,8 +95,9 @@
 </head>
 <body>
   <div class="content-wrapper">
-    <h4>Cập nhật sản phẩm</h4>
     <div class="card">
+      <button class="close-btn" onclick="goBack()">×</button>
+      <h4>Cập nhật sản phẩm</h4>
       <form id="editProductForm">
         <div class="mb-3">
           <label class="form-label">Tên sản phẩm</label>
@@ -81,7 +122,7 @@
         <div class="mb-3">
           <label class="form-label">Hình ảnh</label>
           <input type="file" class="form-control" id="image">
-          <img src="../uploads/anh6.jpg" alt="Hình ảnh sản phẩm" width="150" style="margin-top:10px;">
+          <img src="uploads/anh6.jpg" alt="Hình ảnh sản phẩm" width="150" style="margin-top:10px;">
         </div>
         <div class="mb-3">
           <label class="form-label">Giá nhập</label>
@@ -102,7 +143,7 @@
             <option value="0">Ẩn</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary">Cập nhật</button>
+        <button type="submit" class="btn btn-primary w-100">Cập nhật</button>
       </form>
     </div>
   </div>
@@ -111,6 +152,10 @@
   <div id="alertBox" class="alert alert-success">Cập nhật sản phẩm thành công!</div>
 
 <script>
+function goBack(){
+  window.location.href = "product_list.html";
+}
+
 const el = id => document.getElementById(id);
 const alertBox = el('alertBox');
 function showAlert(msg, ms = 1500){
@@ -125,27 +170,24 @@ function showAlert(msg, ms = 1500){
 
 // Lấy danh sách sản phẩm từ localStorage
 let products = JSON.parse(localStorage.getItem("products")) || [];
-// Lấy tên sản phẩm đang chọn chỉnh sửa
 const editName = localStorage.getItem("editProductName");
 
-// Nếu chưa có sản phẩm để sửa thì quay về danh sách
 if(!editName){
   alert("Không tìm thấy sản phẩm để chỉnh sửa!");
   window.location.href = "product_list.html";
 }
 
-// Tìm vị trí sản phẩm trong mảng
 const productIndex = products.findIndex(p => p && p.name === editName);
 const product = products[productIndex] || {};
 
-// Điền dữ liệu vào form
+// Điền dữ liệu
 if(el('name')) el('name').value = product.name || '';
 if(el('buy_price')) el('buy_price').value = product.import || '';
 if(el('sell_price')) el('sell_price').value = product.price || '';
 if(el('description')) el('description').value = product.description || '';
 if(el('status')) el('status').value = (product.status === "Hiện" ? "1" : "0");
 
-// Điền brand / type nếu có select
+// Gán brand/type nếu có
 if(el('id_brands') && product.brand){
   const opt = Array.from(el('id_brands').options).find(o => o.text === product.brand);
   if(opt) el('id_brands').value = opt.value;
@@ -155,7 +197,7 @@ if(el('id_categories') && product.type){
   if(opt2) el('id_categories').value = opt2.value;
 }
 
-// Submit form
+// Cập nhật
 const form = el('editProductForm');
 form.addEventListener('submit', function(e){
   e.preventDefault();
@@ -166,13 +208,11 @@ form.addEventListener('submit', function(e){
   const description = el('description').value;
   const statusVal = el('status').value;
   const status = statusVal === "1" ? "Hiện" : "Ẩn";
-
   let brand = product.brand || '';
   let type = product.type || '';
   if(el('id_brands')) brand = el('id_brands').selectedOptions[0].text;
   if(el('id_categories')) type = el('id_categories').selectedOptions[0].text;
 
-  // Cập nhật sản phẩm trong mảng
   products[productIndex] = {
     ...products[productIndex],
     name,
@@ -184,15 +224,11 @@ form.addEventListener('submit', function(e){
     status
   };
 
-  // Lưu lại localStorage
   localStorage.setItem("products", JSON.stringify(products));
-
-  // Đồng bộ statusMap (để danh sách tĩnh ngoài list cũng update theo)
   let statusMap = JSON.parse(localStorage.getItem("statusMap")) || {};
   statusMap[name] = status;
   localStorage.setItem("statusMap", JSON.stringify(statusMap));
 
-  // Hiện thông báo và chuyển trang
   showAlert("Cập nhật sản phẩm thành công!", 1400);
 
   setTimeout(()=> {
@@ -200,7 +236,5 @@ form.addEventListener('submit', function(e){
   }, 1300);
 });
 </script>
-
-
 </body>
 </html>
