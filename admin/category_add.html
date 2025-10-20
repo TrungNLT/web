@@ -13,6 +13,10 @@
 
     .content-wrapper {
       padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
     }
 
     h4 {
@@ -23,11 +27,35 @@
     }
 
     .card {
+      position: relative;
       background: #2c2c2c;
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.5);
       border: 1px solid #444;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    /* Nút X */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #444;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: bold;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .close-btn:hover {
+      background: #666;
+      color: #ffcc00;
     }
 
     label {
@@ -63,29 +91,26 @@
 </head>
 <body>
 <div class="content-wrapper">
-  <!-- Content -->
-  <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">Thêm mới loại bánh</h4>
-    <!-- Basic Layout -->
-    <div class="row justify-content-center">
-      <div class="col-xl-6 col-lg-8">
-        <div class="card mb-4">
-          <div class="card-body">
-            <form id="categoryForm">
-              <div class="mb-3">
-                <label class="form-label" for="name">Tên loại bánh</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Bánh kem Le Castella" required />
-              </div>
-              <button type="submit" class="btn btn-primary w-100">Lưu</button>
-            </form>
-          </div>
+  <div class="card mb-4">
+    <button class="close-btn" onclick="goBack()">×</button>
+    <h4>Thêm mới loại bánh</h4>
+    <div class="card-body">
+      <form id="categoryForm">
+        <div class="mb-3">
+          <label class="form-label" for="name">Tên loại bánh</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Bánh kem Le Castella" required />
         </div>
-      </div>
+        <button type="submit" class="btn btn-primary w-100">Lưu</button>
+      </form>
     </div>
   </div>
 </div>
 
 <script>
+  function goBack() {
+    window.location.href = "category_list.html";
+  }
+
   const form = document.getElementById("categoryForm");
 
   form.addEventListener("submit", function(e) {
@@ -100,7 +125,7 @@
     // Giả lập thêm mới thành công
     alert("✅ Thêm mới loại bánh thành công!");
 
-    // Sau 1.5 giây quay về trang chủ
+    // Sau 1.5 giây quay về danh sách loại bánh
     setTimeout(() => {
       window.location.href = "category_list.html";
     }, 1500);

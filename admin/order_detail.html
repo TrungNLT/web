@@ -15,9 +15,11 @@
     th, td { border: 1px solid #444; padding: 10px; text-align: center; }
     th { background: #333; color: #ffcc00; }
     img { border-radius: 6px; }
-    select, button { padding: 8px 12px; border-radius: 6px; border: none; margin-top: 10px; }
-    button { background: #007bff; color: #fff; cursor: pointer; }
+    select, button { padding: 8px 12px; border-radius: 6px; border: none; margin-top: 10px; cursor: pointer; font-weight: bold; }
+    button { background: #007bff; color: #fff; }
     button:hover { opacity: 0.85; }
+    .btn-secondary { background: #555; color: #fff; margin-left: 10px; }
+    .btn-secondary:hover { background: #777; }
     .alert { margin: 15px 0; padding: 12px 18px; border-radius: 6px; font-weight: bold; display: none; }
     .alert-success { background: #28a745; color: #fff; }
   </style>
@@ -65,16 +67,19 @@
       </div>
 
       <!-- Form cập nhật trạng thái -->
-      <form id="updateForm">
-        <div class="form-group mt-4">
-          <select name="status" id="status" required>
-            <option value="0">Chưa xử lý</option>
-            <option value="1">Đã Hủy</option>
-            <option value="2">Đã xử lý</option>
-            <option value="3">Đã giao hàng</option>
-          </select>
-        </div>
-        <button class="mt-4 btn btn-primary" type="submit">Cập nhật</button>
+      <form id="updateForm" style="margin-top: 20px; display: flex; align-items: center; gap: 10px;">
+        <select name="status" id="status" required>
+          <option value="0">Chưa xử lý</option>
+          <option value="1">Đã Hủy</option>
+          <option value="2">Đã xử lý</option>
+          <option value="3">Đã giao hàng</option>
+        </select>
+
+        <!-- Nút Cập nhật -->
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
+
+        <!-- Nút Quay lại -->
+        <button type="button" class="btn btn-secondary" onclick="goBack()">Quay lại</button>
       </form>
     </div>
   </div>
@@ -97,7 +102,7 @@
       ]
     };
 
-    // Render thông tin khách hàng
+    // Hiển thị thông tin khách hàng
     const customerDiv = document.getElementById("customerInfo");
     customerDiv.innerHTML = `
       <p>Tên khách hàng: ${order.customer.Fullname}</p>
@@ -120,7 +125,7 @@
         <tr>
           <td>${i+1}</td>
           <td>${p.Name}</td>
-          <td><img src="../uploads/${p.Image}" width="100"></td>
+          <td><img src="uploads/${p.Image}" width="100"></td>
           <td>${p.Quantity}</td>
           <td>${p.Price.toLocaleString()} đ</td>
           <td>${thanhTien.toLocaleString()} đ</td>
@@ -141,7 +146,12 @@
       setTimeout(()=>{ window.location.href="index.html"; },2000);
     });
 
-    // Thông báo
+    // Hàm quay lại danh sách đơn hàng
+    function goBack() {
+      window.location.href = "order_list.html";
+    }
+
+    // Hiển thị thông báo
     function showAlert(message,type){
       const box=document.getElementById("alertBox");
       box.textContent=message;

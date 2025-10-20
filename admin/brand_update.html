@@ -11,21 +11,57 @@
       margin: 0;
       padding: 0;
     }
-    .content-wrapper { padding: 20px; }
+
+    .content-wrapper {
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
     h4 {
       color: #ffcc00;
       margin-bottom: 20px;
       text-align: center;
     }
+
     .card {
+      position: relative;
       background: #2c2c2c;
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
       max-width: 500px;
-      margin: auto;
+      width: 100%;
     }
-    .form-label { display: block; margin-bottom: 8px; }
+
+    /* Nút X nằm trong card, góc phải, nền xám, không tròn */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #444;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: bold;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .close-btn:hover {
+      background: #666;
+      color: #ffcc00;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
     .form-control {
       width: 100%;
       padding: 10px;
@@ -35,11 +71,13 @@
       color: #fff;
       margin-bottom: 15px;
     }
+
     .form-control[type="file"] {
       padding: 6px;
       background: #222;
       cursor: pointer;
     }
+
     .btn {
       padding: 10px 20px;
       border-radius: 6px;
@@ -49,8 +87,15 @@
       transition: 0.3s;
       width: 100%;
     }
-    .btn-success { background: #28a745; color: #fff; }
-    .btn-success:hover { background: #218838; }
+
+    .btn-success {
+      background: #28a745;
+      color: #fff;
+    }
+
+    .btn-success:hover {
+      background: #218838;
+    }
 
     img.preview {
       display: block;
@@ -68,13 +113,17 @@
       font-weight: bold;
       display: none;
     }
-    .alert-success { background: #28a745; color: white; }
+    .alert-success {
+      background: #28a745;
+      color: white;
+    }
   </style>
 </head>
 <body>
   <div class="content-wrapper">
-    <h4>Sửa thương hiệu</h4>
     <div class="card">
+      <button class="close-btn" onclick="goBack()">×</button>
+      <h4>Sửa thương hiệu</h4>
       <div class="card-body">
         <form id="editForm">
           <div class="mb-3">
@@ -84,7 +133,7 @@
           <div class="mb-3">
             <label class="form-label" for="image">Hình ảnh</label>
             <input type="file" class="form-control" id="image" name="image" />
-            <img id="previewImg" class="preview" src="../uploads/anh1.jpg" alt="Ảnh thương hiệu" width="150">
+            <img id="previewImg" class="preview" src="uploads/anh1.jpg" alt="Ảnh thương hiệu" width="150">
           </div>
           <button type="submit" class="btn btn-success">Lưu</button>
         </form>
@@ -92,20 +141,22 @@
     </div>
   </div>
 
-  <!-- Alert -->
   <div id="alertBox" class="alert alert-success">Cập nhật thương hiệu thành công!</div>
 
   <script>
-    // Giả lập dữ liệu từ DB
+    // Quay lại danh sách
+    function goBack() {
+      window.location.href = "brand_list.html";
+    }
+
+    // Dữ liệu mẫu
     const brandData = { id: 1, name: "Bánh Ngọt Paris", img: "../uploads/anh1.jpg" };
 
-    // Hiển thị dữ liệu sẵn
     document.getElementById("name").value = brandData.name;
 
     const previewImg = document.getElementById("previewImg");
     const imageInput = document.getElementById("image");
 
-    // Xem trước ảnh khi chọn file mới
     imageInput.addEventListener("change", function() {
       const file = this.files[0];
       if (file) {
@@ -117,25 +168,20 @@
       }
     });
 
-    // Xử lý submit
     document.getElementById("editForm").addEventListener("submit", function(e) {
       e.preventDefault();
-
       const name = document.getElementById("name").value.trim();
       if (name === "") {
         alert("❌ Tên thương hiệu không được để trống!");
         return;
       }
 
-      // Giả lập update thành công
       brandData.name = name;
       brandData.img = previewImg.src;
 
-      // Hiện thông báo
       const alertBox = document.getElementById("alertBox");
       alertBox.style.display = "block";
 
-      // Quay lại danh sách sau 1.5 giây
       setTimeout(() => {
         window.location.href = "brand_list.html";
       }, 1500);
